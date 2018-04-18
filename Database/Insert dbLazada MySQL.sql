@@ -90,3 +90,74 @@ INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Giày & Trang ph�
 INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dành cho nữ",77);
 INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dành cho nam",77);
 INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dành cho bé",77);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thời trang",0);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("TV, Video, Âm Thanh ,Game & Thiết Bị Số",0);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Tivi",82);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dưới 24 inches",83);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("25-32 inches",83);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("33-42 inches",83);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("43-54 inches",83);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Trên 55 inches",83);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Tivi giá đặc biệt cho các tỉnh, thành lớn",83);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị âm thanh",82);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Các loại tai nghe",90);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Loa di động",90);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dàn âm thanh giải trí",90);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Máy nghe nhạc",90);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Video",82);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị trình chiếu",95);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị streaming",95);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị chơi game",82);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Xbox",98);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Nitendo",98);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị đeo công nghệ",82);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Đồng hồ thông minh",101);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị theo dõi sức khỏe & vận động",101);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Mắt kính thông minh",101);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị giám sát thông minh",102);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thể thao & du lịch",0);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Các loại bài tập & thể hình",106);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Máy tập thể hình",107);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Máy tập thể lực",107);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Phụ kiện",107);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Tạ",107);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Yoga",107);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Pilates",107);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Đấm bốc, Võ thuật & Đánh MMA",107);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thể tao đồng đội",106);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Máy tập thể hình",115);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Máy tập thể hình",115);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Bóng đá",115);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Bóng rổ",115);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Bóng chuyền",115);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Hoạt động dã ngoại",106);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Xe đạp",121);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dã ngoại & leo núi",121);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Câu cá",121);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Xe Scooters",121);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Trượt băng trong nhà",121);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Trượt ván",121);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Bơi lội",121);
+
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Xe máy và bách hóa",0);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Ô tô & xe máy",129);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Chăm sóc ô tô & xe máy",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Phụ kiện bên ngoài",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Phụ kiện bên trong",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Link kiện thay thế",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị giám định ô tô",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Xe mô tô & xe địa hình",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dầu nhớt",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Sơn sửa",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Phụ kiện xe tải",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dụng cụ và thiết bị",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Bánh & vỏ xe",130);
+INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị định vị",130);
