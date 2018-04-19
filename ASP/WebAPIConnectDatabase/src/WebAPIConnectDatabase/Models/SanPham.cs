@@ -12,6 +12,7 @@ namespace WebAPIConnectDatabase.Models
         [Key]
         public int MASP { get; set; }
         public string TENSP { get; set; }
+        public string MOTA { get; set; }
         public int MALOAISP { get; set; }
 
         [ForeignKey("MALOAISP")]

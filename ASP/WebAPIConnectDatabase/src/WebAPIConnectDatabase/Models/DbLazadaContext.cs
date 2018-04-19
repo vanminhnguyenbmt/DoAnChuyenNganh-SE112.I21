@@ -8,6 +8,10 @@ namespace WebAPIConnectDatabase.Models
 {
     public class DbLazadaContext : DbContext
     {
+        static DbLazadaContext()
+        {
+            Database.SetInitializer(new DataInit());
+        }
         public DbLazadaContext(string chuoiketnoi) : base(chuoiketnoi) { }
 
         public DbSet<LoaiSanPham> tbLoaiSanPham { get; set; }
