@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LAZADAModelStoreContainer" CdmEntityContainer="LAZADAEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="LAZADAModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoaiSanPhams">
+      <EntityTypeMapping TypeName="LAZADAModel.LoaiSanPham">
+        <MappingFragment StoreEntitySet="LoaiSanPhams">
+          <ScalarProperty Name="MALOAISP" ColumnName="MALOAISP" />
+          <ScalarProperty Name="TENLOAISP" ColumnName="TENLOAISP" />
+          <ScalarProperty Name="MALOAI_CHA" ColumnName="MALOAI_CHA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SanPhams">
+      <EntityTypeMapping TypeName="LAZADAModel.SanPham">
+        <MappingFragment StoreEntitySet="SanPhams">
+          <ScalarProperty Name="MASP" ColumnName="MASP" />
+          <ScalarProperty Name="TENSP" ColumnName="TENSP" />
+          <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+          <ScalarProperty Name="MALOAISP" ColumnName="MALOAISP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

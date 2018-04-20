@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LAZADAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoaiSanPhams">
+    <Key>
+      <PropertyRef Name="MALOAISP" />
+    </Key>
+    <Property Name="MALOAISP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TENLOAISP" Type="nvarchar(max)" />
+    <Property Name="MALOAI_CHA" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SanPhams">
+    <Key>
+      <PropertyRef Name="MASP" />
+    </Key>
+    <Property Name="MASP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TENSP" Type="nvarchar(max)" />
+    <Property Name="MOTA" Type="nvarchar(max)" />
+    <Property Name="MALOAISP" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP">
+    <End Role="LoaiSanPhams" Type="Self.LoaiSanPhams" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SanPhams" Type="Self.SanPhams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiSanPhams">
+        <PropertyRef Name="MALOAISP" />
+      </Principal>
+      <Dependent Role="SanPhams">
+        <PropertyRef Name="MALOAISP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LAZADAModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiSanPhams" EntityType="Self.LoaiSanPhams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SanPhams" EntityType="Self.SanPhams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP" Association="Self.FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP">
+      <End Role="LoaiSanPhams" EntitySet="LoaiSanPhams" />
+      <End Role="SanPhams" EntitySet="SanPhams" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

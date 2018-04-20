@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LAZADAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoaiSanPhams">
+          <Key>
+            <PropertyRef Name="MALOAISP" />
+          </Key>
+          <Property Name="MALOAISP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENLOAISP" Type="nvarchar(max)" />
+          <Property Name="MALOAI_CHA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SanPhams">
+          <Key>
+            <PropertyRef Name="MASP" />
+          </Key>
+          <Property Name="MASP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENSP" Type="nvarchar(max)" />
+          <Property Name="MOTA" Type="nvarchar(max)" />
+          <Property Name="MALOAISP" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP">
+          <End Role="LoaiSanPhams" Type="Self.LoaiSanPhams" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SanPhams" Type="Self.SanPhams" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSanPhams">
+              <PropertyRef Name="MALOAISP" />
+            </Principal>
+            <Dependent Role="SanPhams">
+              <PropertyRef Name="MALOAISP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LAZADAModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiSanPhams" EntityType="Self.LoaiSanPhams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SanPhams" EntityType="Self.SanPhams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP" Association="Self.FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP">
+            <End Role="LoaiSanPhams" EntitySet="LoaiSanPhams" />
+            <End Role="SanPhams" EntitySet="SanPhams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LAZADAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoaiSanPham">
+          <Key>
+            <PropertyRef Name="MALOAISP" />
+          </Key>
+          <Property Name="MALOAISP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENLOAISP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MALOAI_CHA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SanPhams" Relationship="Self.FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP" FromRole="LoaiSanPhams" ToRole="SanPhams" />
+        </EntityType>
+        <EntityType Name="SanPham">
+          <Key>
+            <PropertyRef Name="MASP" />
+          </Key>
+          <Property Name="MASP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MOTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MALOAISP" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LoaiSanPham" Relationship="Self.FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP" FromRole="SanPhams" ToRole="LoaiSanPhams" />
+        </EntityType>
+        <Association Name="FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP">
+          <End Role="LoaiSanPhams" Type="Self.LoaiSanPham" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SanPhams" Type="Self.SanPham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiSanPhams">
+              <PropertyRef Name="MALOAISP" />
+            </Principal>
+            <Dependent Role="SanPhams">
+              <PropertyRef Name="MALOAISP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LAZADAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="LoaiSanPhams" EntityType="Self.LoaiSanPham" />
+          <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
+          <AssociationSet Name="FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP" Association="Self.FK_dbo_SanPhams_dbo_LoaiSanPhams_MALOAISP">
+            <End Role="LoaiSanPhams" EntitySet="LoaiSanPhams" />
+            <End Role="SanPhams" EntitySet="SanPhams" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LAZADAModelStoreContainer" CdmEntityContainer="LAZADAEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="LAZADAModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiSanPhams">
+            <EntityTypeMapping TypeName="LAZADAModel.LoaiSanPham">
+              <MappingFragment StoreEntitySet="LoaiSanPhams">
+                <ScalarProperty Name="MALOAISP" ColumnName="MALOAISP" />
+                <ScalarProperty Name="TENLOAISP" ColumnName="TENLOAISP" />
+                <ScalarProperty Name="MALOAI_CHA" ColumnName="MALOAI_CHA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SanPhams">
+            <EntityTypeMapping TypeName="LAZADAModel.SanPham">
+              <MappingFragment StoreEntitySet="SanPhams">
+                <ScalarProperty Name="MASP" ColumnName="MASP" />
+                <ScalarProperty Name="TENSP" ColumnName="TENSP" />
+                <ScalarProperty Name="MOTA" ColumnName="MOTA" />
+                <ScalarProperty Name="MALOAISP" ColumnName="MALOAISP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
