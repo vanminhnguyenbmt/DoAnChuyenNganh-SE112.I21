@@ -50,6 +50,8 @@ public class TrangChuActivity extends AppCompatActivity implements View.OnClickL
         String duongdan = "http://192.168.137.1/weblazada/loaisanpham.php";
         PresenterDownloadLogic presenterDownloadLogic = new PresenterDownloadLogic(TrangChuActivity.this, duongdan, maloaicha);
         presenterDownloadLogic.downloaddulieu();
+
+
     }
 
     @Override

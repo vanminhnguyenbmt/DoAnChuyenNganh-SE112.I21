@@ -4,6 +4,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -26,10 +29,14 @@ public class DownloadDuLieu extends AsyncTask<String,Void,String> {
 //                connection.connect();
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestProperty("Content-Type", "text/json; charset=utf-8");
             connection.setRequestMethod("POST");
             //mở luồng outputstream và inputsteam
             connection.setDoOutput(true);
             connection.setDoInput(true);
+
+//            JSONObject jMaloaicha = new JSONObject();
+//            jMaloaicha.put("maloaicha", strings[1]);
 
             Uri.Builder uri = new Uri.Builder();
             uri.appendQueryParameter("maloaicha", strings[1]);

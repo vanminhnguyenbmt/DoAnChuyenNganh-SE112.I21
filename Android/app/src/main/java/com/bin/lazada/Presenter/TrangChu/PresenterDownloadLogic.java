@@ -1,7 +1,13 @@
 package com.bin.lazada.Presenter.TrangChu;
 
+import android.util.Log;
+
 import com.bin.lazada.Model.TrangChu.DownloadDuLieu;
 import com.bin.lazada.View.TrangChu.ViewDownLoadImp;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
@@ -22,6 +28,16 @@ public class PresenterDownloadLogic implements PresenterDownloadImp {
         TaiDuLieu.execute(duongdan, maloaicha);
 
         try {
+            String dulieuparse = TaiDuLieu.get();
+            JSONObject jsonObject = new JSONObject(dulieuparse);
+            JSONArray jsloaisanpham = jsonObject.getJSONArray("LOAISANPHAM");
+            for(int i = 0; i < jsloaisanpham.length(); i++)
+            {
+                JSONObject dulieu = jsloaisanpham.getJSONObject(i);
+                String tensanpham = dulieu.getString("TENLOAISP");
+                Log.d("json", tensanpham);
+            }
+
             String dulieu = TaiDuLieu.get();
             if(dulieu == null || dulieu.equals(""))
             {
@@ -33,6 +49,8 @@ public class PresenterDownloadLogic implements PresenterDownloadImp {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
