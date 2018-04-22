@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bgToolbar">#183545</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="bgLogo">#f67122</color>
+    <color name="colorGray">#CCC</color>
 </resources>
