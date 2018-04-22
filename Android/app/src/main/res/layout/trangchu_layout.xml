@@ -1,86 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:background="@color/bgToolbar"
-        >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:logo="@mipmap/logo"
-                app:theme="@style/menuitemcolor"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp"
-                android:background="@drawable/bgsearch"
-                >
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_search_black_24dp"
-                    android:text="Tìm kiếm tại đây"
-                    android:layout_gravity="start"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="false"
-                    android:layout_weight="1"
-                    android:background="@color/colorWhite"
-                    android:textColor="@color/colorGray"
-                    android:layout_marginLeft="10dp"
-                    />
-                
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="10dp"
-                    android:background="@color/bgToolbar"
-                    />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_photo_camera_black_24dp"
-                    android:background="@color/colorWhite"
-                    />
-            </LinearLayout>
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable"
-                app:tabTextColor="@color/colorGray"
-                app:tabTextAppearance="@style/capfalse"
-                app:tabSelectedTextColor="@color/colorGray"
-                >
-
-            </android.support.design.widget.TabLayout>
-
-        </LinearLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
-</LinearLayout>
+        <LinearLayout
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@color/bgToolbar"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:logo="@mipmap/logo"
+                        app:theme="@style/menuitemcolor"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/bgsearch"
+                        >
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_search_black_24dp"
+                            android:text="Tìm kiếm tại đây"
+                            android:layout_gravity="start"
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="false"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:textColor="@color/colorGray"
+                            android:layout_marginLeft="10dp"
+                            />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/bgToolbar"
+                            />
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ic_photo_camera_black_24dp"
+                            android:background="@color/colorWhite"
+                            />
+                    </LinearLayout>
+
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:tabMode="scrollable"
+                        app:tabTextColor="@color/colorGray"
+                        app:tabTextAppearance="@style/capfalse"
+                        app:tabSelectedTextColor="@color/colorGray"
+                        >
+
+                    </android.support.design.widget.TabLayout>
+
+                </LinearLayout>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+    </FrameLayout>
+
+    <ExpandableListView
+        android:id="@+id/epMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorWhite"
+        >
+
+    </ExpandableListView>
+
+</android.support.v4.widget.DrawerLayout>

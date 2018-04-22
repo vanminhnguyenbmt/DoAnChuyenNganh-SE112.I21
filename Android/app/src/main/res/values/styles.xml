@@ -11,6 +11,11 @@
 
     <style name="menuitemcolor" parent="AppTheme">
         <item name="android:colorPrimary">@color/bgToolbar</item>
+        <item name="drawerArrowStyle">@style/changecolordrawertoggle</item>
+    </style>
+    
+    <style name="changecolordrawertoggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/colorWhite</item>
     </style>
     <style name="capfalse" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
