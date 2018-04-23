@@ -2,6 +2,7 @@ package com.bin.lazada.Model.TrangChu.XuLyMenu;
 
 import android.util.Log;
 
+import com.bin.lazada.ConnectInternet.DownloadJSON;
 import com.bin.lazada.ObjectClass.LoaiSanPham;
 
 import org.json.JSONArray;
@@ -9,7 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class XuLyJSONMenu {
     public List<LoaiSanPham> ParseJSONMenu(String dulieujson)
@@ -38,6 +41,32 @@ public class XuLyJSONMenu {
             e.printStackTrace();
         }
 
+        return loaiSanPhamList;
+    }
+
+    public List<LoaiSanPham> LaySanPhamTheoMaLoai(int maloaisp)
+    {
+        List<LoaiSanPham> loaiSanPhamList = new ArrayList<>();
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        String dataJSON = "";
+
+        String duongdan = "http://192.168.137.1/weblazada/loaisanpham.php";
+        HashMap<String, String> hsMaLoaiCha = new HashMap<>();
+        hsMaLoaiCha.put("maloaicha", String.valueOf(maloaisp));
+        attrs.add(hsMaLoaiCha);
+
+        DownloadJSON downloadJSON = new DownloadJSON(duongdan, attrs);
+        downloadJSON.execute();
+
+        try {
+            dataJSON = downloadJSON.get();
+            XuLyJSONMenu xuLyJSONMenu = new XuLyJSONMenu();
+            loaiSanPhamList = xuLyJSONMenu.ParseJSONMenu(dataJSON);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return loaiSanPhamList;
     }
 }

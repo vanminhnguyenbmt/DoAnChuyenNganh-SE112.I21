@@ -11,7 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
 
+import com.bin.lazada.Adapter.ExpandAdapter;
 import com.bin.lazada.Adapter.ViewPagerAdapter;
 import com.bin.lazada.ObjectClass.LoaiSanPham;
 import com.bin.lazada.Presenter.TrangChu.XuLyMenu.PresenterLogicXuLyMenu;
@@ -25,6 +27,7 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
     ViewPager viewPager;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
+    ExpandableListView expandableListView;
     PresenterLogicXuLyMenu logicXuLyMenu;
 
     @Override
@@ -36,6 +39,7 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        expandableListView = (ExpandableListView) findViewById(R.id.epMenu);
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -73,6 +77,8 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu 
 
     @Override
     public void HienThiDanhSachMenu(List<LoaiSanPham> loaiSanPhamList) {
-        Log.d("kiemtra", loaiSanPhamList.get(0).getTENLOAISP());
+        ExpandAdapter expandAdapter = new ExpandAdapter(this, loaiSanPhamList);
+        expandableListView.setAdapter(expandAdapter);
+        expandAdapter.notifyDataSetChanged();
     }
 }
