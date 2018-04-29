@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <activity android:name=".View.ManHinhChao.ManHinhChaoActivity"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -22,6 +25,13 @@
 
         <activity android:name=".View.TrangChu.TrangChuActivity"
             android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity android:name=".View.DangNhap.DangNhapActivity"
+            android:screenOrientation="portrait"
+            android:label="Đăng nhập/Đăng ký"
+            >
 
         </activity>
     </application>

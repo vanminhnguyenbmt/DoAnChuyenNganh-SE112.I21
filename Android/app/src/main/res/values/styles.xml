@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/bgToolbar</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/bgLogo</item>
         <item name="android:colorPrimary">@color/colorWhite</item>
@@ -17,7 +17,12 @@
     <style name="changecolordrawertoggle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/colorWhite</item>
     </style>
+
     <style name="capfalse" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
+
+    <declare-styleable name="PasswordEditText">
+        <attr name="useStrike" format="boolean" />
+    </declare-styleable>
 </resources>

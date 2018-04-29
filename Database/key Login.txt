@@ -1,0 +1,13 @@
+Facebook: 8FVYpyodWKQz4qG5xLfSa0f59X4=
+
+https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=F0:55:58:A7:2A:1D:58:A4:33:E2:A1:B9:C4:B7:D2:6B:47:F9:F5:7E%3Bcom.bin.myapplication
+
+You can also add your credentials to an existing key, using these values:
+
+Package name:
+F0:55:58:A7:2A:1D:58:A4:33:E2:A1:B9:C4:B7:D2:6B:47:F9:F5:7E
+
+SHA-1 certificate fingerprint:
+F0:55:58:A7:2A:1D:58:A4:33:E2:A1:B9:C4:B7:D2:6B:47:F9:F5:7E
+
+{"installed":{"client_id":"1040954048381-is6hpt7t54v172i1f41heitlvci5m3r3.apps.googleusercontent.com","project_id":"my-project-1514791317558","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://accounts.google.com/o/oauth2/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}

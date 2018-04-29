@@ -53,9 +53,9 @@
                             android:textAlignment="viewStart"
                             android:textAllCaps="false"
                             android:layout_weight="1"
-                            android:background="@color/colorWhite"
+                            android:background="@drawable/selectorbgsearch"
                             android:textColor="@color/colorGray"
-                            android:layout_marginLeft="10dp"
+                            android:paddingLeft="10dp"
                             />
 
                         <View
@@ -71,7 +71,7 @@
                             android:layout_gravity="center"
                             android:layout_margin="10dp"
                             android:src="@drawable/ic_photo_camera_black_24dp"
-                            android:background="@color/colorWhite"
+                            android:background="@drawable/selectorbgsearch"
                             />
                     </LinearLayout>
 
@@ -105,6 +105,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/colorWhite"
+        android:choiceMode="singleChoice"
+        android:groupIndicator="@null"
         >
 
     </ExpandableListView>

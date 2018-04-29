@@ -65,6 +65,13 @@
                 android:title="Trợ giúp"
                 android:icon="@drawable/ic_help_outline_black_24dp"
                 />
+
+            <item
+                android:id="@+id/itDangXuat"
+                android:title="Đăng Xuất"
+                android:icon="@drawable/ic_logout"
+                android:visible="false"
+                />
         </menu>
 
     </item>

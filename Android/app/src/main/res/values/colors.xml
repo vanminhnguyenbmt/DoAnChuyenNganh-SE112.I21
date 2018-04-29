@@ -7,4 +7,7 @@
     <color name="colorWhite">#FFF</color>
     <color name="bgLogo">#f67122</color>
     <color name="colorGray">#CCC</color>
+    <color name="colorFacebook">#4a6ea9</color>
+    <color name="colorGoogle">#da4835</color>
+    <color name="colorBlack">#000</color>
 </resources>

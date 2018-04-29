@@ -19,7 +19,7 @@ public class ManHinhChaoActivity extends AppCompatActivity {
             public void run() {
                 try {
                     //sau 3s thì bắt đầu chuyển màn hình sang trang chủ
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);
                 }catch (Exception e) {
 
                 }finally {

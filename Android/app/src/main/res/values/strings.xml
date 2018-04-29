@@ -2,4 +2,6 @@
     <string name="app_name">Lazada</string>
     <string name="open">Mở</string>
     <string name="close">Đóng</string>
+    <string name="facebook_app_id">191759918301731</string>
+    <string name="google_plus_client">1040954048381-is6hpt7t54v172i1f41heitlvci5m3r3.apps.googleusercontent.com</string>
 </resources>
