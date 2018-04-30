@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bin.lazada.Model.DangNhap_DangKy.ModelDangNhap;
 import com.bin.lazada.R;
@@ -29,18 +31,20 @@ import java.util.Arrays;
 
 public class FragmentDangNhap extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
 
-    Button btnDangNhapFacebook, btnDangNhapGoogle;
+    Button btnDangNhapFacebook, btnDangNhapGoogle, btnDangNhap;
     CallbackManager callbackManager;
     GoogleApiClient mGoogleApiClient;
     public static int SIGN_IN_GOOGLE_PLUS = 357;
     ProgressDialog progressDialog;
+    ModelDangNhap modelDangNhap;
+    EditText edTenDangNhap, edMatKhau;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_fragment_dangnhap, container, false);
 
-        ModelDangNhap modelDangNhap = new ModelDangNhap();
+        modelDangNhap = new ModelDangNhap();
         mGoogleApiClient = modelDangNhap.LayGoogleApiClient(getContext(), this);
 
         FacebookSdk.sdkInitialize(getContext().getApplicationContext());
@@ -65,9 +69,13 @@ public class FragmentDangNhap extends Fragment implements View.OnClickListener, 
 
         btnDangNhapFacebook = (Button) view.findViewById(R.id.btnDangNhapFacebook);
         btnDangNhapGoogle = (Button) view.findViewById(R.id.btnDangNhapGoogle);
+        btnDangNhap = (Button) view.findViewById(R.id.btnDangNhap);
+        edTenDangNhap = (EditText) view.findViewById(R.id.edDiaChiEmailDangNhap);
+        edMatKhau = (EditText) view.findViewById(R.id.edMatKhauDangNhap);
 
         btnDangNhapFacebook.setOnClickListener(this);
         btnDangNhapGoogle.setOnClickListener(this);
+        btnDangNhap.setOnClickListener(this);
 
         return view;
     }
@@ -84,6 +92,17 @@ public class FragmentDangNhap extends Fragment implements View.OnClickListener, 
                 Intent iGooglePlus = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(iGooglePlus, SIGN_IN_GOOGLE_PLUS);
                 showProgressDialog();
+                break;
+            case R.id.btnDangNhap:
+                String tendangnhap = edTenDangNhap.getText().toString();
+                String matkhau = edMatKhau.getText().toString();
+                boolean kiemtra = modelDangNhap.KiemTraDangNhap(getActivity(), tendangnhap, matkhau);
+                if(kiemtra) {
+                    Intent iTrangChu = new Intent(getActivity(), TrangChuActivity.class);
+                    startActivity(iTrangChu);
+                }else {
+                    Toast.makeText(getActivity(), "Tên đăng nhập hoặc mật khẩu không đúng !", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
 

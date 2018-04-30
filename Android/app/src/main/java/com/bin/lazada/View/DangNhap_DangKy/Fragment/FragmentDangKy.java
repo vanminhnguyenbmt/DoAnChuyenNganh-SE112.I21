@@ -100,7 +100,7 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
 
             presenterLogicDangKy.ThucHienDangKy(nhanVien);
         }else {
-            Log.d("kiemtra", "Dang ky that bai");
+
         }
     }
 
