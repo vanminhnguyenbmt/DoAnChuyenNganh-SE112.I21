@@ -1,20 +1,12 @@
 package com.bin.lazada.Presenter.TrangChu.XuLyMenu;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-
 import com.bin.lazada.ConnectInternet.DownloadJSON;
-import com.bin.lazada.Model.DangNhap.ModelDangNhap;
+import com.bin.lazada.Model.DangNhap_DangKy.ModelDangNhap;
 import com.bin.lazada.Model.TrangChu.XuLyMenu.XuLyJSONMenu;
 import com.bin.lazada.ObjectClass.LoaiSanPham;
+import com.bin.lazada.View.TrangChu.TrangChuActivity;
 import com.bin.lazada.View.TrangChu.ViewXuLyMenu;
 import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,10 +35,16 @@ public class PresenterLogicXuLyMenu implements IPresenterXuLyMenu {
 //        DownloadJSON downloadJSON = new DownloadJSON(duongdan);
 
         //Lấy bằng phương thức post
-        String duongdan = "http://192.168.137.1/weblazada/loaisanpham.php";
+        String duongdan = TrangChuActivity.SERVER_NAME;
+
+        HashMap<String, String> hsHam = new HashMap<>();
+        hsHam.put("ham", "LayDanhSachMenu");
+
         HashMap<String, String> hsMaLoaiCha = new HashMap<>();
         hsMaLoaiCha.put("maloaicha", "0");
+
         attrs.add(hsMaLoaiCha);
+        attrs.add(hsHam);
 
         DownloadJSON downloadJSON = new DownloadJSON(duongdan, attrs);
         downloadJSON.execute();

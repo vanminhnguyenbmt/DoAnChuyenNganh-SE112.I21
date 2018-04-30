@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.bin.lazada.View.DangNhap.Fragment.FragmentDangKy;
-import com.bin.lazada.View.DangNhap.Fragment.FragmentDangNhap;
+import com.bin.lazada.View.DangNhap_DangKy.Fragment.FragmentDangKy;
+import com.bin.lazada.View.DangNhap_DangKy.Fragment.FragmentDangNhap;
 
 public class ViewPagerAdapterDangNhap extends FragmentPagerAdapter {
     public ViewPagerAdapterDangNhap(FragmentManager fm) {

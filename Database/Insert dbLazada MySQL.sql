@@ -161,3 +161,8 @@ INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Phụ kiện xe t�
 INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Dụng cụ và thiết bị",130);
 INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Bánh & vỏ xe",130);
 INSERT INTO `loaisanpham`(`TENLOAISP`, `MALOAI_CHA`) VALUES ("Thiết bị định vị",130);
+
+
+INSERT INTO `loainhanvien` (`MALOAINV`, `TENLOAINV`) VALUES
+(1, 'Admin'),
+(2, 'Khách hàng');

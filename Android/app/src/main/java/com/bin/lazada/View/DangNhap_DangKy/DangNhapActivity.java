@@ -1,4 +1,4 @@
-package com.bin.lazada.View.DangNhap;
+package com.bin.lazada.View.DangNhap_DangKy;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

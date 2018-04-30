@@ -1,11 +1,10 @@
-package com.bin.lazada.Model.DangNhap;
+package com.bin.lazada.Model.DangNhap_DangKy;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
-import com.facebook.FacebookSdk;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;

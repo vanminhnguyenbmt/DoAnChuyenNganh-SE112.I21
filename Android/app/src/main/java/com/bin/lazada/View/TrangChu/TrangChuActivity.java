@@ -3,25 +3,27 @@ package com.bin.lazada.View.TrangChu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 
 import com.bin.lazada.Adapter.ExpandAdapter;
 import com.bin.lazada.Adapter.ViewPagerAdapter;
-import com.bin.lazada.Model.DangNhap.ModelDangNhap;
+import com.bin.lazada.Model.DangNhap_DangKy.ModelDangNhap;
 import com.bin.lazada.ObjectClass.LoaiSanPham;
 import com.bin.lazada.Presenter.TrangChu.XuLyMenu.PresenterLogicXuLyMenu;
 import com.bin.lazada.R;
-import com.bin.lazada.View.DangNhap.DangNhapActivity;
+import com.bin.lazada.View.DangNhap_DangKy.DangNhapActivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
@@ -37,7 +39,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu, GoogleApiClient.OnConnectionFailedListener {
+public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu, GoogleApiClient.OnConnectionFailedListener, AppBarLayout.OnOffsetChangedListener {
+
+    public static final String SERVER_NAME = "http://192.168.137.1/weblazada/loaisanpham.php";
+
     Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -52,6 +57,8 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
     MenuItem itemDangNhap, menuItemDangXuat;
     GoogleApiClient mGoogleApiClient;
     GoogleSignInResult googleSignInResult;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    AppBarLayout appBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,8 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         expandableListView = (ExpandableListView) findViewById(R.id.epMenu);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -88,6 +97,8 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
 
         logicXuLyMenu.LayDanhSachMenu();
         mGoogleApiClient = modelDangNhap.LayGoogleApiClient(this, this);
+
+        appBarLayout.addOnOffsetChangedListener(this);
     }
 
     //hiển thị menu trang chủ
@@ -173,5 +184,16 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if(collapsingToolbarLayout.getHeight() + verticalOffset <= 1.5 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
+            LinearLayout linearLayout = (LinearLayout) appBarLayout.findViewById(R.id.lnSearch);
+            linearLayout.animate().alpha(0).setDuration(250);
+        }else {
+            LinearLayout linearLayout = (LinearLayout) appBarLayout.findViewById(R.id.lnSearch);
+            linearLayout.animate().alpha(1).setDuration(250);
+        }
     }
 }

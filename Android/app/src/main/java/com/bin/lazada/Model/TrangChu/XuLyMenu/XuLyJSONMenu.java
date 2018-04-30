@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.bin.lazada.ConnectInternet.DownloadJSON;
 import com.bin.lazada.ObjectClass.LoaiSanPham;
+import com.bin.lazada.View.TrangChu.TrangChuActivity;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -56,10 +57,16 @@ public class XuLyJSONMenu {
         List<HashMap<String, String>> attrs = new ArrayList<>();
         String dataJSON = "";
 
-        String duongdan = "http://192.168.137.1/weblazada/loaisanpham.php";
+        String duongdan = TrangChuActivity.SERVER_NAME;
+
+        HashMap<String, String> hsHam = new HashMap<>();
+        hsHam.put("ham", "LayDanhSachMenu");
+
         HashMap<String, String> hsMaLoaiCha = new HashMap<>();
         hsMaLoaiCha.put("maloaicha", String.valueOf(maloaisp));
+
         attrs.add(hsMaLoaiCha);
+        attrs.add(hsHam);
 
         DownloadJSON downloadJSON = new DownloadJSON(duongdan, attrs);
         downloadJSON.execute();
