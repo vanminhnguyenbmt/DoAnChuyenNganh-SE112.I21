@@ -10,4 +10,6 @@
     <color name="colorFacebook">#4a6ea9</color>
     <color name="colorGoogle">#da4835</color>
     <color name="colorBlack">#000</color>
+    <color name="colorRed">#FFF62226</color>
+    <color name="transparentBlack">#B2000000</color>
 </resources>

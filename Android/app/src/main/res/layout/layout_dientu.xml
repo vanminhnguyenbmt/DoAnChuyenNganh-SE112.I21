@@ -3,9 +3,305 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Điện tử"
-        />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerDienTu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <ImageView
+                android:id="@+id/imgKhuyenMaiDienTu"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginVertical="10dp"
+                android:src="@drawable/backgroundplashscreen"
+                android:scaleType="centerCrop"
+                />
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:src="@drawable/backgroundplashscreen"
+                            android:scaleType="centerCrop"
+                            />
+                        
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparentBlack"
+                            android:text="Top 150 SKU Bán Chạy Trong Tháng"
+                            android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:paddingHorizontal="30dp"
+                            />
+
+                    </FrameLayout>
+
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:src="@drawable/backgroundplashscreen"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparentBlack"
+                            android:text="Top Smartphone Chất Lượng Giá Rẽ"
+                            android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:paddingHorizontal="30dp"
+                            />
+
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:src="@drawable/backgroundplashscreen"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparentBlack"
+                            android:text="Top Camera"
+                            android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:paddingHorizontal="30dp"
+                            />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="5dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:src="@drawable/backgroundplashscreen"
+                            android:scaleType="centerCrop"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparentBlack"
+                            android:text="Top Tivi Có Màn Hình Lớn"
+                            android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:paddingHorizontal="30dp"
+                            />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:id="@+id/imgSanPham1"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:src="@drawable/backgroundplashscreen"
+                            android:scaleType="centerCrop"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="5dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtSanPham1"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@color/transparentBlack"
+                            android:text="Top Tivi Có Màn Hình Lớn"
+                            android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:paddingHorizontal="30dp"
+                            android:layout_gravity="bottom"
+                            android:textSize="10sp"
+                            />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:id="@+id/imgSanPham2"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:src="@drawable/backgroundplashscreen"
+                            android:scaleType="centerCrop"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="5dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtSanPham2"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@color/transparentBlack"
+                            android:text="Top Tivi Có Màn Hình Lớn"
+                            android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:paddingHorizontal="30dp"
+                            android:layout_gravity="bottom"
+                            android:textSize="10sp"
+                            />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        >
+
+                        <ImageView
+                            android:id="@+id/imgSanPham3"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:src="@drawable/backgroundplashscreen"
+                            android:scaleType="centerCrop"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="5dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/txtSanPham3"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@color/transparentBlack"
+                            android:text="Top Tivi Có Màn Hình Lớn"
+                            android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:paddingHorizontal="30dp"
+                            android:layout_gravity="bottom"
+                            android:textSize="10sp"
+                            />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Top Các Thương Hiệu Lớn"
+                android:layout_margin="10dp"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerTopThuongHieuLon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hàng mới về"
+                android:layout_margin="10dp"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerHangMoiVe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
 </LinearLayout>
