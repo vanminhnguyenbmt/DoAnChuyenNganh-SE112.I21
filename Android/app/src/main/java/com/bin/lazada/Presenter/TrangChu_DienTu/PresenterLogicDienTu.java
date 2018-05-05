@@ -33,6 +33,7 @@ public class PresenterLogicDienTu implements IPresenterDienTu {
         dienTu.setSanPhams(sanPhamList);
         dienTu.setTenNoiBat("Thương hiệu lớn");
         dienTu.setTenTopNoiBat("Top điện thoại và máy tính bảng");
+        dienTu.setThuonghieu(true);
         dienTus.add(dienTu);
 
         List<SanPham> phukienList = modelDienTu.LayDanhSachSanPhamTop("LayDanhSachTopPhuKien", "TOPPHUKIEN");
@@ -43,6 +44,7 @@ public class PresenterLogicDienTu implements IPresenterDienTu {
         dienTu1.setSanPhams(phukienList);
         dienTu1.setTenNoiBat("Phụ kiện");
         dienTu1.setTenTopNoiBat("Top phụ kiện");
+        dienTu1.setThuonghieu(false);
         dienTus.add(dienTu1);
 
         List<SanPham> tienichList = modelDienTu.LayDanhSachSanPhamTop("LayTopTienIch", "TOPTIENICH");
@@ -53,6 +55,7 @@ public class PresenterLogicDienTu implements IPresenterDienTu {
         dienTu2.setSanPhams(tienichList);
         dienTu2.setTenNoiBat("Tiện ích");
         dienTu2.setTenTopNoiBat("Top Video & Tivi");
+        dienTu2.setThuonghieu(false);
         dienTus.add(dienTu2);
 
         if(thuongHieuList.size() > 0 && sanPhamList.size() > 0) {

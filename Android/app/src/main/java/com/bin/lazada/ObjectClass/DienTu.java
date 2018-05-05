@@ -8,6 +8,15 @@ public class DienTu {
     List<ThuongHieu> thuongHieus;
     List<SanPham> sanPhams;
     String tenNoiBat, tenTopNoiBat;
+    Boolean thuonghieu;
+
+    public Boolean getThuonghieu() {
+        return thuonghieu;
+    }
+
+    public void setThuonghieu(Boolean thuonghieu) {
+        this.thuonghieu = thuonghieu;
+    }
 
     public String getTenNoiBat() {
         return tenNoiBat;

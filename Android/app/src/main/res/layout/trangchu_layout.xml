@@ -61,6 +61,7 @@
                         android:background="@drawable/selectorbgsearch"
                         android:textColor="@color/colorGray"
                         android:paddingLeft="10dp"
+                        style="?android:attr/borderlessButtonStyle"
                         />
 
                     <View

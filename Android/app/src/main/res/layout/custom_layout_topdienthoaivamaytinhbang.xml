@@ -1,65 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
+    android:id="@+id/cartViewTopDienThoaiVaMayTinBang"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_weight="1"
     app:cardUseCompatPadding="true"
+    android:layout_gravity="center"
+    android:gravity="center"
     >
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<ProgressBar-->
+        <!--android:id="@+id/progress_bar_TopDienThoaiVaMTB"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--/>-->
 
-        <ProgressBar
-            android:id="@+id/progress_bar_TopDienThoaiVaMTB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        >
+
+        <ImageView
+            android:id="@+id/imgTopDienThoaiDienTu"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
             />
 
-        <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp"
-            >
+        <TextView
+            android:id="@+id/txtTieuDeTopDienThoaiDienTu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            android:layout_marginBottom="5dp"
+            android:maxLength="20"
+            />
 
-            <ImageView
-                android:id="@+id/imgTopDienThoaiDienTu"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"
-                />
+        <TextView
+            android:id="@+id/txtGiaDienTu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá tiền"
+            android:textColor="@color/colorRed"
+            />
 
-            <TextView
-                android:id="@+id/txtTieuDeTopDienThoaiDienTu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tên sản phẩm"
-                android:layout_marginBottom="5dp"
-                android:textAlignment="center"
-                />
+        <TextView
+            android:id="@+id/txtGiamGiaDienTu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textAlignment="center"
+            />
 
-            <TextView
-                android:id="@+id/txtGiaDienTu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Giá tiền"
-                android:textColor="@color/colorRed"
-                android:textAlignment="center"
-                />
-
-            <TextView
-                android:id="@+id/txtGiamGiaDienTu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:textAlignment="center"
-                />
-
-        </LinearLayout>
-
-    </FrameLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

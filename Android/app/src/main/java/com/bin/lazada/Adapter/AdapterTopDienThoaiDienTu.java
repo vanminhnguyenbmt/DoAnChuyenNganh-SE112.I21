@@ -23,16 +23,18 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
 
     Context context;
     List<SanPham> sanPhamList;
+    int layout;
 
-    public AdapterTopDienThoaiDienTu(Context context, List<SanPham> sanPhamList) {
+    public AdapterTopDienThoaiDienTu(Context context, int layout, List<SanPham> sanPhamList) {
         this.context = context;
         this.sanPhamList = sanPhamList;
+        this.layout = layout;
     }
 
     public class ViewHolderTopDienThoai extends RecyclerView.ViewHolder {
         ImageView imgHinhSanPham;
         TextView txtTenSP, txtGiaTien, txtGiamGia;
-        ProgressBar progressBar;
+//        ProgressBar progressBar;
 
         public ViewHolderTopDienThoai(View itemView) {
             super(itemView);
@@ -41,7 +43,7 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
             txtTenSP = (TextView) itemView.findViewById(R.id.txtTieuDeTopDienThoaiDienTu);
             txtGiaTien = (TextView) itemView.findViewById(R.id.txtGiaDienTu);
             txtGiamGia = (TextView) itemView.findViewById(R.id.txtGiamGiaDienTu);
-            progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar_TopDienThoaiVaMTB);
+//            progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar_TopDienThoaiVaMTB);
         }
     }
 
@@ -49,7 +51,7 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
     @Override
     public ViewHolderTopDienThoai onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.custom_layout_topdienthoaivamaytinhbang, parent, false);
+        View view = layoutInflater.inflate(layout, parent, false);
 
         ViewHolderTopDienThoai viewHolderTopDienThoai = new ViewHolderTopDienThoai(view);
         return viewHolderTopDienThoai;
@@ -58,17 +60,7 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
     @Override
     public void onBindViewHolder(@NonNull final ViewHolderTopDienThoai holder, int position) {
         SanPham sanPham = sanPhamList.get(position);
-        Picasso.get().load(sanPham.getANHLON()).resize(140, 140).centerInside().into(holder.imgHinhSanPham, new Callback() {
-            @Override
-            public void onSuccess() {
-                holder.progressBar.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onError(Exception e) {
-
-            }
-        });
+        Picasso.get().load(sanPham.getANHLON()).resize(140, 140).centerInside().into(holder.imgHinhSanPham);
 
         holder.txtTenSP.setText(sanPham.getTENSP());
 
