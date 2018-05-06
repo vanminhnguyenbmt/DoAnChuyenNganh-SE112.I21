@@ -1,8 +1,31 @@
 package com.bin.lazada.ObjectClass;
 
+import java.util.List;
+
 public class SanPham {
     int MASP, GIA, SOLUONG, MALOAISP, MATHUONGHIEU, MANV, LUOTMUA;
-    String ANHLON, ANHNHO, THONGTIN, TENSP;
+    String ANHLON;
+    String ANHNHO;
+    String THONGTIN;
+    String TENSP;
+    String TENNV;
+    List<ChiTietSanPham> chiTietSanPhamList;
+
+    public String getTENNV() {
+        return TENNV;
+    }
+
+    public void setTENNV(String TENNV) {
+        this.TENNV = TENNV;
+    }
+
+    public List<ChiTietSanPham> getChiTietSanPhamList() {
+        return chiTietSanPhamList;
+    }
+
+    public void setChiTietSanPhamList(List<ChiTietSanPham> chiTietSanPhamList) {
+        this.chiTietSanPhamList = chiTietSanPhamList;
+    }
 
     public String getTENSP() {
         return TENSP;

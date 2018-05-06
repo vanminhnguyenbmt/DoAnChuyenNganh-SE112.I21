@@ -1,7 +1,9 @@
 package com.bin.lazada.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.bin.lazada.ObjectClass.SanPham;
 import com.bin.lazada.R;
+import com.bin.lazada.View.ChiTietSanPham.ChiTietSanPhamActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -34,6 +37,7 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
     public class ViewHolderTopDienThoai extends RecyclerView.ViewHolder {
         ImageView imgHinhSanPham;
         TextView txtTenSP, txtGiaTien, txtGiamGia;
+        CardView cardView;
 //        ProgressBar progressBar;
 
         public ViewHolderTopDienThoai(View itemView) {
@@ -43,6 +47,7 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
             txtTenSP = (TextView) itemView.findViewById(R.id.txtTieuDeTopDienThoaiDienTu);
             txtGiaTien = (TextView) itemView.findViewById(R.id.txtGiaDienTu);
             txtGiamGia = (TextView) itemView.findViewById(R.id.txtGiamGiaDienTu);
+            cardView = (CardView) itemView.findViewById(R.id.cartView);
 //            progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar_TopDienThoaiVaMTB);
         }
     }
@@ -67,6 +72,16 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
         NumberFormat numberFormat = new DecimalFormat("###,###");
         String gia = numberFormat.format(sanPham.getGIA()).toString();
         holder.txtGiaTien.setText(gia + " VNĐ ");
+
+        holder.cardView.setTag(sanPham.getMASP());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iChiTietSanPham = new Intent(context, ChiTietSanPhamActivity.class);
+                iChiTietSanPham.putExtra("masp", (int) v.getTag());
+                context.startActivity(iChiTietSanPham);
+            }
+        });
     }
 
     @Override
