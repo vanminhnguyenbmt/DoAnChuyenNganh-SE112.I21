@@ -14,16 +14,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bin.lazada.Adapter.ExpandAdapter;
 import com.bin.lazada.Adapter.ViewPagerAdapter;
 import com.bin.lazada.Model.DangNhap_DangKy.ModelDangNhap;
 import com.bin.lazada.ObjectClass.LoaiSanPham;
+import com.bin.lazada.Presenter.ChiTietSanPham.PresenterLogicChiTietSanPham;
 import com.bin.lazada.Presenter.TrangChu.XuLyMenu.PresenterLogicXuLyMenu;
 import com.bin.lazada.R;
 import com.bin.lazada.View.DangNhap_DangKy.DangNhapActivity;
+import com.bin.lazada.View.GioHang.GioHangActivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
@@ -41,8 +46,8 @@ import java.util.List;
 
 public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu, GoogleApiClient.OnConnectionFailedListener, AppBarLayout.OnOffsetChangedListener {
 
-    public static final String SERVER_NAME = "http://192.168.137.1/weblazada/loaisanpham.php";
-    public static final String SERVER = "http://192.168.137.1/weblazada";
+    public static final String SERVER_NAME = "http://10.0.128.127/weblazada/loaisanpham.php";
+    public static final String SERVER = "http://10.0.128.127/weblazada";
 
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -60,6 +65,9 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
     GoogleSignInResult googleSignInResult;
     CollapsingToolbarLayout collapsingToolbarLayout;
     AppBarLayout appBarLayout;
+    TextView txtGioHang;
+    PresenterLogicChiTietSanPham presenterLogicChiTietSanPham;
+    boolean onPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +115,23 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menutrangchu, menu);
         this.menu = menu;
+
+        //tìm custom layout giỏ hàng trong MenuItem và setText số lượng
+        MenuItem itemGioHang = menu.findItem(R.id.itGioHang);
+        View giaoDienCustomGioHang = itemGioHang.getActionView();
+        txtGioHang = (TextView) giaoDienCustomGioHang.findViewById(R.id.txtSoLuongSanPhamGioHang);
+
+        //Set sự kiện click chuyển trang cho giỏ hàng
+        giaoDienCustomGioHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iGioHang = new Intent(TrangChuActivity.this, GioHangActivity.class);
+                startActivity(iGioHang);
+            }
+        });
+
+        presenterLogicChiTietSanPham = new PresenterLogicChiTietSanPham();
+        txtGioHang.setText(String.valueOf(presenterLogicChiTietSanPham.DemSanPhamCoTrongGioHang(this)));
 
         itemDangNhap = menu.findItem(R.id.itDangNhap);
         menuItemDangXuat = menu.findItem(R.id.itDangXuat);
@@ -162,7 +187,8 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
                 if(accessToken == null && googleSignInResult == null && modelDangNhap.LayCacheDangNhap(this).equals("")) {
                     Intent iDangNhap = new Intent(this, DangNhapActivity.class);
                     startActivity(iDangNhap);
-                };break;
+                }
+                break;
 
             case R.id.itDangXuat:
                 if(accessToken != null) {
@@ -180,6 +206,7 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
                     this.menu.clear();
                     this.onCreateOptionsMenu(this.menu);
                 }
+                break;
         }
 
         return true;
@@ -206,5 +233,22 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
             LinearLayout linearLayout = (LinearLayout) appBarLayout.findViewById(R.id.lnSearch);
             linearLayout.animate().alpha(1).setDuration(250);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(onPause) {
+            presenterLogicChiTietSanPham = new PresenterLogicChiTietSanPham();
+            txtGioHang.setText(String.valueOf(presenterLogicChiTietSanPham.DemSanPhamCoTrongGioHang(this)));
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        onPause = true;
     }
 }

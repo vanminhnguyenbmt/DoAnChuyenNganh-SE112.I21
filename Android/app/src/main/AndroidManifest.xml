@@ -3,6 +3,7 @@
     package="com.bin.lazada">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -16,11 +17,11 @@
 
         <activity android:name=".View.ManHinhChao.ManHinhChaoActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
 
         </activity>
 
@@ -28,6 +29,12 @@
             android:screenOrientation="portrait"
             android:label="Trang Chủ"
             >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -51,6 +58,29 @@
             >
 
         </activity>
+
+        <activity android:name=".View.DanhGia.ThemDanhGiaActivity"
+            android:screenOrientation="portrait"
+            android:label="Đánh giá sản phẩm"
+            android:theme="@style/Base.Theme.AppCompat.Dialog"
+            >
+
+        </activity>
+
+        <activity android:name=".View.DanhGia.DanhSachDanhGiaActivity"
+            android:screenOrientation="portrait"
+            android:label="Tất cả bình luận"
+            >
+
+        </activity>
+
+        <activity android:name=".View.GioHang.GioHangActivity"
+            android:screenOrientation="portrait"
+            android:label="Giỏ hàng"
+            >
+
+        </activity>
+
     </application>
 
 </manifest>

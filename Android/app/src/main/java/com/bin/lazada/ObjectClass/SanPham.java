@@ -3,13 +3,30 @@ package com.bin.lazada.ObjectClass;
 import java.util.List;
 
 public class SanPham {
-    int MASP, GIA, SOLUONG, MALOAISP, MATHUONGHIEU, MANV, LUOTMUA;
+    int MASP, GIA, SOLUONG, MALOAISP, MATHUONGHIEU, MANV, LUOTMUA, SOLUONGTONKHO;
     String ANHLON;
     String ANHNHO;
     String THONGTIN;
     String TENSP;
     String TENNV;
     List<ChiTietSanPham> chiTietSanPhamList;
+    byte[] hinhgiohang;
+
+    public int getSOLUONGTONKHO() {
+        return SOLUONGTONKHO;
+    }
+
+    public void setSOLUONGTONKHO(int SOLUONGTONKHO) {
+        this.SOLUONGTONKHO = SOLUONGTONKHO;
+    }
+
+    public byte[] getHinhgiohang() {
+        return hinhgiohang;
+    }
+
+    public void setHinhgiohang(byte[] hinhgiohang) {
+        this.hinhgiohang = hinhgiohang;
+    }
 
     public String getTENNV() {
         return TENNV;
