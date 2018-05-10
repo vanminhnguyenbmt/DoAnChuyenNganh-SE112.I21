@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import com.bin.lazada.R;
 import com.bin.lazada.View.DanhGia.DanhSachDanhGiaActivity;
 import com.bin.lazada.View.DanhGia.ThemDanhGiaActivity;
 import com.bin.lazada.View.GioHang.GioHangActivity;
+import com.bin.lazada.View.ThanhToan.ThanhToanActivity;
 import com.bin.lazada.View.TrangChu.TrangChuActivity;
 import com.squareup.picasso.Picasso;
 
@@ -56,6 +58,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
     TextView txtTenSanPham, txtGiaTien, txtTenCHDongGoi, txtThongTinChiTiet, txtTieuDeThongSoKyThuat, txtXemTatCaNhanXet, txtGioHang;
     Toolbar toolbar;
     ImageView imgXemThemChiTiet, imgThemGioHang;
+    Button btnMuaNgay;
     LinearLayout lnThongSoKyThuat;
     Boolean kiemtraxochitiet = false;
     TextView txtVietDanhGia;
@@ -84,6 +87,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         recyclerDanhGiaChiTiet = (RecyclerView) findViewById(R.id.recyclerDanhGiaChiTiet);
         txtXemTatCaNhanXet = (TextView) findViewById(R.id.txtXemTatCaNhanXet);
         imgThemGioHang = (ImageView) findViewById(R.id.imgThemGioHang);
+        btnMuaNgay = (Button) findViewById(R.id.btnMuaNgay);
 
         toolbar.setTitle("Chi tiết sản phẩm");
         toolbar.setTitleTextColor(getIdColor(R.color.colorWhite));
@@ -98,6 +102,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         txtVietDanhGia.setOnClickListener(this);
         txtXemTatCaNhanXet.setOnClickListener(this);
         imgThemGioHang.setOnClickListener(this);
+        btnMuaNgay.setOnClickListener(this);
     }
 
     @Override
@@ -126,14 +131,14 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
                     if(kiemtraxochitiet) {
                         //sau khi xổ chi tiết
                         txtThongTinChiTiet.setText(sanPham.getTHONGTIN());
-                        imgXemThemChiTiet.setImageDrawable(getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp));
+                        imgXemThemChiTiet.setImageDrawable(getHinhChiTiet(R.drawable.ic_keyboard_arrow_up_black_24dp));
                         lnThongSoKyThuat.setVisibility(View.VISIBLE);
                         txtTieuDeThongSoKyThuat.setVisibility(View.VISIBLE);
                         HienThiThongSoKyThuat(sanPham);
                     }else {
                         //sau khi đóng chi tiết
                         txtThongTinChiTiet.setText(sanPham.getTHONGTIN().substring(0, 100));
-                        imgXemThemChiTiet.setImageDrawable(getDrawable(R.drawable.ic_keyboard_arrow_down_black_24dp));
+                        imgXemThemChiTiet.setImageDrawable(getHinhChiTiet(R.drawable.ic_keyboard_arrow_down_black_24dp));
                         lnThongSoKyThuat.setVisibility(View.GONE);
                         txtTieuDeThongSoKyThuat.setVisibility(View.GONE);
                     }
@@ -317,6 +322,26 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
                 sanPhamGioHang.setSOLUONG(1);
 
                 presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang, this);
+                break;
+
+            case R.id.btnMuaNgay:
+                //thêm sản phẩm vào giỏ hàng
+                Fragment fragment1 = fragmentList.get(viewPager.getCurrentItem());
+                View view1 = fragment1.getView();
+                ImageView imageView1 = (ImageView) view1.findViewById(R.id.imgHinhSlider);
+                Bitmap bitmap1 = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
+
+                ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
+                bitmap1.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream1);
+                byte[] hinhsanphamgiohang1 = byteArrayOutputStream1.toByteArray();
+                sanPhamGioHang.setHinhgiohang(hinhsanphamgiohang1);
+                sanPhamGioHang.setSOLUONG(1);
+
+                presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang, this);
+
+                //chuyển sang trang thanh toán
+                Intent iThanhToan = new Intent(ChiTietSanPhamActivity.this, ThanhToanActivity.class);
+                startActivity(iThanhToan);
                 break;
         }
     }

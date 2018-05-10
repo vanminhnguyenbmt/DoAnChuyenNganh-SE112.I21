@@ -81,6 +81,13 @@
 
         </activity>
 
+        <activity android:name=".View.ThanhToan.ThanhToanActivity"
+            android:screenOrientation="portrait"
+            android:label="Thanh toán"
+            >
+
+        </activity>
+
     </application>
 
 </manifest>
