@@ -857,3 +857,56 @@ INSERT INTO `danhgia` (`MADG`, `MASP`, `TENTHIETBI`, `TIEUDE`, `NOIDUNG`, `SOSAO
 ('1dc37ze189cab6e5', 3, 'HTC S7246', '46', 'wefwefwef', 0, '14/11/2016'),
 ('1dc3z6e189cab6e5', 3, 'HTC S7247', '47', 'eeeee', 4, '14/11/2016'),
 ('1dcz76e189cab6e5', 3, 'HTC S7248', '48', 'wefwefwef', 0, '14/11/2016');
+
+
+
+
+
+
+INSERT INTO `khuyenmai` (`MAKM`, `MALOAISP`, `TENKM`, `NGAYBATDAU`, `NGAYKETTHUC`, `HINHKHUYENMAI`) VALUES
+(1, 2, 'Xã hàng hot đến 49%', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/con loc giam gia mua he.png'),
+(2, 2, 'Giải nhiệt mùa hè giảm ngay 50%', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/khuyen mai ta quan ta dan.jpg'),
+(3, 2, 'Hè này mua gì ?', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/du lich.jpg'),
+(4, 3, 'Festival salve !', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/festival sale 90.jpg');
+
+
+
+
+INSERT INTO `chitietkhuyenmai` (`MASP`, `MAKM`, `PHANTRAMKM`) VALUES
+(3, 1, 49),
+(5, 1, 49),
+(6, 1, 49),
+(7, 1, 49),
+(8, 1, 49),
+(9, 1, 49),
+(10, 1, 49),
+(11, 2, 50),
+(12, 2, 50),
+(13, 2, 50),
+(14, 2, 50),
+(15, 2, 50),
+(16, 2, 50),
+(17, 2, 50),
+(18, 2, 50),
+(19, 2, 50),
+(20, 2, 50),
+(21, 3, 40),
+(21, 4, 30),
+(22, 3, 40),
+(22, 4, 30),
+(23, 3, 40),
+(23, 4, 30),
+(24, 3, 40),
+(24, 4, 30),
+(25, 3, 40),
+(25, 4, 30),
+(26, 3, 40),
+(26, 4, 30),
+(27, 3, 40),
+(27, 4, 30),
+(28, 3, 40),
+(28, 4, 30),
+(29, 3, 40),
+(29, 4, 30),
+(30, 3, 40),
+(30, 4, 30);

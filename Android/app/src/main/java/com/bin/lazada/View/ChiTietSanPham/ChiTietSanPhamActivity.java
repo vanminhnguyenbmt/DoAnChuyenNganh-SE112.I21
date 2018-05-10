@@ -2,6 +2,7 @@ package com.bin.lazada.View.ChiTietSanPham;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import com.bin.lazada.Adapter.AdapterDanhGia;
 import com.bin.lazada.Adapter.AdapterViewPagerSlider;
+import com.bin.lazada.ObjectClass.ChiTietKhuyenMai;
 import com.bin.lazada.ObjectClass.ChiTietSanPham;
 import com.bin.lazada.ObjectClass.DanhGia;
 import com.bin.lazada.ObjectClass.SanPham;
@@ -55,7 +57,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
     TextView[] txtDots;
     LinearLayout layoutDots;
     List<Fragment> fragmentList;
-    TextView txtTenSanPham, txtGiaTien, txtTenCHDongGoi, txtThongTinChiTiet, txtTieuDeThongSoKyThuat, txtXemTatCaNhanXet, txtGioHang;
+    TextView txtTenSanPham, txtGiaTien, txtTenCHDongGoi, txtThongTinChiTiet, txtTieuDeThongSoKyThuat, txtXemTatCaNhanXet, txtGioHang, txtGiamGia;
     Toolbar toolbar;
     ImageView imgXemThemChiTiet, imgThemGioHang;
     Button btnMuaNgay;
@@ -88,6 +90,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         txtXemTatCaNhanXet = (TextView) findViewById(R.id.txtXemTatCaNhanXet);
         imgThemGioHang = (ImageView) findViewById(R.id.imgThemGioHang);
         btnMuaNgay = (Button) findViewById(R.id.btnMuaNgay);
+        txtGiamGia = (TextView) findViewById(R.id.txtGiamGia);
 
         toolbar.setTitle("Chi tiết sản phẩm");
         toolbar.setTitleTextColor(getIdColor(R.color.colorWhite));
@@ -113,8 +116,27 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         sanPhamGioHang.setSOLUONGTONKHO(sanPham.getSOLUONG());
 
         txtTenSanPham.setText(sanPham.getTENSP());
+
+        //hiển thị giá khuyến mãi nếu có
+        ChiTietKhuyenMai chiTietKhuyenMai = sanPham.getChiTietKhuyenMai();
+        int giatien = sanPham.getGIA();
+        if(chiTietKhuyenMai != null) {
+            int phantramkm = chiTietKhuyenMai.getPHANTRAMKM();
+
+            if(phantramkm != 0) {
+                NumberFormat numberFormat = new DecimalFormat("###,###");
+                String gia = numberFormat.format(giatien).toString();
+
+                txtGiamGia.setVisibility(View.VISIBLE);
+                txtGiamGia.setPaintFlags(txtGiamGia.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                txtGiamGia.setText(gia + " VNĐ ");
+
+                giatien = giatien - giatien * phantramkm/100;
+            }
+        }
+
         NumberFormat numberFormat = new DecimalFormat("###,###");
-        String gia = numberFormat.format(sanPham.getGIA()).toString();
+        String gia = numberFormat.format(giatien).toString();
         txtGiaTien.setText(gia + " VNĐ");
         txtTenCHDongGoi.setText(sanPham.getTENNV());
         txtThongTinChiTiet.setText(sanPham.getTHONGTIN().substring(0, 100));

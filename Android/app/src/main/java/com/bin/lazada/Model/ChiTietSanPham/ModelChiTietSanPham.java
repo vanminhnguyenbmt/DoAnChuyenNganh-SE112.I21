@@ -1,6 +1,7 @@
 package com.bin.lazada.Model.ChiTietSanPham;
 
 import com.bin.lazada.ConnectInternet.DownloadJSON;
+import com.bin.lazada.ObjectClass.ChiTietKhuyenMai;
 import com.bin.lazada.ObjectClass.ChiTietSanPham;
 import com.bin.lazada.ObjectClass.DanhGia;
 import com.bin.lazada.ObjectClass.SanPham;
@@ -102,6 +103,8 @@ public class ModelChiTietSanPham {
             int dem = jsonArrayDanhSachSanPham.length();
             for(int i = 0; i < dem; i++) {
                 JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
+                ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai();
+                chiTietKhuyenMai.setPHANTRAMKM(object.getInt("PHANTRAMKM"));
 
                 sanPham.setMASP(object.getInt("MASP"));
                 sanPham.setTENSP(object.getString("TENSP"));
@@ -114,6 +117,7 @@ public class ModelChiTietSanPham {
                 sanPham.setMANV(object.getInt("MANV"));
                 sanPham.setTENNV(object.getString("TENNV"));
                 sanPham.setLUOTMUA(object.getInt("LUOTMUA"));
+                sanPham.setChiTietKhuyenMai(chiTietKhuyenMai);
 
                 JSONArray jsonArrayThongSoKyThuat = object.getJSONArray("THONGSOKYTHUAT");
 

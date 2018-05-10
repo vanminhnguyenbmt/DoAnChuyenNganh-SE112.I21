@@ -11,6 +11,15 @@ public class SanPham {
     String TENNV;
     List<ChiTietSanPham> chiTietSanPhamList;
     byte[] hinhgiohang;
+    ChiTietKhuyenMai chiTietKhuyenMai;
+
+    public ChiTietKhuyenMai getChiTietKhuyenMai() {
+        return chiTietKhuyenMai;
+    }
+
+    public void setChiTietKhuyenMai(ChiTietKhuyenMai chiTietKhuyenMai) {
+        this.chiTietKhuyenMai = chiTietKhuyenMai;
+    }
 
     public int getSOLUONGTONKHO() {
         return SOLUONGTONKHO;
