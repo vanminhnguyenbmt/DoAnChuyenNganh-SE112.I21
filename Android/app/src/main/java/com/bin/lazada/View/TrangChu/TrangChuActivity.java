@@ -15,10 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bin.lazada.Adapter.ExpandAdapter;
 import com.bin.lazada.Adapter.ViewPagerAdapter;
@@ -29,6 +29,7 @@ import com.bin.lazada.Presenter.TrangChu.XuLyMenu.PresenterLogicXuLyMenu;
 import com.bin.lazada.R;
 import com.bin.lazada.View.DangNhap_DangKy.DangNhapActivity;
 import com.bin.lazada.View.GioHang.GioHangActivity;
+import com.bin.lazada.View.TimKiem.TimKiemActivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
@@ -68,6 +69,7 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
     TextView txtGioHang;
     PresenterLogicChiTietSanPham presenterLogicChiTietSanPham;
     boolean onPause = false;
+    Button btnTimKiem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
         expandableListView = (ExpandableListView) findViewById(R.id.epMenu);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        btnTimKiem = (Button) findViewById(R.id.btnTimKiem);
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -207,6 +210,16 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
                     this.onCreateOptionsMenu(this.menu);
                 }
                 break;
+
+            case R.id.itSearch:
+                Intent iTimKiem = new Intent(this, TimKiemActivity.class);
+                startActivity(iTimKiem);
+                break;
+
+            case R.id.btnTimKiem:
+                Intent iTimKiem1 = new Intent(this, TimKiemActivity.class);
+                startActivity(iTimKiem1);
+                break;
         }
 
         return true;
@@ -229,9 +242,20 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
         if(collapsingToolbarLayout.getHeight() + verticalOffset <= 1.5 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
             LinearLayout linearLayout = (LinearLayout) appBarLayout.findViewById(R.id.lnSearch);
             linearLayout.animate().alpha(0).setDuration(250);
+
+            MenuItem itSearch = menu.findItem(R.id.itSearch);
+            itSearch.setVisible(true);
+
         }else {
             LinearLayout linearLayout = (LinearLayout) appBarLayout.findViewById(R.id.lnSearch);
             linearLayout.animate().alpha(1).setDuration(250);
+
+            try {
+                MenuItem itSearch = menu.findItem(R.id.itSearch);
+                itSearch.setVisible(false);
+            }catch (Exception e) {
+
+            }
         }
     }
 

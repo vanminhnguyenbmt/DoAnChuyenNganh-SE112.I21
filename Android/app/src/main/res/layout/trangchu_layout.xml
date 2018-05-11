@@ -7,108 +7,116 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
+        android:id="@+id/themFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="false">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:background="@color/bgToolbar"
-            android:fitsSystemWindows="true"
-            >
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                >
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?android:attr/actionBarSize"
-                    app:logo="@mipmap/logo"
-                    app:theme="@style/menuitemcolor"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    app:layout_collapseMode="pin"
-                    />
-
-                <LinearLayout
-                    android:id="@+id/lnSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="?android:attr/actionBarSize"
-                    android:layout_marginHorizontal="10dp"
-                    android:background="@drawable/bgsearch"
-                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap"
-                    app:layout_collapseMode="parallax"
-                    >
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_search_black_24dp"
-                        android:text="Tìm kiếm tại đây"
-                        android:layout_gravity="start"
-                        android:textAlignment="viewStart"
-                        android:textAllCaps="false"
-                        android:layout_weight="1"
-                        android:background="@drawable/selectorbgsearch"
-                        android:textColor="@color/colorGray"
-                        android:paddingLeft="10dp"
-                        style="?android:attr/borderlessButtonStyle"
-                        />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="10dp"
-                        android:background="@color/bgToolbar"
-                        />
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_photo_camera_black_24dp"
-                        android:background="@drawable/selectorbgsearch"
-                        />
-                </LinearLayout>
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable"
-                app:tabTextColor="@color/colorGray"
-                app:tabTextAppearance="@style/capfalse"
-                app:tabSelectedTextColor="@color/colorGray"
-                />
-
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:id="@+id/content"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager"
+            android:fitsSystemWindows="false">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:background="@color/bgToolbar"
+                android:fitsSystemWindows="false"
+                >
 
-            </android.support.v4.view.ViewPager>
-        </FrameLayout>
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/collapsing_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                    >
 
-    </android.support.design.widget.CoordinatorLayout>
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?android:attr/actionBarSize"
+                        app:logo="@mipmap/logo"
+                        app:theme="@style/menuitemcolor"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        app:layout_collapseMode="pin"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/lnSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="?android:attr/actionBarSize"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bgsearch"
+                        app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap"
+                        app:layout_collapseMode="parallax"
+                        >
+
+                        <Button
+                            android:id="@+id/btnTimKiem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_search_black_24dp"
+                            android:text="Tìm kiếm tại đây"
+                            android:layout_gravity="start"
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="false"
+                            android:layout_weight="1"
+                            android:background="@drawable/selectorbgsearch"
+                            android:textColor="@color/colorGray"
+                            android:paddingLeft="10dp"
+                            style="?android:attr/borderlessButtonStyle"
+                            />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/bgToolbar"
+                            />
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ic_photo_camera_black_24dp"
+                            android:background="@drawable/selectorbgsearch"
+                            />
+                    </LinearLayout>
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabMode="scrollable"
+                    app:tabTextColor="@color/colorGray"
+                    app:tabTextAppearance="@style/capfalse"
+                    app:tabSelectedTextColor="@color/colorGray"
+                    />
+
+            </android.support.design.widget.AppBarLayout>
+
+            <FrameLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v4.view.ViewPager>
+            </FrameLayout>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+    </FrameLayout>
 
     <ExpandableListView
         android:id="@+id/epMenu"
@@ -116,7 +124,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/colorWhite"
-        android:choiceMode="singleChoice"
+        android:choiceMode="multipleChoice"
         android:groupIndicator="@null"
         />
 </android.support.v4.widget.DrawerLayout>

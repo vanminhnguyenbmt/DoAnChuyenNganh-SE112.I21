@@ -39,12 +39,19 @@ public class GioHangActivity extends AppCompatActivity implements ViewGioHang, V
         toolbar.setTitle("Giỏ hàng");
         toolbar.setTitleTextColor(getIdColor(R.color.colorWhite));
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenterLogicGioHang = new PresenterLogicGioHang(this);
         presenterLogicGioHang.LayDanhSachSanPhamTrongGioHang(this);
 
         btnMuaNgay.setOnClickListener(this);
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private int getIdColor(int idcolor) {

@@ -1,8 +1,13 @@
 package com.bin.lazada.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -19,6 +24,7 @@ import android.widget.TextView;
 import com.bin.lazada.Model.TrangChu.XuLyMenu.XuLyJSONMenu;
 import com.bin.lazada.ObjectClass.LoaiSanPham;
 import com.bin.lazada.R;
+import com.bin.lazada.View.HienThiSanPhamTheoDanhMuc.HienThiSanPhamTheoDanhMucActivity;
 
 import java.util.List;
 
@@ -119,12 +125,30 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
             viewGroupCha.setBackgroundResource(R.color.colorGray);
         }else {
             viewHolderMenu.hinhMenu.setImageResource(R.drawable.ic_add_black_24dp);
+            viewGroupCha.setBackgroundResource(R.color.colorWhite);
         }
 
         viewGroupCha.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.d("maloaisp", loaiSanPhams.get(groupPosition).getTENLOAISP() + " - " + loaiSanPhams.get(groupPosition).getMALOAISP());
+//                Log.d("maloaisp", loaiSanPhams.get(groupPosition).getTENLOAISP() + " - " + loaiSanPhams.get(groupPosition).getMALOAISP());
+
+                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                HienThiSanPhamTheoDanhMucActivity hienThiSanPhamTheoDanhMucActivity = new HienThiSanPhamTheoDanhMucActivity();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("MALOAI", loaiSanPhams.get(groupPosition).getMALOAISP());
+                bundle.putBoolean("KIEMTRA", false);
+                bundle.putString("TENLOAI", loaiSanPhams.get(groupPosition).getTENLOAISP());
+
+                hienThiSanPhamTheoDanhMucActivity.setArguments(bundle);
+
+                fragmentTransaction.addToBackStack("TrangChuActivity");
+                fragmentTransaction.replace(R.id.themFragment, hienThiSanPhamTheoDanhMucActivity);
+                fragmentTransaction.commit();
+
                 return false;
             }
         });

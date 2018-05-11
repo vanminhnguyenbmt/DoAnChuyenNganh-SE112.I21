@@ -96,6 +96,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         toolbar.setTitleTextColor(getIdColor(R.color.colorWhite));
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         masp = getIntent().getIntExtra("masp", 0);
         presenterLogicChiTietSanPham = new PresenterLogicChiTietSanPham(this);
@@ -106,6 +107,12 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         txtXemTatCaNhanXet.setOnClickListener(this);
         imgThemGioHang.setOnClickListener(this);
         btnMuaNgay.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override

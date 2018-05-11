@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/imgTopDienThoaiDienTu"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:scaleType="centerCrop"
             />
 

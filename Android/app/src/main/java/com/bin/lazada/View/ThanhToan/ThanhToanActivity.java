@@ -58,10 +58,17 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
 
         toolbar.setTitleTextColor(getIdColor(R.color.colorWhite));
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnThanhToan.setOnClickListener(this);
         imgNhanTienKhiGiaoHang.setOnClickListener(this);
         imgChuyenKhoan.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private int getIdColor(int idcolor) {

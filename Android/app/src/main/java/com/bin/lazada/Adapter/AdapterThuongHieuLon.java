@@ -2,7 +2,11 @@ package com.bin.lazada.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,11 +72,27 @@ public class AdapterThuongHieuLon extends RecyclerView.Adapter<AdapterThuongHieu
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iHienThiSanPhamTheoDanhMuc = new Intent(context, HienThiSanPhamTheoDanhMucActivity.class);
-                iHienThiSanPhamTheoDanhMuc.putExtra("MALOAI", thuongHieu.getMATHUONGHIEU());
-                iHienThiSanPhamTheoDanhMuc.putExtra("TENLOAI", thuongHieu.getTENTHUONGHIEU());
-                iHienThiSanPhamTheoDanhMuc.putExtra("KIEMTRA", kiemtra);
-                context.startActivity(iHienThiSanPhamTheoDanhMuc);
+//                Intent iHienThiSanPhamTheoDanhMuc = new Intent(context, HienThiSanPhamTheoDanhMucActivity.class);
+//                iHienThiSanPhamTheoDanhMuc.putExtra("MALOAI", thuongHieu.getMATHUONGHIEU());
+//                iHienThiSanPhamTheoDanhMuc.putExtra("TENLOAI", thuongHieu.getTENTHUONGHIEU());
+//                iHienThiSanPhamTheoDanhMuc.putExtra("KIEMTRA", kiemtra);
+
+                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                HienThiSanPhamTheoDanhMucActivity hienThiSanPhamTheoDanhMucActivity = new HienThiSanPhamTheoDanhMucActivity();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("MALOAI", thuongHieu.getMATHUONGHIEU());
+                bundle.putBoolean("KIEMTRA", kiemtra);
+                bundle.putString("TENLOAI", thuongHieu.getTENTHUONGHIEU());
+
+                hienThiSanPhamTheoDanhMucActivity.setArguments(bundle);
+
+                fragmentTransaction.addToBackStack("TrangChuActivity");
+                fragmentTransaction.replace(R.id.themFragment, hienThiSanPhamTheoDanhMucActivity);
+                fragmentTransaction.commit();
+
             }
         });
 

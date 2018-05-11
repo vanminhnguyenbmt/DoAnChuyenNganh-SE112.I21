@@ -88,6 +88,13 @@
 
         </activity>
 
+        <activity android:name=".View.TimKiem.TimKiemActivity"
+            android:screenOrientation="portrait"
+            android:label="Tìm kiếm"
+            >
+
+        </activity>
+
     </application>
 
 </manifest>

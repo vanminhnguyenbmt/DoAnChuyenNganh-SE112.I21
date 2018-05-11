@@ -50,6 +50,13 @@ public class DanhSachDanhGiaActivity extends AppCompatActivity implements ViewDa
         toolbar.setTitleTextColor(getIdColor(R.color.colorWhite));
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private int getIdColor(int idcolor) {
