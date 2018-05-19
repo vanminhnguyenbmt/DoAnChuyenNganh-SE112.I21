@@ -1,0 +1,39 @@
+.col-right{
+	float: right;
+    margin: 2% 2% 0 0;
+}
+
+#col-right > .timkiem{
+	float: right;
+	margin: 5px
+}
+
+#col-left{
+	width: 40%;
+}
+
+.form-style > label,.form-style > input{
+	margin-top: 10px;
+}
+
+#btn-xoaloaisanpham{
+	margin: 5px;
+}
+
+.themsanpham table{
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 10px 5px
+}
+
+.themsanpham table th{
+	width: 50%;
+}
+
+.anbutton{
+	display: none;
+}
+
+.anchitietsanpham{
+	display: none;
+}
