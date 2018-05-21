@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="bgToolbar">#183545</color>
-    <color name="colorWhite">#FFF</color>
-    <color name="bgLogo">#f67122</color>
-    <color name="colorGray">#CCC</color>
-    <color name="colorFacebook">#4a6ea9</color>
-    <color name="colorGoogle">#da4835</color>
-    <color name="colorBlack">#000</color>
-    <color name="colorRed">#FFF62226</color>
-    <color name="transparentBlack">#B2000000</color>
-    <color name="colorGreen">#2fbf2c</color>
-    <color name="colorSLiderInActive">#8095a1</color>
+    <color name="colorFacebook">#3f51b5</color>
+    <color name="colorPrimaryDark">#49b824</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorTrangChu">#DCDDE2</color>
+    <color name="colorTextTrangChu">#333</color>
+    <color name="colorTextBinhLuan">#666</color>
+    <color name="colorTextDiaChi">#666</color>
+    <color name="colorTextTenQuan">#333</color>
+    <color name="colorTextTenMon">#333</color>
+    <color name="colorTextTenUser">#333</color>
+    <color name="colorBackgroundToolbarChitietQuanAn">#CC333333</color>
+    <color name="colorTextToolbarChiTietQuanAn">#DDD</color>
+    <color name="colorTransparentHoSo">#80333333</color>
 </resources>

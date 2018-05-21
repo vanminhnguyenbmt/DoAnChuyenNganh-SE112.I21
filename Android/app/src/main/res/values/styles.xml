@@ -1,33 +1,26 @@
 <resources>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/bgToolbar</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/bgLogo</item>
-        <item name="android:colorPrimary">@color/colorWhite</item>
-        <item name="android:textColorSecondary">@color/colorWhite</item>
-    </style>
-
-    <style name="menuitemcolor" parent="AppTheme">
-        <item name="android:colorPrimary">@color/bgToolbar</item>
-        <item name="drawerArrowStyle">@style/changecolordrawertoggle</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
     </style>
     
-    <style name="changecolordrawertoggle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/colorWhite</item>
+    <style name="popup_fade_in_out">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
-    <style name="capfalse" parent="TextAppearance.Design.Tab">
-        <item name="textAllCaps">false</item>
+    <style name="OtherAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
     </style>
 
-    <declare-styleable name="PasswordEditText">
-        <attr name="useStrike" format="boolean" />
-        <attr name="useValidate" format="boolean" />
-    </declare-styleable>
-    
-    <style name="DoiMauNgoiSaoRatingBar" parent="AppTheme">
-        <item name="android:colorControlNormal">@color/bgLogo</item>
-    </style>
+
 </resources>

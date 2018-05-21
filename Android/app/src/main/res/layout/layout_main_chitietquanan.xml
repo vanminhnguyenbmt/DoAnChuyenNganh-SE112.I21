@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_toobar"/>
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestScrollViewChiTietQuanAn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorTrangChu">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorAccent">
+                    
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="@color/colorTrangChu">
+
+                        <ImageView
+                            android:id="@+id/imvHinhAnhQuanAn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
+
+                        <VideoView
+                            android:id="@+id/videoTrailer"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:visibility="gone"/>
+
+                        <ImageView
+                            android:id="@+id/imvPlayVideo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            android:src="@drawable/cast_ic_expanded_controller_play"/>
+
+                    </FrameLayout>
+
+
+                    <TextView
+                        android:id="@+id/txtTenQuanAnChiTiet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Tên Quán Ăn Số 1"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorTrangChu"/> <!-- dấu gạch ngang -->
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp">
+
+                        <LinearLayout
+                            android:id="@+id/containerHinhAnh"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtTongSoHinhAnhQuanAn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorTextTenQuan"
+                                android:textSize="16sp"
+                                android:text="0"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:text="Hình ảnh"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/containerBinhLuan"
+                            android:orientation="vertical"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/txtTongSoBinhLuanQuanAn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:textSize="16sp"
+                                android:textColor="@color/colorTextTenQuan"
+                                android:text="0"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:text="Bình luận"/>
+                        </LinearLayout>
+
+                        <!--<LinearLayout-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content">-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/txtTongSoCheckInQuanAn"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:textAlignment="center"-->
+                                <!--android:textSize="16sp"-->
+                                <!--android:textColor="@color/colorTextTenQuan"-->
+                                <!--android:text="0"/>-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:textAlignment="center"-->
+                                <!--android:text="Check-in"/>-->
+                        <!--</LinearLayout>-->
+
+                        <!--<LinearLayout-->
+                            <!--android:orientation="vertical"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content">-->
+
+                            <!--<TextView-->
+                                <!--android:id="@+id/txtTongSoLuuLaiQuanAn"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:textAlignment="center"-->
+                                <!--android:textSize="16sp"-->
+                                <!--android:textColor="@color/colorTextTenQuan"-->
+                                <!--android:text="0"/>-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:textAlignment="center"-->
+                                <!--android:text="Lưu lại"/>-->
+                        <!--</LinearLayout>-->
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/txtDiemQuanAnChiTiet"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/cycle_backgroud"
+                                android:gravity="center"
+                                android:text="_._"
+                                android:textColor="@color/colorAccent"/>
+
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorTrangChu"/> <!-- dấu gạch ngang -->
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/txtThoiGianHoatDong"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/colorTextTenQuan"
+                            android:text="8:00 - 21:00"/>
+                        <TextView
+                            android:id="@+id/txtTrangThaiHoatDong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextTenQuan"
+                            android:text=""/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <include layout="@layout/layout_tinhnang_chitietquanan" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorTrangChu"/> <!-- dấu gạch ngang -->
+
+                <include layout="@layout/layout_thucdon_quanan"/>
+
+                <include layout="@layout/layout_binhluan_chitietquanan"/>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:layout_gravity="bottom|right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="3dp"
+            android:background="@drawable/cyrcle_background">
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_weight="1">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="22dp"-->
+                    <!--android:background="@drawable/camera_24_white"/>-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="2dp"-->
+                    <!--android:text="Tải ảnh"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:textSize="12sp" />-->
+
+            <!--</LinearLayout>-->
+
+            <LinearLayout
+                android:id="@+id/btnBinhLuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/comment_24_white"/>
+
+
+            </LinearLayout>
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_weight="1">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="22dp"-->
+                    <!--android:layout_height="22dp"-->
+                    <!--android:background="@drawable/location_24_white"/>-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="2dp"-->
+                    <!--android:text="Check-in"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:textSize="12sp" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_weight="1">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="22dp"-->
+                    <!--android:layout_height="22dp"-->
+                    <!--android:background="@drawable/pin_24_white"/>-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="2dp"-->
+                    <!--android:text="Lưu lại"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:textSize="12sp" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_weight="1">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="22dp"-->
+                    <!--android:layout_height="22dp"-->
+                    <!--android:background="@drawable/share_24_white"/>-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="2dp"-->
+                    <!--android:text="Chia sẻ"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:textSize="12sp" />-->
+
+            <!--</LinearLayout>-->
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>
