@@ -20,9 +20,197 @@
             $ham();
             break;
 
+		case 'TimKiemLoaiSanPhamTheoTen_Ajax':
+            $ham();
+            break;
+
+		case 'ThemSanPham_Ajax':
+            $ham();
+            break;
+
+		case 'XoaSanPham_Ajax':
+            $ham();
+            break;
+
+		case 'LayChiTietSanPhamTheoMa_Ajax':
+            $ham();
+            break;
+
+		case 'CapNhatSanPhamTheoMaSP_Ajax':
+            $ham();
+            break;
+
         default:
             // code...
             break;
+    }
+
+	function CapNhatSanPhamTheoMaSP_Ajax(){
+		global $conn;
+		$masp = $_POST["masp"];
+		$tensp = $_POST["tensanpham"];
+		$giasanpham = $_POST["giasanpham"];
+		$soluong = $_POST["soluong"];
+		$maloaisp = $_POST["maloaisp"];
+		$mathuonghieu = $_POST["mathuonghieu"];
+		$anhlon = $_POST["anhlon"];
+		$anhnho = $_POST["anhnho"];
+		$mota = $_POST["mota"];
+		$manv = 1;
+		$mangtenchitiet = $_POST["mangtenchitiet"];
+		$manggiatrichitiet = $_POST["manggiatrichitiet"];
+		$mangmachitietsanpham = $_POST["mangmachitietsanpham"];
+		$manggiatrichitietsanphambosung = $_POST["manggiatrichitietsanphambosung"];
+		$mangtenchitietsanphambosung = $_POST["mangtenchitietsanphambosung"];
+
+		$truyvan = "UPDATE sanpham SET TENSP='".$tensp."', GIA='".$giasanpham."', SOLUONG='".$soluong."', MALOAISP='".$maloaisp."', MATHUONGHIEU='".$mathuonghieu."', ANHLON='".$anhlon."', ANHNHO='".$anhnho."', THONGTIN='".$mota."', MANV='".$manv."' WHERE MASP='".$masp."'";
+		$ketqua = mysqli_query($conn,$truyvan);
+
+		if($ketqua){
+
+			$dem = count($mangmachitietsanpham);
+			for($i=0;$i<$dem;$i++){
+				$tenchitiet = $mangtenchitiet[$i];
+				$giatrichitiet = $manggiatrichitiet[$i];
+				$machitietsanpham = $mangmachitietsanpham[$i];
+
+				$truyvanchitiet= "UPDATE chitietsanpham SET TENCHITIET='".$tenchitiet."', GIATRI='".$giatrichitiet."' WHERE MACHITIET='".$machitietsanpham."'";
+
+				$ketquachitiet = mysqli_query($conn,$truyvanchitiet);
+			}
+
+			$demchitietbosung = count($manggiatrichitietsanphambosung);
+			if($demchitietbosung > 0){
+				for( $i=0; $i<$demchitietbosung; $i++){
+					$truythemvanchitiet = "INSERT INTO chitietsanpham (MASP,TENCHITIET,GIATRI) VALUES('".$masp."','".$mangtenchitietsanphambosung[$i]."','".$manggiatrichitietsanphambosung[$i]."')";
+					 mysqli_query($conn,$truythemvanchitiet);
+				}
+
+			}
+
+			echo "Cập nhập thành công !";
+		}else{
+			echo "Cập nhập thất bại !";
+		}
+
+	}
+
+	function LayChiTietSanPhamTheoMa_Ajax(){
+		global $conn;
+		$masp = $_POST["masp"];
+
+		$truyvan = "SELECT * FROM chitietsanpham WHERE MASP='".$masp."'";
+		$ketqua = mysqli_query($conn,$truyvan);
+
+		if($ketqua){
+			while ($dong = mysqli_fetch_array($ketqua)) {
+				echo '<tr>
+					<th>
+						<input type="text" id="mangmachitietsanpham" name="mangmachitietsanpham[]" class="anbutton" value="'.$dong["MACHITIET"].'"/>
+						Tên chi tiết : <input style="margin:5px; padding:5px; width:60%" name="mangtenchitietsanpham[]" type="text" value="'.$dong["TENCHITIET"].'" />
+					</th>
+
+					<th>
+						Giá trị : <input style="margin:5px; padding:5px; width:60%" name="manggiatrichitietsanpham[]" type="text" value="'.$dong["GIATRI"].'"  />
+						<a class="btn btn-primary anbutton btnthemchitietsanpham">Thêm</a> <a class="btn btn-danger  btnxoachitietsanpham">Xóa</a>
+					</th>
+				</tr>';
+			}
+		}
+	}
+
+	function XoaSanPham_Ajax(){
+		global $conn;
+		$masp = $_POST["masp"];
+		$kiemtra = 0;
+
+		if(XoaChiTietKhuyenMaiTheoMASP($masp)){
+			$kiemtra = 1;
+		}else{
+			$kiemtra = 0;
+		}
+
+		if(XoaChiTietSanPhamTheoMASP($masp)){
+			$kiemtra = 1;
+		}else{
+			$kiemtra = 0;
+		}
+
+		if(XoaChiTietHoaDonTheoMASP($masp)){
+			$kiemtra = 1;
+		}else{
+			$kiemtra = 0;
+		}
+
+		if(XoaDanhGiaTheoMASP($masp)){
+			$kiemtra = 1;
+		}else{
+			$kiemtra = 0;
+		}
+
+		$truyvan = "DELETE FROM sanpham WHERE MASP=".$masp;
+		$ketqua = mysqli_query($conn,$truyvan);
+
+		if($ketqua){
+			$kiemtra = 1;
+		}else{
+			$kiemtra = 0;
+		}
+		echo $kiemtra;
+	}
+
+    function ThemSanPham_Ajax(){
+		global $conn;
+		$tensp = $_POST["tensanpham"];
+		$giasanpham = $_POST["giasanpham"];
+		$soluong = $_POST["soluong"];
+		$maloaisp = $_POST["maloaisp"];
+		$mathuonghieu = $_POST["mathuonghieu"];
+		$anhlon = $_POST["anhlon"];
+		$anhnho = $_POST["anhnho"];
+		$mota = $_POST["mota"];
+		$manv = 1;
+		$mangtenchitiet = $_POST["mangtenchitiet"];
+		$manggiatrichitiet = $_POST["manggiatrichitiet"];
+
+		$truyvan = "INSERT INTO sanpham(TENSP,GIA,SOLUONG,MALOAISP,MATHUONGHIEU,ANHLON,ANHNHO,THONGTIN,MANV,LUOTMUA) VALUES('".$tensp."','".$giasanpham."','".$soluong."','".$maloaisp."','".$mathuonghieu."','".$anhlon."','".$anhnho."','".$mota."','".$manv."',0)";
+		$ketqua = mysqli_query($conn,$truyvan);
+
+		$masp = mysqli_insert_id($conn);
+
+		$dem = count($manggiatrichitiet);
+		for($i=0;$i<$dem;$i++){
+			$tenchitiet = $mangtenchitiet[$i];
+			$giatrichitiet = $manggiatrichitiet[$i];
+
+			$truyvanchitiet = "INSERT INTO chitietsanpham(MASP,TENCHITIET,GIATRI) VALUES('".$masp."','".$tenchitiet."','".$giatrichitiet."')";
+			mysqli_query($conn,$truyvanchitiet);
+		}
+
+		if($ketqua){
+			echo "Thêm thành công !";
+		}else{
+			echo "Thêm thất bại !";
+		}
+    }
+
+    function TimKiemLoaiSanPhamTheoTen_Ajax(){
+		global $conn;
+		$tenloaisp = $_POST["noidungtimkiem"];
+		$truyvan = "SELECT * FROM loaisanpham WHERE TENLOAISP LIKE '%".$tenloaisp."%'";
+		$ketqua = mysqli_query($conn,$truyvan);
+		if($ketqua){
+			while ($dong = mysqli_fetch_array($ketqua)) {
+				echo "<tr>";
+				echo '<th><div class="checkbox3 checkbox-round checkbox-check checkbox-light">
+							<input name="cb-mang[]" data-id="'.$dong["MALOAISP"].'" type="checkbox" id="cb-'.$dong["MALOAISP"].'"/>
+							<label for="cb-'.$dong["MALOAISP"].'" ></label>
+						</div></th>';
+				echo '<th>'.$dong["TENLOAISP"].'</th>';
+				echo "</tr>";
+
+			}
+		}
     }
 
     function HienThiPhanTrang_Ajax(){
