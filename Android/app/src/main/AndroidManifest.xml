@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ochutgio.reviewquanan">
+    package="com.bin.lazada">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <application
         android:allowBackup="true"
-        android:largeHeap="true"
-        android:icon="@mipmap/icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/icon"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/mapapi_key"/>
-
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
+        <activity android:name=".View.ManHinhChao.ManHinhChaoActivity"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-        <activity android:name=".View.SplashScreenActivity" android:screenOrientation="portrait">
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+
+        </activity>
+
+        <activity android:name=".View.TrangChu.TrangChuActivity"
+            android:screenOrientation="portrait"
+            android:label="Trang Chủ"
+            >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,31 +38,62 @@
 
         </activity>
 
-        <activity android:name=".View.DangNhapActivity" android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".View.TrangChuActivity" android:screenOrientation="portrait" ></activity>
-
-        <activity android:name=".View.DangKyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize">
+        <activity android:name=".View.DangNhap_DangKy.DangNhapActivity"
+            android:screenOrientation="portrait"
+            android:label="Đăng nhập/Đăng ký"
+            >
 
         </activity>
 
-        <activity android:name=".View.QuenMatKhauActivity"></activity>
+        <activity android:name=".View.HienThiSanPhamTheoDanhMuc.HienThiSanPhamTheoDanhMucActivity"
+            android:screenOrientation="portrait"
+            android:label="Hiển thị sản phẩm theo danh mục"
+            >
 
-        <activity android:name=".View.ChiTietQuanAnActivity"></activity>
+        </activity>
 
-        <activity android:name=".View.BinhLuanActivity" android:theme="@style/OtherAppTheme" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".View.ChiTietSanPham.ChiTietSanPhamActivity"
+            android:screenOrientation="portrait"
+            android:label="Chi tiết sản phẩm"
+            >
 
-        <activity android:name=".View.ChonHinhBinhLuanActivity"></activity>
+        </activity>
 
-        <activity android:name=".View.ThemQuanAnActivity" android:theme="@style/OtherAppTheme"></activity>
+        <activity android:name=".View.DanhGia.ThemDanhGiaActivity"
+            android:screenOrientation="portrait"
+            android:label="Đánh giá sản phẩm"
+            android:theme="@style/Base.Theme.AppCompat.Dialog"
+            >
 
-        <activity android:name=".View.TimKiemActivity"></activity>
+        </activity>
 
-        <activity android:name=".View.HoSoActivity"></activity>
+        <activity android:name=".View.DanhGia.DanhSachDanhGiaActivity"
+            android:screenOrientation="portrait"
+            android:label="Tất cả bình luận"
+            >
 
-        <activity android:name=".View.TatCaBinhLuanActivity"></activity>
+        </activity>
 
-        <activity android:name=".View.TatCaHinhAnhActivity"></activity>
+        <activity android:name=".View.GioHang.GioHangActivity"
+            android:screenOrientation="portrait"
+            android:label="Giỏ hàng"
+            >
+
+        </activity>
+
+        <activity android:name=".View.ThanhToan.ThanhToanActivity"
+            android:screenOrientation="portrait"
+            android:label="Thanh toán"
+            >
+
+        </activity>
+
+        <activity android:name=".View.TimKiem.TimKiemActivity"
+            android:screenOrientation="portrait"
+            android:label="Tìm kiếm"
+            >
+
+        </activity>
 
     </application>
 

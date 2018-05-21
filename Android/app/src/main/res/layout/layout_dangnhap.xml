@@ -1,151 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/colorPrimaryDark">
+    android:fitsSystemWindows="false"
+    >
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        >
 
-    <LinearLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolBarDangNhap"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:titleTextColor="@color/colorGray"
+            app:layout_scrollFlags="scroll|enterAlways"
+            />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabDangNhap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@color/colorGray"
+            app:tabTextAppearance="@style/capfalse"
+            app:tabSelectedTextColor="@color/colorGray"
+            >
+
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerDangNhap"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/application_name"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+    </android.support.v4.view.ViewPager>
 
-
-        <EditText
-            android:id="@+id/edEmailDN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:backgroundTint="@color/colorAccent"
-            android:drawableLeft="@drawable/identity_white_24"
-            android:hint="@string/email"
-            android:textColorHint="@color/colorAccent"
-            android:textColor="@color/colorAccent"/>
-
-        <EditText
-            android:id="@+id/edPasswordDN"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            android:drawableLeft="@drawable/lock_white_24"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColorHint="@color/colorAccent"
-            android:textColor="@color/colorAccent"/>
-
-        <Button
-            android:id="@+id/btnDangNhap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorAccent"
-            android:text="@string/dangnhap"
-            android:textColor="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/colorAccent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/hoac"
-                android:textColor="@color/colorAccent" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="2dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/colorAccent" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnDangNhapGoogle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorAccent"
-            android:drawableLeft="@drawable/google"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textAllCaps="false"
-            android:text="@string/dangnhapbanggoogle"
-            android:textColor="@color/colorPrimaryDark" />
-
-        <Button
-            android:id="@+id/btnDangNhapFacebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorAccent"
-            android:drawableLeft="@drawable/facebook"
-            android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Đăng nhập bằng facebook"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvQuenMatKhau"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="5dp"
-                android:text="Quên mật khẩu?"
-                android:textColor="@color/colorAccent" />
-
-            <TextView
-                android:id="@+id/tvDangKy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingRight="5dp"
-                android:text="Đăng ký mới"
-                android:textAlignment="textEnd"
-                android:textColor="@color/colorAccent" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

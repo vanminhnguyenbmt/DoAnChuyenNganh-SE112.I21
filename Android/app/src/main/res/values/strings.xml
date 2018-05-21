@@ -1,42 +1,7 @@
 <resources>
-    <string name="app_name">YourFood</string>
-    <string name="facebook_app_id">369198963584775</string>
-    <string name="fb_login_protocol_scheme">fb369198963584775</string>
-    <string name="splash_icon">A splash icon</string>
-    <string name="email">Email</string>
-    <string name="password">Mật khẩu</string>
-    <string name="dangnhap">Đăng nhập</string>
-    <string name="hoac">Hoặc</string>
-    <string name="dangnhapbangfacebook">Đăng nhập bằng Facebook</string>
-    <string name="dangnhapbanggoogle">Đăng nhập bằng Google</string>
-    <string name="dangky">Đăng ký</string>
-    <string name="quenmatkhau"> Send Me</string>
-    <string name="chuthichkhoiphucmatkhau">Vui lòng check email và làm theo hướng dẫn để chúng tôi giúp bạn khôi phục mật khẩu</string>
-    <string name="khoiphucmatkhau">KHÔI PHỤC MẬT KHẨU</string>
-    <string name="odau">Ở đâu</string>
-    <string name="angi">Ăn gì</string>
-    <string name="tab_moinhat">Mới nhất</string>
-    <string name="tab_danhmuc"> Hot</string>
-    <string name="tab_khuvuc">Thủ Đức</string>
-    <string name="application_name">YourFood</string>
-    <string name="gantoi">Gần tôi</string>
-    <string name="giaohang">Giao hàng</string>
-    <string name="danhgia">Đánh giá</string>
-    <string name="khuyenmai">Khuyến mãi</string>
-    <string name="quangnhau">Quán nhậu</string>
-    <string name="quanan">Quán ăn</string>
-    <string name="hot">Hot</string>
-    <string name="dacsan">Đặc sản</string>
-    <string name="monlau">Món lẩu</string>
-    <string name="monnuong">Món nướng</string>
-    <string name="langdaihoc">Làng đại học</string>
-    <string name="dangxuat">Đăng xuất</string>
-    <string name="caidat">Cài đặt</string>
-    <string name="hoso">Hồ sơ</string>
-    <string name="themquanan">Thêm quán ăn</string>
-    <string name="hotro">Hỗ trợ</string>
-    <string name="ngonngu">Ngôn ngữ</string>
-    <string name="thongbao">Thông báo</string>
-    <string name="mapapi_key">AIzaSyBkbgUbHNvH_6drCmpx6btkv7B8PoQjaIU</string>
-
+    <string name="app_name">Lazada</string>
+    <string name="open">Mở</string>
+    <string name="close">Đóng</string>
+    <string name="facebook_app_id">191759918301731</string>
+    <string name="google_plus_client">1040954048381-is6hpt7t54v172i1f41heitlvci5m3r3.apps.googleusercontent.com</string>
 </resources>
