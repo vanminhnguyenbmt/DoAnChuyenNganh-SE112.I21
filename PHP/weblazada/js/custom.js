@@ -1,5 +1,196 @@
 $(document).ready(function() {
 
+	//Xử lý khi đồng ý cập nhập hóa đơn
+	$("#btn-dongycapnhathoadon").click(function(){
+		mahd = $(this).attr("data-id");
+		tennguoinhan = $("#ip_chudonhang").val();
+		sodt = $("#ip_sodtdonhang").val();
+		diachi = $("#ip_diachi").val();
+		machuyenkhoan = $("#ip_machuyenkhoan").val();
+		ngaymua = $("#ip_ngaymua").val();
+		ngaygiao = $("#ip_ngaygiao").val();
+		tinhtrang = $("#sl_tinhtranghoadon").val();
+		chuyenkhoan = $("#sl_chuyenkhoan").val();
+
+		var mangmasp = [];
+		var mangtensp = [];
+		$("input[name='mangsanpham[]']").each(function(){
+			var value = $.trim($(this).attr("data-masp"));
+			var tensp = $.trim($(this).val());
+			if(value.length > 0){
+				mangmasp.push(value);
+				mangtensp.push(tensp);
+			}
+
+		});
+
+		var mangsoluong = [];
+		$("input[name='mangsoluong[]']").each(function(){
+			var value = $.trim($(this).val());
+
+			if(value.length > 0){
+				mangsoluong.push(value);
+
+			}
+
+		});
+
+		$.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "CapNhatHoaDonVsChiTietHoaDon_Ajax",
+				mahd : mahd,
+				tennguoinhan: tennguoinhan,
+				sodt: sodt,
+				diachi: diachi,
+				machuyenkhoan: machuyenkhoan,
+				ngaymua: ngaymua,
+				ngaygiao: ngaygiao,
+				tinhtrang: tinhtrang,
+				chuyenkhoan: chuyenkhoan,
+				mangmasp: mangmasp,
+				mangsoluong: mangsoluong,
+				mangtensp: mangtensp
+			},
+			success:function(data){
+				alert(data);
+			}
+		});
+
+
+	});
+
+	//xóa chi tiết hóa đơn
+	$("body").delegate(".btnxoachitiethoadon","click",function(){
+		$(this).closest("tr").remove();
+	});
+
+	//Xử lý nút thêm chi tiết hóa đơn
+	$(".btn-themchitiethoadon").click(function(){
+
+		tensp = $("#sl_tenspchitiethd :selected").text();
+		masp = $("#sl_tenspchitiethd").val();
+		soluong = $("#ip_soluongsanphamhd").val();
+		kiemtra= false;
+
+		$("input[name='mangsoluong[]']").each(function(){
+			if($(this).attr("data-masp")==masp){
+				soluong = parseInt(soluong) + parseInt($(this).val());
+				$(this).val(soluong);
+				kiemtra = true;
+			}
+		});
+
+		var content = '<tr><th>Tên sản phẩm : <input name="mangsanpham[]" data-masp="'+masp+'" value="'+tensp+'" style="margin:5px; padding:5px; width:60%"  disabled type="text"  /></th><th>Số lượng : <input data-masp="'+masp+'" disabled value="'+soluong+'" style="margin:5px; padding:5px; width:60%" name="mangsoluong[]" type="text"  /><a class="btn btn-danger btnxoachitiethoadon">Xóa</a></th></tr>';
+
+		if(!kiemtra){
+			$("#khungchitiethoadon").find("tbody").append(content);
+		}
+	});
+
+	//xử lý nút cập nhật hóa đơn
+	$("body").delegate(".btn-capnhathoadon","click",function(){
+
+		HienThiThemHoaDon();
+		$("#btn-dongycapnhathoadon").removeClass("anbutton");
+		$("#btn-themhoadon").addClass("anbutton");
+
+		chuyenkhoan = 0;
+		machuyenkhoan = "không có";
+		mahd = $(this).parent().attr("data-id");
+
+		$("#btn-dongycapnhathoadon").attr("data-id",mahd);
+
+		$(this).closest("tr").find("th").each(function(){
+			if($(this).attr("data-tennguoinhan")){
+				tennguoinhan = $(this).attr("data-tennguoinhan");
+			}else if($(this).attr("data-sodt")){
+				sodt = $(this).attr("data-sodt");
+			}else if($(this).attr("data-diachi")){
+				diachi = $(this).attr("data-diachi");
+			}else if($(this).attr("data-tinhtrang")){
+				tinhtrang = $(this).attr("data-tinhtrang");
+			}else if($(this).attr("data-ngaymua")){
+				ngaymua = $(this).attr("data-ngaymua");
+			}else if($(this).attr("data-ngaygiao")){
+				ngaygiao = $(this).attr("data-ngaygiao");
+			}else if($(this).attr("data-chuyenkhoan")){
+				chuyenkhoan = $(this).attr("data-chuyenkhoan");
+			}else if($(this).attr("data-machuyenkhoan")){
+				machuyenkhoan = $(this).attr("data-machuyenkhoan");
+			}
+
+		});
+
+		$("#ip_chudonhang").val(tennguoinhan);
+		$("#ip_sodtdonhang").val(sodt);
+		$("#ip_diachi").val(diachi);
+		$("#ip_machuyenkhoan").val(machuyenkhoan);
+		$("#ip_ngaymua").val(ngaymua);
+		$("#ip_ngaygiao").val(ngaygiao);
+		$("#sl_tinhtranghoadon").val(tinhtrang).trigger("change");
+		$("#sl_chuyenkhoan").val(chuyenkhoan).trigger("change");
+
+		 $.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "LayChiTietHoaDon_Ajax",
+				mahd : mahd,
+			},
+			success:function(data){
+				$("#khungchitiethoadon").find("tbody").empty();
+				$("#khungchitiethoadon").find("tbody").prepend(data);
+			}
+		});
+
+	});
+
+	$(".btn-hienthithemhoadon").click(function(){
+		$("#btn-dongycapnhathoadon").addClass("anbutton");
+		$("#btn-themhoadon").removeClass("anbutton");
+		HienThiThemHoaDon();
+	});
+
+	$(".btn-hienthidanhsachhoadon").click(function(){
+		HienThiDanhSachHoaDon();
+	});
+
+	function HienThiThemHoaDon(){
+		$(".hienthisanpham").removeClass("anbutton");
+		$(".hienthisanpham").fadeOut();
+		$(".themsanpham").fadeIn();
+	}
+
+	function HienThiDanhSachHoaDon(){
+		$(".hienthisanpham").fadeIn();
+		$(".themsanpham").fadeOut();
+	}
+
+	//Phân trang cho sản phẩm
+	$('#phantrangsanpham').bootpag({
+	    total: $("#phantrangsanpham").attr("data-tongsotrang"),
+	    maxVisible: 5,
+	    page: 1
+	}).on("page", function(event, trang){
+	    $.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "LayDanhSachSanPhamLimit_Ajax",
+				sotrang : trang
+			},
+			success:function(data){
+				$("table.table").find("tbody").empty();
+				$("table.table").find("tbody").append(data);
+			}
+		});
+	});
+
 	//đồng ý cập nhật sản phẩm
 	$("#btn-capnhatsanpham").click(function(){
 		var masp = $(this).attr("data-id");
@@ -17,8 +208,6 @@ $(document).ready(function() {
 			}else{
 				anhnho += "/hinhsanpham/" + $(this).attr("title") + ",";
 			}
-
-
 		});
 
 		var mota = tinymce.get("ip_thongtin").getContent();
@@ -95,6 +284,11 @@ $(document).ready(function() {
 
 	//xử lý sửa sản phẩm
 	$("body").delegate(".btn-suasanpham","click",function(){
+
+		HienThiThemSanPham();
+		$("#btn-capnhatsanpham").removeClass("anbutton");
+		$("#btn-themsanpham").addClass("anbutton");
+
 		htmlAnhLon = '<label for="ip_anhlon">Ảnh lớn</label> <div class="form-group"><input id="ip_anhlon" name="ip_anhlon" class="file-loading" type="file" data-preview-file-type="any" data-upload-url="uploadhinh.php"></div>';
 		htmlAnhNho = '<label for="ip_anhnho">Ảnh nhỏ</label> <div class="form-group"><input id="ip_anhnho" name="ip_anhnho" class="file-loading" type="file" multiple data-preview-file-type="any" data-upload-url="uploadhinh.php"></div>';
 
@@ -215,6 +409,7 @@ $(document).ready(function() {
 			success:function(data){
 				if(data == 1){
 					This.closest('tr').remove();
+					alert("Xóa thành công !");
 				}else{
 					alert("Xóa thất bại !");
 				}
@@ -311,14 +506,25 @@ $(document).ready(function() {
 	});
 
 	$(".btn-hienthithemsanpham").click(function(){
-		$(".themsanpham").fadeIn(300,"swing");
-		$(".hienthisanpham").fadeOut(300,"swing");
+		$("#btn-capnhatsanpham").addClass("anbutton");
+		$("#btn-themsanpham").removeClass("anbutton");
+		HienThiThemSanPham();
 	});
 
 	$(".btn-hienthidanhsachsanpham").click(function(){
+		HienThiDanhSachSanPham();
+	});
+
+	function HienThiThemSanPham(){
+		$(".hienthisanpham").removeClass("anbutton");
+		$(".themsanpham").fadeIn(300,"swing");
+		$(".hienthisanpham").fadeOut(300,"swing");
+	}
+
+	function HienThiDanhSachSanPham(){
 		$(".hienthisanpham").fadeIn(300,"swing");
 		$(".themsanpham").fadeOut(300,"swing");
-	});
+	}
 
 	//thực hiện chức năng tìm kiếm loại sản phẩm
 	$("#btn-timkiemloaisp").click(function(){

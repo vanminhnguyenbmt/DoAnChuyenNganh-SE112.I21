@@ -74,7 +74,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Emily Hart <span class="caret"></span></a>
                             <ul class="dropdown-menu animated fadeInDown">
                                 <li class="profile-img">
-                                    <img src="../../img/profile/picjumbo.com_HNCK4153_resize.jpg" class="profile-img">
+                                    <img src="../img/profile/picjumbo.com_HNCK4153_resize.jpg" class="profile-img">
                                 </li>
                                 <li>
                                     <div class="profile-info">
@@ -106,6 +106,10 @@
 
                             case 'sanpham':
                                 include 'page_product/sanpham.php';
+                                break;
+
+                            case 'hoadon':
+                                include 'page_product/hoadon.php';
                                 break;
 
                             default:

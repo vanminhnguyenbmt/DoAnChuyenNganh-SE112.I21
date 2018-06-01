@@ -40,9 +40,221 @@
             $ham();
             break;
 
+        case 'LayDanhSachSanPhamLimit_Ajax':
+            $ham();
+            break;
+
+        case 'KiemTraDangNhap_Ajax':
+            $ham();
+            break;
+
+        case 'LayChiTietHoaDon_Ajax':
+            $ham();
+            break;
+
+		case 'CapNhatHoaDonVsChiTietHoaDon_Ajax':
+            $ham();
+            break;
+
         default:
             // code...
             break;
+    }
+
+    function CapNhatHoaDonVsChiTietHoaDon_Ajax(){
+		global $conn;
+
+		$mahd = $_POST["mahd"];
+		$tennguoinhan = $_POST["tennguoinhan"];
+		$sodt = $_POST["sodt"];
+		$diachi = $_POST["diachi"];
+		$machuyenkhoan = $_POST["machuyenkhoan"];
+		$ngaymua = $_POST["ngaymua"];
+		$ngaygiao = $_POST["ngaygiao"];
+		$tinhtrang = $_POST["tinhtrang"];
+		$chuyenkhoan = $_POST["chuyenkhoan"];
+		$mangmasp = $_POST["mangmasp"];
+		$mangsoluong = $_POST["mangsoluong"];
+		$mangtensp = $_POST["mangtensp"];
+
+		$dem = count($mangmasp);
+		$kiemtra = false;
+		$chuoithongbao = "Các sản phẩm sau không đáp ứng được đơn hàng : ";
+
+		for ($i=0; $i < $dem; $i++) {
+			$masp = $mangmasp[$i];
+			$soluong = $mangsoluong[$i];
+			$tensp = $mangtensp[$i];
+
+			$soluongtonkho = LaySoLuongSanPhamTonKho($masp);
+			if($soluongtonkho < $soluong){
+				$chuoithongbao .= "Tên sản phẩm : ".$tensp." - Số lượng : ".($soluongtonkho - $soluong);
+				$kiemtra = true;
+			}
+		}
+
+		if(!$kiemtra){
+			if($tinhtrang=="chờ kiểm duyệt" || $tinhtrang=="hoàn thành"){
+			CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd);
+			XoaChiTietHoaDon($mahd);
+
+			for ($i=0; $i < $dem; $i++) {
+				$masp = $mangmasp[$i];
+				$soluong = $mangsoluong[$i];
+				ThemChiTietHoaDon($mahd,$masp,$soluong);
+			}
+            echo "Cập nhập thành công";
+
+			}else if($tinhtrang == "đã hủy"){
+				for ($i=0; $i < $dem; $i++) {
+					$masp = $mangmasp[$i];
+					$soluong = $mangsoluong[$i];
+
+					CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd);
+					CapNhatSoLuongSanPham($masp,$soluong,true);
+				}
+                echo "Cập nhập thành công";
+
+			}else if($tinhtrang == "đang giao hàng"){
+				for ($i=0; $i < $dem; $i++) {
+					$masp = $mangmasp[$i];
+					$soluong = $mangsoluong[$i];
+
+					CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd);
+					CapNhatSoLuongSanPham($masp,$soluong,false);
+				}
+                echo "Cập nhập thành công";
+			}
+		}else{
+			echo $chuoithongbao;
+		}
+	}
+
+    function CapNhatSoLuongSanPham($masp,$soluong,$kiemtra){
+        global $conn;
+        $soluongtonkho = LaySoLuongSanPhamTonKho($masp);
+
+        if($kiemtra){
+            $soluongtonkho += $soluong;
+        }else{
+            $soluongtonkho -= $soluong;
+        }
+
+        $truyvan = "UPDATE sanpham SET SOLUONG='".$soluongtonkho."' WHERE MASP='".$masp."'";
+        mysqli_query($conn,$truyvan);
+    }
+
+    function LaySoLuongSanPhamTonKho($masp){
+        global $conn;
+        $truyvan = "SELECT * FROM sanpham WHERE MASP='".$masp."'";
+        $ketqua = mysqli_query($conn,$truyvan);
+        $soluongtonkho = 0;
+        if($ketqua){
+            while ($dong = mysqli_fetch_array($ketqua)) {
+                $soluongtonkho = $dong["SOLUONG"];
+            }
+        }
+
+        return $soluongtonkho;
+    }
+
+    function CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd){
+        global $conn;
+        $truyvanhoadon = "UPDATE hoadon SET NGAYMUA='".$ngaymua."', NGAYGIAO='".$ngaygiao."', TRANGTHAI='".$tinhtrang."', TENNGUOINHAN='".$tennguoinhan."', SODT='".$sodt."', DIACHI='".$diachi."', CHUYENKHOAN='".$chuyenkhoan."', MACHUYENKHOAN='".$machuyenkhoan."' WHERE MAHD='".$mahd."'";
+        $ketqua = mysqli_query($conn,$truyvanhoadon);
+    }
+
+    function XoaChiTietHoaDon($mahd){
+		global $conn;
+		$truyvanxoachitiethd = "DELETE FROM chitiethoadon WHERE MAHD='".$mahd."'";
+		mysqli_query($conn,$truyvanxoachitiethd);
+	}
+
+	function ThemChiTietHoaDon($mahd,$masp,$soluong){
+		global $conn;
+		$truyvanthemchitiethoadon = " INSERT INTO chitiethoadon(MAHD,MASP,SOLUONG) VALUES('".$mahd."','".$masp."','".$soluong."')";
+		mysqli_query($conn,$truyvanthemchitiethoadon);
+	}
+
+    function LayChiTietHoaDon_Ajax(){
+        global $conn;
+        $mahd = $_POST["mahd"];
+
+        $truyvan = "SELECT sp.TENSP, cthd.MASP,cthd.MAHD,cthd.SOLUONG FROM chitiethoadon cthd, sanpham sp WHERE cthd.MASP = sp.MASP AND cthd.MAHD='".$mahd."'";
+        $ketqua = mysqli_query($conn,$truyvan);
+
+        if($ketqua){
+            while ($dong = mysqli_fetch_array($ketqua)) {
+                echo '<tr>
+                    <th>
+                        Tên sản phẩm : <input disabled style="margin:5px; padding:5px; width:60%" data-masp="'.$dong["MASP"].'" name="mangsanpham[]" type="text" value="'.$dong["TENSP"].'" />
+                    </th>
+
+                    <th>
+                        Số lượng : <input disabled data-masp="'.$dong["MASP"].'" style="margin:5px; padding:5px; width:60%" name="mangsoluong[]" type="text" value="'.$dong["SOLUONG"].'"  />
+                        <a class="btn btn-danger  btnxoachitiethoadon">Xóa</a>
+                    </th>
+                </tr>';
+            }
+
+        }
+    }
+
+    function KiemTraDangNhap_Ajax(){
+        global $conn;
+        session_start();
+        $tendangnhap = $_POST["tendangnhap"];
+        $matkhau = $_POST["matkhau"];
+        $nhotaikhoan = $_POST["nhotaikhoan"];
+
+        $truyvan = "SELECT * FROM nhanvien WHERE TENDANGNHAP='".$tendangnhap."' AND MATKHAU='".md5($matkhau)."'";
+        $ketqua = mysqli_query($conn, $truyvan);
+
+        if($nhotaikhoan){
+            setcookie("tendangnhap",$tendangnhap,time() + (86400 * 7),"/");
+            setcookie("matkhau",$matkhau,time() + (86400 * 7),"/");
+        }
+
+        if($ketqua){
+            $sodong = mysqli_num_rows($ketqua);
+            if($sodong > 0){
+                while ($dong = mysqli_fetch_array($ketqua)) {
+                    $_SESSION["tenv"] = $dong["TENNV"];
+                    $_SESSION["email"] = $dong["TENDANGNHAP"];
+                    $_SESSION["manv"] = $dong["MANV"];
+                    $_SESSION["maloainv"] = $dong["MALOAINV"];
+                    echo 1;
+                }
+            }else{
+                echo 0;
+            }
+        }
+
+    };
+
+    function LayDanhSachSanPhamLimit_Ajax(){
+        global $conn;
+        $limit = ($_POST["sotrang"]-1)*10;
+        $truyvan = "SELECT * FROM sanpham sp, loaisanpham lsp, thuonghieu th WHERE sp.MALOAISP = lsp.MALOAISP AND sp.MATHUONGHIEU = th.MATHUONGHIEU LIMIT ".$limit.",10";
+        $ketqua = mysqli_query($conn,$truyvan);
+        if($ketqua){
+            while ($dong = mysqli_fetch_array($ketqua)) {
+                echo "<tr>";
+                echo '<th class="anbutton" data-anhnho="'.$dong["ANHNHO"].'"</th>';
+                echo '<th class="anbutton" data-mota="'.$dong["THONGTIN"].'"></th>';
+                echo '<th data-anhlon="'.$dong["ANHLON"].'"><img style="width:50px; height:50px" src="..'.$dong["ANHLON"].'" /> </th>';
+                echo '<th data-tensp="'.$dong["TENSP"].'">'.$dong["TENSP"].'</th>';
+                echo '<th data-maloaisp="'.$dong["MALOAISP"].'">'.$dong["TENLOAISP"].'</th>';
+                echo '<th data-math="'.$dong["MATHUONGHIEU"].'">'.$dong["TENTHUONGHIEU"].'</th>';
+                echo '<th data-gia="'.$dong["GIA"].'">'.$dong["GIA"].'</th>';
+                echo '<th data-soluong="'.$dong["SOLUONG"].'">'.$dong["SOLUONG"].'</th>';
+                echo '<th data-id="'.$dong["MASP"].'"><a class="btn btn-success btn-suasanpham">Sửa</a> <a class="btn btn-danger btn-xoasanpham">Xóa</a></th>';
+
+
+                echo "</tr>";
+
+            }
+        }
     }
 
 	function CapNhatSanPhamTheoMaSP_Ajax(){
