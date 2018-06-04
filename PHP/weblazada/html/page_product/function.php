@@ -122,13 +122,32 @@
 
 					CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd);
 					CapNhatSoLuongSanPham($masp,$soluong,false);
-				}
+                    TangLuotMuaSanPham($masp);
+				}            
                 echo "Cập nhập thành công";
 			}
 		}else{
 			echo $chuoithongbao;
 		}
 	}
+
+    function TangLuotMuaSanPham($masp){
+        global $conn;
+
+        $truyvan = "SELECT LUOTMUA FROM sanpham WHERE MASP='".$masp."'";
+        $ketqua = mysqli_query($conn, $truyvan);
+        $luotmua = 0;
+        if($ketqua){
+            while ($dong = mysqli_fetch_array($ketqua)) {
+                $luotmua = $dong["LUOTMUA"];
+            }
+        }
+
+        $luotmua = $luotmua + 1;
+
+        $truyvancapnhap = "UPDATE sanpham SET LUOTMUA='".$luotmua."' WHERE MASP='".$masp."'";
+        mysqli_query($conn, $truyvancapnhap);
+    }
 
     function CapNhatSoLuongSanPham($masp,$soluong,$kiemtra){
         global $conn;

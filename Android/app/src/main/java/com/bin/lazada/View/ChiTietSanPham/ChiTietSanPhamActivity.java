@@ -146,7 +146,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         String gia = numberFormat.format(giatien).toString();
         txtGiaTien.setText(gia + " VNĐ");
         txtTenCHDongGoi.setText(sanPham.getTENNV());
-        txtThongTinChiTiet.setText(sanPham.getTHONGTIN().substring(0, 100));
+        txtThongTinChiTiet.setText(Html.fromHtml(sanPham.getTHONGTIN().substring(0, 100)));
 
         if(sanPham.getTHONGTIN().length() < 100) {
             imgXemThemChiTiet.setVisibility(View.GONE);
@@ -159,14 +159,14 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
                     kiemtraxochitiet = !kiemtraxochitiet;
                     if(kiemtraxochitiet) {
                         //sau khi xổ chi tiết
-                        txtThongTinChiTiet.setText(sanPham.getTHONGTIN());
+                        txtThongTinChiTiet.setText(Html.fromHtml(sanPham.getTHONGTIN()));
                         imgXemThemChiTiet.setImageDrawable(getHinhChiTiet(R.drawable.ic_keyboard_arrow_up_black_24dp));
                         lnThongSoKyThuat.setVisibility(View.VISIBLE);
                         txtTieuDeThongSoKyThuat.setVisibility(View.VISIBLE);
                         HienThiThongSoKyThuat(sanPham);
                     }else {
                         //sau khi đóng chi tiết
-                        txtThongTinChiTiet.setText(sanPham.getTHONGTIN().substring(0, 100));
+                        txtThongTinChiTiet.setText(Html.fromHtml(sanPham.getTHONGTIN().substring(0, 100)));
                         imgXemThemChiTiet.setImageDrawable(getHinhChiTiet(R.drawable.ic_keyboard_arrow_down_black_24dp));
                         lnThongSoKyThuat.setVisibility(View.GONE);
                         txtTieuDeThongSoKyThuat.setVisibility(View.GONE);

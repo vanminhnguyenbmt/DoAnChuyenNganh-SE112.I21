@@ -37,7 +37,7 @@ public class PresenterLogicDienTu implements IPresenterDienTu {
         dienTus.add(dienTu);
 
         List<SanPham> phukienList = modelDienTu.LayDanhSachSanPhamTop("LayDanhSachTopPhuKien", "TOPPHUKIEN");
-        List<ThuongHieu> topphukienList = modelDienTu.LayDanhSachThuongHieuLon("LayDanhSachPhuKien", "DANHSACHPHUKIEN");
+        List<ThuongHieu> topphukienList = modelDienTu.LayDanhSachThuongHieuNho("LayDanhSachPhuKien", "DANHSACHPHUKIEN");
 
         DienTu dienTu1 = new DienTu();
         dienTu1.setThuongHieus(topphukienList);
@@ -48,7 +48,7 @@ public class PresenterLogicDienTu implements IPresenterDienTu {
         dienTus.add(dienTu1);
 
         List<SanPham> tienichList = modelDienTu.LayDanhSachSanPhamTop("LayTopTienIch", "TOPTIENICH");
-        List<ThuongHieu> toptienichList = modelDienTu.LayDanhSachThuongHieuLon("LayDanhSachTienIch", "DANHSACHTIENICH");
+        List<ThuongHieu> toptienichList = modelDienTu.LayDanhSachThuongHieuNho("LayDanhSachTienIch", "DANHSACHTIENICH");
 
         DienTu dienTu2 = new DienTu();
         dienTu2.setThuongHieus(toptienichList);
@@ -65,7 +65,7 @@ public class PresenterLogicDienTu implements IPresenterDienTu {
 
     @Override
     public void LayDanhSachLogoThuongHieu() {
-        List<ThuongHieu> thuongHieuList = modelDienTu.LayDanhSachThuongHieuLon("LayLogoThuongHieuLon", "LOGOTHUONGHIEULON");
+        List<ThuongHieu> thuongHieuList = modelDienTu.LayDanhSachThuongHieuNho("LayLogoThuongHieuLon", "LOGOTHUONGHIEULON");
 
         if(thuongHieuList.size() > 0) {
             viewDienTu.HienThiLogoThuongHieu(thuongHieuList);

@@ -92,22 +92,28 @@
             $limit = $_POST["limit"];
         }
 
-        $truyvan = "SELECT *, DATEDIFF(km.NGAYKETTHUC, '".$ngayhientai."') AS THOIGIANKM
-                    FROM sanpham sp, khuyenmai km, chitietkhuyenmai ctkm
-                    WHERE sp.TENSP like '%".$tensp."%'
-                    AND sp.MASP = ctkm.MASP AND ctkm.MAKM = km.MAKM
-                    ORDER BY sp.MASP LIMIT ".$limit.", 10";
-        $ketqua = mysqli_query($conn, $truyvan);
+        $truyvan = " SELECT * FROM sanpham sp
+                    WHERE sp.TENSP like '%".$tensp."%' ORDER BY sp.MASP LIMIT ".$limit.",10";
+		$ketqua = mysqli_query($conn, $truyvan);
 
         echo "{";
         echo "\"DANHSACHSANPHAM\":";
         if($ketqua) {
             while ($dong = mysqli_fetch_array($ketqua)) {
-                $phantramkm = 0;
-                $thoigiankm = $dong["THOIGIANKM"];
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dong["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
 
-                if($thoigiankm > 0) {
-                    $phantramkm = $dong["THOIGIANKM"];
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
                 }
 
                 array_push($chuoijson, array("MASP"=>$dong["MASP"],
@@ -116,7 +122,7 @@
                                             "HINHSANPHAM"=>$dong["ANHLON"],
                                             "HINHSANPHAMNHO"=>$dong["ANHNHO"],
                                             "PHANTRAMKM"=>$phantramkm,
-                                            "MANV"=>$dong["MANV"],
+                                            "MANV"=>$dong["MANV"]
                                         ));
             }
         }
@@ -272,11 +278,25 @@
 
         $ngayhientai = date("Y/m/d");
 
-        $truyvan = "SELECT *, DATEDIFF(km.NGAYKETTHUC, '".$ngayhientai."') AS THOIGIANKM
-                    FROM sanpham sp, nhanvien nv, khuyenmai km, chitietkhuyenmai ctkm
-                    WHERE sp.MASP = ".$masp." AND sp.MANV = nv.MANV
-                    AND sp.MASP = ctkm.MASP AND km.MAKM = ctkm.MAKM";
-        $ketqua = mysqli_query($conn, $truyvan);
+        $truyvan = "SELECT * FROM sanpham sp, nhanvien nv
+                    WHERE sp.MASP=".$masp." AND sp.MANV = nv.MANV";
+        $ketqua = mysqli_query($conn,$truyvan);
+
+        $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$masp."'";
+        $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+        $phantramkm = 0;
+        if($ketquakhuyenmai){
+            while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                if($thoigiankm > 0){
+                    $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                }
+            }
+        }
 
         echo "{";
         echo "\"CHITIETSANPHAM\":";
@@ -292,14 +312,7 @@
         }
 
         if($ketqua) {
-            $phantramkm = 0;
             while ($dong = mysqli_fetch_array($ketqua)) {
-
-                $thoigiankm = $dong["THOIGIANKM"];
-
-                if($thoigiankm > 0) {
-                    $phantramkm = $dong["PHANTRAMKM"];
-                }
 
                 array_push($chuoijson,array("MASP"=>$dong["MASP"],
                                             "TENSP"=>$dong["TENSP"],
@@ -328,15 +341,16 @@
     {
         global $conn;
         $chuoijson = array();
-        if(isset($_POST["maloaisp"]) || isset($_POST["limit"])) {
-            $maloai = $_POST["maloaisp"];
+        if(isset($_POST["maloaisp"]) || isset($_POST["maloaisanpham"]) || isset($_POST["limit"])) {
+            $maloaith = $_POST["maloaisp"];
+            $maloaisanpham = $_POST["maloaisanpham"];
             $limit = $_POST["limit"];
         }
 
         echo "{";
         echo "\"DANHSACHSANPHAM\":";
 
-        $chuoijson = LayDanhSachSanPhamTheoMaLoaiThuongHieu($conn, $maloai, $chuoijson, $limit);
+        $chuoijson = LayDanhSachSanPhamTheoMaLoaiThuongHieu($conn, $maloaith, $maloaisanpham, $chuoijson, $limit);
 
         echo json_encode($chuoijson, JSON_UNESCAPED_UNICODE);
         echo "}";
@@ -371,15 +385,33 @@
                     ORDER BY MASP DESC LIMIT 20";
         $ketqua = mysqli_query($conn, $truyvan);
         $chuoijson = array();
+        $ngayhientai = date("Y/m/d");
 
         echo "{";
         echo "\"DANHSACHSANPHAMMOIVE\":";
         if($ketqua) {
             while ($dong = mysqli_fetch_array($ketqua)) {
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dong["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
+                }
+
                 array_push($chuoijson, array('MASP' => $dong["MASP"],
                                             'TENSP' => $dong["TENSP"],
                                             'GIATIEN' => $dong["GIA"],
-                                            'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["ANHLON"]
+                                            'HINHSANPHAM'=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["ANHLON"],
+                                            'PHANTRAMKM'=>$phantramkm
                                         ));
             }
         }
@@ -429,7 +461,7 @@
 
                 if($ketquacon) {
                     while ($dongcon = mysqli_fetch_array($ketquacon)) {
-                        $chuoijson = LayDanhSachSanPhamTheoMaLoai($conn, $dongcon["MALOAISP"], $chuoijson, 10);
+                        $chuoijson = LayTopDanhSachSanPhamTheoMaLoai($conn, $dongcon["MALOAISP"], $chuoijson, 10);
                     }
                 }
 
@@ -480,6 +512,7 @@
     }
 
     function LayDanhSachSanPhamDanhMucTheoMaLoai($conn, $maloaisp, $chuoijson, $limit) {
+        $ngayhientai = date("Y/m/d");
         $truyvanmaloai = "SELECT * FROM loaisanpham lsp, sanpham sp
                     WHERE lsp.MALOAISP = ".$maloaisp." AND lsp.MALOAISP = sp.MALOAISP
                     ORDER BY sp.LUOTMUA DESC LIMIT ".$limit.", 20";
@@ -487,11 +520,27 @@
 
         if($ketqua) {
             while ($dongmaloai= mysqli_fetch_array($ketqua)) {
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dongmaloai["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
+                }
                 array_push($chuoijson, array("MASP"=>$dongmaloai["MASP"],
                                             "TENSP"=>$dongmaloai["TENSP"],
                                             "GIATIEN"=>$dongmaloai["GIA"],
                                             "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHLON"],
-                                            "HINHSANPHAMNHO"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHNHO"]
+                                            "HINHSANPHAMNHO"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHNHO"],
+                                            'PHANTRAMKM'=>$phantramkm
                                         ));
             }
         }
@@ -499,19 +548,36 @@
         return $chuoijson;
     }
 
-    function LayDanhSachSanPhamTheoMaLoaiThuongHieu($conn, $maloaith, $chuoijson, $limit) {
+    function LayDanhSachSanPhamTheoMaLoaiThuongHieu($conn, $maloaith, $maloaisp, $chuoijson, $limit) {
+        $ngayhientai = date("Y/m/d");
         $truyvanmaloai = "SELECT * FROM thuonghieu th, sanpham sp
-                    WHERE th.MATHUONGHIEU = ".$maloaith." AND th.MATHUONGHIEU = sp.MATHUONGHIEU
+                    WHERE th.MATHUONGHIEU = ".$maloaith." AND sp.MALOAISP = ".$maloaisp." AND th.MATHUONGHIEU = sp.MATHUONGHIEU
                     ORDER BY sp.LUOTMUA DESC LIMIT ".$limit.", 20";
         $ketqua = mysqli_query($conn, $truyvanmaloai);
 
         if($ketqua) {
             while ($dongmaloai= mysqli_fetch_array($ketqua)) {
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dongmaloai["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
+                }
                 array_push($chuoijson, array("MASP"=>$dongmaloai["MASP"],
                                             "TENSP"=>$dongmaloai["TENSP"],
                                             "GIATIEN"=>$dongmaloai["GIA"],
                                             "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHLON"],
-                                            "HINHSANPHAMNHO"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHNHO"]
+                                            "HINHSANPHAMNHO"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHNHO"],
+                                            'PHANTRAMKM'=>$phantramkm
                                         ));
             }
         }
@@ -520,6 +586,51 @@
     }
 
     function LayDanhSachSanPhamTheoMaLoai($conn, $maloaisp, $chuoijson, $limit) {
+        $ngayhientai = date("Y/m/d");
+
+        // $truyvanmaloai = "SELECT * FROM loaisanpham lsp, sanpham sp
+        //             WHERE lsp.MALOAISP = ".$maloaisp." AND lsp.MALOAISP = sp.MALOAISP
+        //             ORDER BY sp.LUOTMUA DESC LIMIT ".$limit;
+        $truyvanmaloai = "SELECT min(lsp.MALOAISP) as MALOAISP, sp.MASP, lsp.TENLOAISP, sp.GIA, sp.ANHLON, sp.ANHNHO
+                        FROM loaisanpham lsp, sanpham sp
+                        WHERE lsp.MALOAISP = ".$maloaisp." AND lsp.MALOAISP = sp.MALOAISP
+                        GROUP BY lsp.MALOAISP
+                        ORDER BY sp.LUOTMUA DESC LIMIT ".$limit;
+        $ketqua = mysqli_query($conn, $truyvanmaloai);
+
+        if($ketqua) {
+            while ($dongmaloai= mysqli_fetch_array($ketqua)) {
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dongmaloai["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
+                }
+                array_push($chuoijson, array("MASP"=>$dongmaloai["MALOAISP"],
+                                            "TENSP"=>$dongmaloai["TENLOAISP"],
+                                            "GIATIEN"=>$dongmaloai["GIA"],
+                                            "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHLON"],
+                                            "HINHSANPHAMNHO"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHNHO"],
+                                            'PHANTRAMKM'=>$phantramkm
+                                        ));
+            }
+        }
+
+        return $chuoijson;
+    }
+
+    function LayTopDanhSachSanPhamTheoMaLoai($conn, $maloaisp, $chuoijson, $limit) {
+        $ngayhientai = date("Y/m/d");
+
         $truyvanmaloai = "SELECT * FROM loaisanpham lsp, sanpham sp
                     WHERE lsp.MALOAISP = ".$maloaisp." AND lsp.MALOAISP = sp.MALOAISP
                     ORDER BY sp.LUOTMUA DESC LIMIT ".$limit;
@@ -527,11 +638,28 @@
 
         if($ketqua) {
             while ($dongmaloai= mysqli_fetch_array($ketqua)) {
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dongmaloai["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
+                }
                 array_push($chuoijson, array("MASP"=>$dongmaloai["MASP"],
-                                            "TENSP"=>$dongmaloai["TENLOAISP"],
+                                            "TENSP"=>$dongmaloai["TENSP"],
                                             "GIATIEN"=>$dongmaloai["GIA"],
                                             "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHLON"],
-                                            "HINHSANPHAMNHO"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHNHO"]
+                                            "HINHSANPHAMNHO"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmaloai["ANHNHO"],
+                                            "MALOAISP"=>$dongmaloai["MALOAISP"],
+                                            'PHANTRAMKM'=>$phantramkm
                                         ));
             }
         }
@@ -554,10 +682,15 @@
         if($ketqua) {
             while ($dong=mysqli_fetch_array($ketqua)) {
 
-                //lấy danh sách phụ kiện con
-                $truyvanphukiencon = "SELECT * FROM loaisanpham lsp, sanpham sp
-                            WHERE lsp.MALOAI_CHA = ".$dong["MALOAISP"]." AND lsp.MALOAISP = sp.MALOAISP
-                            ORDER BY sp.LUOTMUA DESC LIMIT 10";
+                // lấy danh sách phụ kiện con
+                // $truyvanphukiencon = "SELECT * FROM loaisanpham lsp, sanpham sp
+                //             WHERE lsp.MALOAI_CHA = ".$dong["MALOAISP"]." AND lsp.MALOAISP = sp.MALOAISP
+                //             ORDER BY sp.LUOTMUA DESC LIMIT 20";
+                $truyvanphukiencon = "SELECT min(lsp.MALOAISP) as MALOAISP, lsp.TENLOAISP, sp.GIA, sp.ANHLON
+                                    FROM loaisanpham lsp, sanpham sp
+                                    WHERE lsp.MALOAI_CHA = ".$dong["MALOAISP"]." AND lsp.MALOAISP = sp.MALOAISP
+                                    GROUP BY lsp.MALOAISP
+                                    ORDER BY sp.LUOTMUA DESC LIMIT 20";
                 $ketquacon = mysqli_query($conn, $truyvanphukiencon);
 
                 if($ketquacon) {
@@ -586,6 +719,7 @@
                     WHERE lsp.TENLOAISP LIKE 'phụ kiện điện thoại%'";
         $ketqua = mysqli_query($conn, $truyvan);
         $chuoijson = array();
+        $ngayhientai = date("Y/m/d");
 
         echo "{";
         echo "\"TOPPHUKIEN\":";
@@ -600,10 +734,28 @@
 
                 if($ketquacon) {
                     while ($dongphukiencon = mysqli_fetch_array($ketquacon)) {
+                        $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                                    FROM khuyenmai km, chitietkhuyenmai ctkm
+                                    WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dongphukiencon["MASP"]."'";
+                        $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                        $phantramkm = 0;
+                        if($ketquakhuyenmai){
+                            while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                                $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                                if($thoigiankm > 0){
+                                    $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                                }
+                            }
+                        }
+
                         array_push($chuoijson, array("MASP"=>$dongphukiencon["MASP"],
                                                     "TENSP"=>$dongphukiencon["TENSP"],
                                                     "GIATIEN"=>$dongphukiencon["GIA"],
-                                                    "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongphukiencon["ANHLON"]
+                                                    "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongphukiencon["ANHLON"],
+                                                    "MALOAISP"=>$dongphukiencon["MALOAISP"],
+                                                    'PHANTRAMKM'=>$phantramkm
                                                 ));
                     }
                 }
@@ -630,10 +782,28 @@
         echo "\"TOPDIENTHOAI&MAYTINHBANG\":";
         if($ketqua) {
             while ($dong=mysqli_fetch_array($ketqua)) {
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dong["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
+                }
+
                 array_push($chuoijson, array("MASP"=>$dong["MASP"],
                                             "TENSP"=>$dong["TENSP"],
                                             "GIATIEN"=>$dong["GIA"],
-                                            "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["ANHLON"]
+                                            "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["ANHLON"],
+                                            "MALOAISP"=>$dong["MALOAISP"],
+                                            'PHANTRAMKM'=>$phantramkm
                                         ));
             }
             // echo json_encode($chuoijson, JSON_UNESCAPED_UNICODE);
@@ -647,10 +817,28 @@
 
         if($ketquamtb) {
             while ($dongmtb=mysqli_fetch_array($ketquamtb)) {
+                $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                            FROM khuyenmai km, chitietkhuyenmai ctkm
+                            WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$dong["MASP"]."'";
+                $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+                $phantramkm = 0;
+                if($ketquakhuyenmai){
+                    while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                        $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                        if($thoigiankm > 0){
+                            $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                        }
+                    }
+                }
+
                 array_push($chuoijson, array("MASP"=>$dongmtb["MASP"],
                                             "TENSP"=>$dongmtb["TENSP"],
                                             "GIATIEN"=>$dongmtb["GIA"],
-                                            "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmtb["ANHLON"]
+                                            "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dongmtb["ANHLON"],
+                                            "MALOAISP"=>$dong["MALOAISP"],
+                                            'PHANTRAMKM'=>$phantramkm
                                         ));
             }
         }
@@ -676,7 +864,9 @@
             while ($dong=mysqli_fetch_array($ketqua)) {
                 array_push($chuoijson, array("MASP"=>$dong["MATHUONGHIEU"],
                                             "TENSP"=>$dong["TENTHUONGHIEU"],
-                                            "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["HINHLOAISPTH"]));
+                                            "HINHSANPHAM"=>"http://".$_SERVER['SERVER_NAME']."/weblazada".$dong["HINHLOAISPTH"],
+                                            "MALOAISP"=>$dong["MALOAISP"]
+                                        ));
             }
             echo json_encode($chuoijson, JSON_UNESCAPED_UNICODE);
         }

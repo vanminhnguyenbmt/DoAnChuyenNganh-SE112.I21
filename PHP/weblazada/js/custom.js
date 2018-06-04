@@ -173,7 +173,7 @@ $(document).ready(function() {
 	//Phân trang cho sản phẩm
 	$('#phantrangsanpham').bootpag({
 	    total: $("#phantrangsanpham").attr("data-tongsotrang"),
-	    maxVisible: 5,
+	    maxVisible: 10,
 	    page: 1
 	}).on("page", function(event, trang){
 	    $.ajax({

@@ -36,11 +36,11 @@
                         android:id="@+id/toolBar"
                         android:layout_width="match_parent"
                         android:layout_height="?android:attr/actionBarSize"
-                        app:logo="@mipmap/logo"
                         app:theme="@style/menuitemcolor"
                         app:layout_scrollFlags="scroll|enterAlways"
                         app:layout_collapseMode="pin"
                         />
+                    <!--app:logo="@mipmap/logo"-->
 
                     <LinearLayout
                         android:id="@+id/lnSearch"
@@ -93,7 +93,9 @@
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:tabMode="scrollable"
+                    app:tabMaxWidth="0dp"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
                     app:tabTextColor="@color/colorGray"
                     app:tabTextAppearance="@style/capfalse"
                     app:tabSelectedTextColor="@color/colorGray"

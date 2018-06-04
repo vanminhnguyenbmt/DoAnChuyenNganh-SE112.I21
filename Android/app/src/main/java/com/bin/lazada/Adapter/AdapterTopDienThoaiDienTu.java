@@ -80,7 +80,11 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
             NumberFormat numberFormat = new DecimalFormat("###,###");
             String gia = numberFormat.format(giatien).toString();
 
-            holder.txtGiamGia.setVisibility(View.VISIBLE);
+            if(phantramkm <= 0) {
+                holder.txtGiamGia.setVisibility(View.GONE);
+            }else {
+                holder.txtGiamGia.setVisibility(View.VISIBLE);
+            }
             holder.txtGiamGia.setPaintFlags(holder.txtGiamGia.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.txtGiamGia.setText(gia + " VNĐ ");
 

@@ -1,7 +1,11 @@
 package com.bin.lazada.Model.TrangChu_DienTu;
 
+import android.util.Log;
+
 import com.bin.lazada.ConnectInternet.DownloadJSON;
 import com.bin.lazada.Model.TrangChu.XuLyMenu.XuLyJSONMenu;
+import com.bin.lazada.ObjectClass.ChiTietKhuyenMai;
+import com.bin.lazada.ObjectClass.ChiTietThuongHieu;
 import com.bin.lazada.ObjectClass.SanPham;
 import com.bin.lazada.ObjectClass.ThuongHieu;
 import com.bin.lazada.View.TrangChu.TrangChuActivity;
@@ -49,6 +53,11 @@ public class ModelDienTu {
                 sanPham.setGIA(object.getInt("GIATIEN"));
                 sanPham.setANHLON(object.getString("HINHSANPHAM"));
 
+                ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai();
+                chiTietKhuyenMai.setPHANTRAMKM(object.getInt("PHANTRAMKM"));
+
+                sanPham.setChiTietKhuyenMai(chiTietKhuyenMai);
+
                 sanPhams.add(sanPham);
             }
 
@@ -61,6 +70,54 @@ public class ModelDienTu {
         }
 
         return sanPhams;
+    }
+
+    public List<ThuongHieu> LayDanhSachThuongHieuNho(String tenham, String tenmang) {
+        List<ThuongHieu> thuongHieuList = new ArrayList<>();
+
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        String dataJSON = "";
+
+        String duongdan = TrangChuActivity.SERVER_NAME;
+
+        HashMap<String, String> hsHam = new HashMap<>();
+        hsHam.put("ham", tenham);
+
+        attrs.add(hsHam);
+
+        DownloadJSON downloadJSON = new DownloadJSON(duongdan, attrs);
+        downloadJSON.execute();
+
+        try {
+            dataJSON = downloadJSON.get();
+
+            JSONObject jsonObject = new JSONObject(dataJSON);
+            JSONArray jsonArrayDanhSachThuongHieu = jsonObject.getJSONArray(tenmang);
+            int dem = jsonArrayDanhSachThuongHieu.length();
+            for(int i = 0; i < dem; i++) {
+                ThuongHieu thuongHieu = new ThuongHieu();
+                JSONObject object = jsonArrayDanhSachThuongHieu.getJSONObject(i);
+
+                thuongHieu.setMATHUONGHIEU(object.getInt("MASP"));
+                thuongHieu.setTENTHUONGHIEU(object.getString("TENSP"));
+                thuongHieu.setHINHTHUONGHIEU(object.getString("HINHSANPHAM"));
+
+                ChiTietThuongHieu chiTietThuongHieu = new ChiTietThuongHieu();
+                chiTietThuongHieu.setMALOAISP(object.getInt("MASP"));
+                thuongHieu.setChiTietThuongHieu(chiTietThuongHieu);
+
+                thuongHieuList.add(thuongHieu);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return thuongHieuList;
     }
 
     public List<ThuongHieu> LayDanhSachThuongHieuLon(String tenham, String tenmang) {
@@ -93,7 +150,15 @@ public class ModelDienTu {
                 thuongHieu.setTENTHUONGHIEU(object.getString("TENSP"));
                 thuongHieu.setHINHTHUONGHIEU(object.getString("HINHSANPHAM"));
 
+                ChiTietThuongHieu chiTietThuongHieu = new ChiTietThuongHieu();
+                chiTietThuongHieu.setMATHUONGHIEU(object.getInt("MASP"));
+                chiTietThuongHieu.setMALOAISP(object.getInt("MALOAISP"));
+
+                thuongHieu.setChiTietThuongHieu(chiTietThuongHieu);
+
                 thuongHieuList.add(thuongHieu);
+
+//                Log.d("kiemtra", thuongHieuList.get(i).getMATHUONGHIEU() + "-" + thuongHieuList.get(i).getChiTietThuongHieu().getMALOAISP());
             }
 
         } catch (InterruptedException e) {

@@ -1,5 +1,6 @@
 package com.bin.lazada.Presenter.HienThiSanPhamTheoDanhMuc;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -21,13 +22,12 @@ public class PresenterLogicHienThiSanPhamTheoDanhMuc implements IPresenterHienTh
     }
 
     @Override
-    public void LayDanhSachSanPhamTheoMaLoai(int masp, boolean kiemtra) {
+    public void LayDanhSachSanPhamTheoMaLoai(int masp, int maloaisp, boolean kiemtra) {
         List<SanPham> sanPhamList = new ArrayList<>();
-
         if(kiemtra) {
-            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, "LayDanhSachSanPhamTheoMaThuongHieu","DANHSACHSANPHAM", 0);
+            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp,"LayDanhSachSanPhamTheoMaThuongHieu","DANHSACHSANPHAM", 0);
         }else {
-            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, "LayDanhSachSanPhamTheoMaLoaiDanhMuc","DANHSACHSANPHAM", 0);
+            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp,"LayDanhSachSanPhamTheoMaLoaiDanhMuc","DANHSACHSANPHAM", 0);
         }
 
         if(sanPhamList.size() > 0 ) {
@@ -37,19 +37,19 @@ public class PresenterLogicHienThiSanPhamTheoDanhMuc implements IPresenterHienTh
         }
     }
 
-    public List<SanPham> LayDanhSachSanPhamTheoMaLoaiLoadMore(int masp, boolean kiemtra, int limit, ProgressBar progressBar) {
-        progressBar.setVisibility(View.VISIBLE);
+    public List<SanPham> LayDanhSachSanPhamTheoMaLoaiLoadMore(int masp, int maloaisp, boolean kiemtra, int limit, ProgressBar progressBar) {
+//        progressBar.setVisibility(View.VISIBLE);
         List<SanPham> sanPhamList = new ArrayList<>();
 
         if(kiemtra) {
-            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, "LayDanhSachSanPhamTheoMaThuongHieu","DANHSACHSANPHAM", limit);
+            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp,"LayDanhSachSanPhamTheoMaThuongHieu","DANHSACHSANPHAM", limit);
         }else {
-            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, "LayDanhSachSanPhamTheoMaLoaiDanhMuc","DANHSACHSANPHAM", limit);
+            sanPhamList = modelHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp,"LayDanhSachSanPhamTheoMaLoaiDanhMuc","DANHSACHSANPHAM", limit);
         }
 
-        if(sanPhamList.size() != 0) {
-            progressBar.setVisibility(View.GONE);
-        }
+//        if(sanPhamList.size() > 0) {
+//            progressBar.setVisibility(View.GONE);
+//        }
 
         return sanPhamList;
     }

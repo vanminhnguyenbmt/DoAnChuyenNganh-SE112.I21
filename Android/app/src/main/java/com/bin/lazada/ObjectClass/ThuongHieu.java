@@ -3,6 +3,15 @@ package com.bin.lazada.ObjectClass;
 public class ThuongHieu {
     int MATHUONGHIEU, LUOTMUA;
     String TENTHUONGHIEU, HINHTHUONGHIEU;
+    ChiTietThuongHieu chiTietThuongHieu;
+
+    public ChiTietThuongHieu getChiTietThuongHieu() {
+        return chiTietThuongHieu;
+    }
+
+    public void setChiTietThuongHieu(ChiTietThuongHieu chiTietThuongHieu) {
+        this.chiTietThuongHieu = chiTietThuongHieu;
+    }
 
     public int getMATHUONGHIEU() {
         return MATHUONGHIEU;

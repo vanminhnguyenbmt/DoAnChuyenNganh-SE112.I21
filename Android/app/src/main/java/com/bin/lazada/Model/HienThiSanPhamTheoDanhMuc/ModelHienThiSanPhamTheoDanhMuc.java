@@ -1,6 +1,9 @@
 package com.bin.lazada.Model.HienThiSanPhamTheoDanhMuc;
 
+import android.util.Log;
+
 import com.bin.lazada.ConnectInternet.DownloadJSON;
+import com.bin.lazada.ObjectClass.ChiTietKhuyenMai;
 import com.bin.lazada.ObjectClass.SanPham;
 import com.bin.lazada.View.TrangChu.TrangChuActivity;
 
@@ -15,8 +18,9 @@ import java.util.concurrent.ExecutionException;
 
 public class ModelHienThiSanPhamTheoDanhMuc {
 
-    public List<SanPham> LayDanhSachSanPhamTheoMaLoai(int masp, String tenham, String tenmang, int limit){
+    public List<SanPham> LayDanhSachSanPhamTheoMaLoai(int masp, int maloaisp, String tenham, String tenmang, int limit){
         List<SanPham> sanPhams = new ArrayList<>();
+//        Log.d("test", masp + "-" + maloaisp + "-" + tenham + "-" + tenmang + "-" +limit);
 
         List<HashMap<String, String>> attrs = new ArrayList<>();
         String dataJSON = "";
@@ -29,11 +33,15 @@ public class ModelHienThiSanPhamTheoDanhMuc {
         HashMap<String, String> hsMaLoai = new HashMap<>();
         hsMaLoai.put("maloaisp", String.valueOf(masp));
 
+        HashMap<String, String> hsMaLoaiSP = new HashMap<>();
+        hsMaLoaiSP.put("maloaisanpham", String.valueOf(maloaisp));
+
         HashMap<String, String> hsLimit = new HashMap<>();
         hsLimit.put("limit", String.valueOf(limit));
 
         attrs.add(hsHam);
         attrs.add(hsMaLoai);
+        attrs.add(hsMaLoaiSP);
         attrs.add(hsLimit);
 
         DownloadJSON downloadJSON = new DownloadJSON(duongdan, attrs);
@@ -54,6 +62,11 @@ public class ModelHienThiSanPhamTheoDanhMuc {
                 sanPham.setGIA(object.getInt("GIATIEN"));
                 sanPham.setANHLON(object.getString("HINHSANPHAM"));
                 sanPham.setANHNHO(object.getString("HINHSANPHAMNHO"));
+
+                ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai();
+                chiTietKhuyenMai.setPHANTRAMKM(object.getInt("PHANTRAMKM"));
+
+                sanPham.setChiTietKhuyenMai(chiTietKhuyenMai);
 
                 sanPhams.add(sanPham);
             }

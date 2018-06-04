@@ -80,18 +80,24 @@ public class DanhSachDanhGiaActivity extends AppCompatActivity implements ViewDa
     }
 
     @Override
-    public void HienThiDanhSachDanhGiaTheoSanPham(List<DanhGia> danhGiaList) {
+    public void HienThiDanhSachDanhGiaTheoSanPham(final List<DanhGia> danhGiaList) {
         tatcaDanhGia.addAll(danhGiaList);
         if(tatcaDanhGia.size() !=0 ) {
             progressBar.setVisibility(View.GONE);
         }
-        AdapterDanhGia adapterDanhGia = new AdapterDanhGia(this, tatcaDanhGia, 0);
+        final AdapterDanhGia adapterDanhGia = new AdapterDanhGia(this, tatcaDanhGia, 0);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerDanhSachDanhGia.setLayoutManager(layoutManager);
         recyclerDanhSachDanhGia.setAdapter(adapterDanhGia);
         recyclerDanhSachDanhGia.addOnScrollListener(new LoadMoreScroll(layoutManager, this));
-        adapterDanhGia.notifyDataSetChanged();
+        recyclerDanhSachDanhGia.post(new Runnable() {
+            @Override
+            public void run() {
+                adapterDanhGia.notifyItemInserted(danhGiaList.size() - 1);
+                adapterDanhGia.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override

@@ -49,7 +49,7 @@ public class HienThiSanPhamTheoDanhMucActivity extends Fragment implements ViewH
     RecyclerView.LayoutManager layoutManager;
     PresenterLogicHienThiSanPhamTheoDanhMuc sanPhamTheoDanhMuc;
     AdapterTopDienThoaiDienTu adapterTopDienThoaiDienTu;
-    int masp;
+    int masp, maloaisp;
     boolean kiemtra;
     Toolbar toolbar;
     List<SanPham> sanPhamList1;
@@ -72,11 +72,12 @@ public class HienThiSanPhamTheoDanhMucActivity extends Fragment implements ViewH
 
         Bundle bundle = getArguments();
         masp = bundle.getInt("MALOAI", 0);
+        maloaisp = bundle.getInt("MALOAISP", 0);
         String tensanpham = bundle.getString("TENLOAI");
         kiemtra = bundle.getBoolean("KIEMTRA", false);
 
         sanPhamTheoDanhMuc = new PresenterLogicHienThiSanPhamTheoDanhMuc(this);
-        sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, kiemtra);
+        sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp, kiemtra);
 
         btnThayDoiTrangThaiRecycler.setOnClickListener(this);
 
@@ -208,17 +209,24 @@ public class HienThiSanPhamTheoDanhMucActivity extends Fragment implements ViewH
         switch (id) {
             case R.id.btnThayDoiTrangThaiRecycler:
                 danggrid = !danggrid;
-                sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, kiemtra);
+                sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp, kiemtra);
                 break;
         }
     }
 
     @Override
-    public void LoadMore(int tongitem) {
-        List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoaiLoadMore(masp, kiemtra, tongitem, progressBar);
+    public void LoadMore(final int tongitem) {
+        List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoaiLoadMore(masp, maloaisp, kiemtra, tongitem, progressBar);
         sanPhamList1.addAll(sanPhamsLoadMore);
 
-        adapterTopDienThoaiDienTu.notifyDataSetChanged();
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                adapterTopDienThoaiDienTu.notifyItemInserted(tongitem - 1);
+                adapterTopDienThoaiDienTu.notifyDataSetChanged();
+            }
+        });
+
     }
 
 

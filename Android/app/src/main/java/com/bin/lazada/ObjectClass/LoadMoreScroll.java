@@ -11,7 +11,7 @@ public class LoadMoreScroll extends RecyclerView.OnScrollListener {
 
     int itemandautien = 0;
     int tongitem = 0;
-    int itemloadtruoc = 5;
+    int itemloadtruoc = 10;
     RecyclerView.LayoutManager layoutManager;
     ILoadMore iLoadMore;
     private boolean isLoading;
@@ -19,7 +19,7 @@ public class LoadMoreScroll extends RecyclerView.OnScrollListener {
     public LoadMoreScroll(RecyclerView.LayoutManager layoutManager, ILoadMore iLoadMore) {
         this.layoutManager = layoutManager;
         this.iLoadMore = iLoadMore;
-        setLoaded();
+        this.isLoading = false;
     }
 
     @Override
@@ -29,23 +29,23 @@ public class LoadMoreScroll extends RecyclerView.OnScrollListener {
         tongitem = layoutManager.getItemCount();
 
         if(layoutManager instanceof LinearLayoutManager) {
-            itemandautien = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+            itemandautien = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
         }else if(layoutManager instanceof GridLayoutManager){
-            itemandautien = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
+            itemandautien = ((GridLayoutManager) layoutManager).findFirstVisibleItemPosition();
+        }
+//        Log.d("testsc", "tongitem:"+ tongitem + "-" + "itemandautien:" + itemandautien + "-" + "itemloadtruoc:" + itemloadtruoc);
+        if(tongitem > (itemandautien + itemloadtruoc)) {
+            this.isLoading = false;
         }
 
         if(!isLoading && (tongitem <= (itemandautien + itemloadtruoc))) {
             iLoadMore.LoadMore(tongitem);
-            isLoading = true;
+            this.isLoading = true;
         }
     }
 
     @Override
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
-    }
-
-    public void setLoaded() {
-        isLoading = false;
     }
 }

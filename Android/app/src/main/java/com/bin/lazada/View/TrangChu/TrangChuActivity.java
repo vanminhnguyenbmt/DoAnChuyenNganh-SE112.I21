@@ -70,6 +70,7 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
     PresenterLogicChiTietSanPham presenterLogicChiTietSanPham;
     boolean onPause = false;
     Button btnTimKiem;
+    LinearLayout lnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         btnTimKiem = (Button) findViewById(R.id.btnTimKiem);
+        lnSearch = (LinearLayout) findViewById(R.id.lnSearch);
 
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -111,6 +113,19 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
         mGoogleApiClient = modelDangNhap.LayGoogleApiClient(this, this);
 
         appBarLayout.addOnOffsetChangedListener(this);
+
+        btnTimKiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = v.getId();
+                switch (id) {
+                    case R.id.btnTimKiem:
+                        Intent iSearch = new Intent(TrangChuActivity.this, TimKiemActivity.class);
+                        startActivity(iSearch);
+                        break;
+                }
+            }
+        });
     }
 
     //hiển thị menu trang chủ
@@ -214,11 +229,6 @@ public class TrangChuActivity extends AppCompatActivity implements ViewXuLyMenu,
             case R.id.itSearch:
                 Intent iTimKiem = new Intent(this, TimKiemActivity.class);
                 startActivity(iTimKiem);
-                break;
-
-            case R.id.btnTimKiem:
-                Intent iTimKiem1 = new Intent(this, TimKiemActivity.class);
-                startActivity(iTimKiem1);
                 break;
         }
 

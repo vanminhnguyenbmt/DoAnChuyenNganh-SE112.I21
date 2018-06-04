@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bin.lazada.ObjectClass.SanPham;
 import com.bin.lazada.ObjectClass.ThuongHieu;
 import com.bin.lazada.R;
 import com.bin.lazada.View.HienThiSanPhamTheoDanhMuc.HienThiSanPhamTheoDanhMucActivity;
@@ -84,9 +85,9 @@ public class AdapterThuongHieuLon extends RecyclerView.Adapter<AdapterThuongHieu
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("MALOAI", thuongHieu.getMATHUONGHIEU());
+                bundle.putInt("MALOAISP", thuongHieu.getChiTietThuongHieu().getMALOAISP());
                 bundle.putBoolean("KIEMTRA", kiemtra);
                 bundle.putString("TENLOAI", thuongHieu.getTENTHUONGHIEU());
-
                 hienThiSanPhamTheoDanhMucActivity.setArguments(bundle);
 
                 fragmentTransaction.addToBackStack("TrangChuActivity");

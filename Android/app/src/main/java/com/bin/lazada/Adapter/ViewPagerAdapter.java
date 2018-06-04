@@ -25,9 +25,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
+
         listFragment.add(new FragmentNoiBat());
-        listFragment.add(new FragmentChuongTrinhKhuyenMai());
         listFragment.add(new FragmentDienTu());
+        listFragment.add(new FragmentChuongTrinhKhuyenMai());
+
+
 //        listFragment.add(new FragmentNhaCuaVaDoiSong());
 //        listFragment.add(new FragmentMeVaBe());
 //        listFragment.add(new FragmentLamDep());
@@ -35,9 +38,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 //        listFragment.add(new FragmentTheThaoVaDuLich());
 //        listFragment.add(new FragmentThuongHieu());
 
+
         titleFragment.add("Nổi bật");
-        titleFragment.add("Chương trình khuyến mãi");
         titleFragment.add("Điện tử");
+        titleFragment.add("Khuyến mãi");
+
+
 //        titleFragment.add("Nhà cửa & đời sống");
 //        titleFragment.add("Mẹ & bé");
 //        titleFragment.add("Làm đẹp");

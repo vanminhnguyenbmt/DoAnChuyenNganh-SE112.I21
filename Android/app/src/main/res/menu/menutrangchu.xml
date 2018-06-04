@@ -30,17 +30,18 @@
                 android:title="Đăng nhập"
                 android:icon="@drawable/ic_sentiment_satisfied_black_24dp"
                 />
-            <item
-                android:id="@+id/itThongBao"
-                android:title="Thông báo"
-                android:icon="@drawable/ic_notifications_none_black_24dp"
-                />
 
-            <item
-                android:id="@+id/itMongMuon"
-                android:title="Danh sách mong muốn"
-                android:icon="@drawable/ic_favorite_border_black_24dp"
-                />
+            <!--<item-->
+                <!--android:id="@+id/itThongBao"-->
+                <!--android:title="Thông báo"-->
+                <!--android:icon="@drawable/ic_notifications_none_black_24dp"-->
+                <!--/>-->
+
+            <!--<item-->
+                <!--android:id="@+id/itMongMuon"-->
+                <!--android:title="Danh sách mong muốn"-->
+                <!--android:icon="@drawable/ic_favorite_border_black_24dp"-->
+                <!--/>-->
 
             <item
                 android:id="@+id/itDonHangCuaToi"
@@ -48,23 +49,23 @@
                 android:icon="@drawable/ic_content_paste_black_24dp"
                 />
 
-            <item
-                android:id="@+id/itCaiDat"
-                android:title="Cài đặt"
-                android:icon="@drawable/ic_settings_black_24dp"
-                />
+            <!--<item-->
+                <!--android:id="@+id/itCaiDat"-->
+                <!--android:title="Cài đặt"-->
+                <!--android:icon="@drawable/ic_settings_black_24dp"-->
+                <!--/>-->
 
-            <item
-                android:id="@+id/itChinhSach"
-                android:title="Chính sách"
-                android:icon="@drawable/ic_event_note_black_24dp"
-                />
+            <!--<item-->
+                <!--android:id="@+id/itChinhSach"-->
+                <!--android:title="Chính sách"-->
+                <!--android:icon="@drawable/ic_event_note_black_24dp"-->
+                <!--/>-->
 
-            <item
-                android:id="@+id/itTroGiup"
-                android:title="Trợ giúp"
-                android:icon="@drawable/ic_help_outline_black_24dp"
-                />
+            <!--<item-->
+                <!--android:id="@+id/itTroGiup"-->
+                <!--android:title="Trợ giúp"-->
+                <!--android:icon="@drawable/ic_help_outline_black_24dp"-->
+                <!--/>-->
 
             <item
                 android:id="@+id/itDangXuat"

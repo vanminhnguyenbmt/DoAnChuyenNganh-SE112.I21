@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class FragmentChuongTrinhKhuyenMai extends Fragment implements ViewKhuyen
 
         lnHinhKhuyenMai = (LinearLayout) view.findViewById(R.id.lnHinhKhuyenMai);
         recyclerDanhSachKhuyenMai = (RecyclerView) view.findViewById(R.id.recyclerDanhSachKhuyenMai);
+        ViewCompat.setNestedScrollingEnabled(recyclerDanhSachKhuyenMai, false);
 
         presenterLogicKhuyenMai = new PresenterLogicKhuyenMai(this);
         presenterLogicKhuyenMai.LayDanhSachKhuyenMai();
@@ -54,7 +56,7 @@ public class FragmentChuongTrinhKhuyenMai extends Fragment implements ViewKhuyen
         lnHinhKhuyenMai.removeAllViews();
         for(int i = 0; i < demhinh; i++) {
             ImageView imageView = new ImageView(getContext());
-            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200);
             layoutParams.setMargins(0, 10, 0, 10);
             imageView.setLayoutParams(layoutParams);

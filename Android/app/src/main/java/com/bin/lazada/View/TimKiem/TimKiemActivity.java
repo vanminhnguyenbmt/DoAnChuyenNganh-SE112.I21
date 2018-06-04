@@ -1,5 +1,6 @@
 package com.bin.lazada.View.TimKiem;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bin.lazada.Adapter.AdapterTopDienThoaiDienTu;
@@ -69,7 +72,12 @@ public class TimKiemActivity extends AppCompatActivity implements ViewTimKiem, I
 
         MenuItem itSearch = menu.findItem(R.id.itSearch);
         SearchView searchView = (SearchView) itSearch.getActionView();
-        searchView.setBackgroundColor(getIdColor(R.color.colorWhite));
+
+        EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(getResources().getColor(R.color.colorWhite));
+        searchEditText.setHintTextColor(getResources().getColor(R.color.colorWhite));
+
+        searchView.setQueryHint("Nhập tên sản phẩm");
         searchView.setIconified(false);
         searchView.setOnQueryTextListener(this);
 
