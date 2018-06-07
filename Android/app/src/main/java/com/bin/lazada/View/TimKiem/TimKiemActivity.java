@@ -1,12 +1,9 @@
 package com.bin.lazada.View.TimKiem;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +11,6 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,6 +28,9 @@ public class TimKiemActivity extends AppCompatActivity implements ViewTimKiem, I
     Toolbar toolbar;
     RecyclerView recyclerView;
     PresenterLogicTimKiem presenterLogicTimKiem;
+    String searchKey;
+    List<SanPham> sanphamMore;
+    AdapterTopDienThoaiDienTu adapterTopDienThoaiDienTu;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,14 +83,18 @@ public class TimKiemActivity extends AppCompatActivity implements ViewTimKiem, I
     }
 
     @Override
-    public void TimKiemThanhCong(List<SanPham> sanPhamList) {
+    public void TimKiemThanhCong(final List<SanPham> sanPhamList) {
+        sanphamMore = sanPhamList;
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        AdapterTopDienThoaiDienTu adapterTopDienThoaiDienTu = new AdapterTopDienThoaiDienTu(this, R.layout.custom_layout_list_topdienthoaivamaytinhbang, sanPhamList);
+        adapterTopDienThoaiDienTu = new AdapterTopDienThoaiDienTu(this, R.layout.custom_layout_list_topdienthoaivamaytinhbang, sanphamMore);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapterTopDienThoaiDienTu);
         recyclerView.addOnScrollListener(new LoadMoreScroll(layoutManager, this));
+
         adapterTopDienThoaiDienTu.notifyDataSetChanged();
+
     }
 
     @Override
@@ -101,12 +103,21 @@ public class TimKiemActivity extends AppCompatActivity implements ViewTimKiem, I
     }
 
     @Override
-    public void LoadMore(int tongitem) {
-
+    public void LoadMore(final int tongitem) {
+        List<SanPham> sanPhamsLoadMore = presenterLogicTimKiem.TimKiemSanPhamTheoTenSPLoadMore(searchKey, tongitem);
+        sanphamMore.addAll(sanPhamsLoadMore);
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                adapterTopDienThoaiDienTu.notifyItemInserted(tongitem - 1);
+                adapterTopDienThoaiDienTu.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        searchKey = query;
         presenterLogicTimKiem.TimKiemSanPhamTheoTenSP(query, 0);
         return false;
     }

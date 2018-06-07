@@ -56,6 +56,7 @@ public class HienThiSanPhamTheoDanhMucActivity extends Fragment implements ViewH
     boolean onPause = false;
     PresenterLogicChiTietSanPham presenterLogicChiTietSanPham;
     TextView txtGioHang;
+    String checkAdapter;
 
     @Nullable
     @Override
@@ -75,9 +76,22 @@ public class HienThiSanPhamTheoDanhMucActivity extends Fragment implements ViewH
         maloaisp = bundle.getInt("MALOAISP", 0);
         String tensanpham = bundle.getString("TENLOAI");
         kiemtra = bundle.getBoolean("KIEMTRA", false);
+        checkAdapter = bundle.getString("CHECKADAPTER");
 
         sanPhamTheoDanhMuc = new PresenterLogicHienThiSanPhamTheoDanhMuc(this);
-        sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp, kiemtra);
+        if(checkAdapter.equals("thuonghieulon")) {
+            sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp, kiemtra);
+        }else if(checkAdapter.equals("thuonghieulondientu")) {
+            sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoThuongHieu(masp);
+        }else if(checkAdapter.equals("topsku")) {
+            sanPhamTheoDanhMuc.LayDanhSachSanPhamBanChayTrongThang();
+        }else if(checkAdapter.equals("topsmartphone")) {
+            sanPhamTheoDanhMuc.LayDanhSachSmartPhoneGiaRe(maloaisp);
+        }else if(checkAdapter.equals("topluutru")) {
+            sanPhamTheoDanhMuc.LayTopDanhSachThietBiLuuTru(maloaisp);
+        }else if(checkAdapter.equals("toptivi")) {
+            sanPhamTheoDanhMuc.LayTopDanhSachTiViManHinhLon(maloaisp);
+        }
 
         btnThayDoiTrangThaiRecycler.setOnClickListener(this);
 
@@ -209,15 +223,44 @@ public class HienThiSanPhamTheoDanhMucActivity extends Fragment implements ViewH
         switch (id) {
             case R.id.btnThayDoiTrangThaiRecycler:
                 danggrid = !danggrid;
-                sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp, kiemtra);
+                if(checkAdapter.equals("thuonghieulon")) {
+                    sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp, maloaisp, kiemtra);
+                }else if (checkAdapter.equals("thuonghieulondientu")) {
+                    sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoThuongHieu(masp);
+                }else if(checkAdapter.equals("topsku")) {
+                    sanPhamTheoDanhMuc.LayDanhSachSanPhamBanChayTrongThang();
+                }else if(checkAdapter.equals("topsmartphone")) {
+                    sanPhamTheoDanhMuc.LayDanhSachSmartPhoneGiaRe(maloaisp);
+                }else if(checkAdapter.equals("topluutru")) {
+                    sanPhamTheoDanhMuc.LayTopDanhSachThietBiLuuTru(maloaisp);
+                }else if(checkAdapter.equals("toptivi")) {
+                    sanPhamTheoDanhMuc.LayTopDanhSachTiViManHinhLon(maloaisp);
+                }
                 break;
         }
     }
 
     @Override
     public void LoadMore(final int tongitem) {
-        List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoaiLoadMore(masp, maloaisp, kiemtra, tongitem, progressBar);
-        sanPhamList1.addAll(sanPhamsLoadMore);
+        if (checkAdapter.equals("thuonghieulon")) {
+            List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoaiLoadMore(masp, maloaisp, kiemtra, tongitem, progressBar);
+            sanPhamList1.addAll(sanPhamsLoadMore);
+        }else if (checkAdapter.equals("thuonghieulondientu")) {
+            List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayDanhSachSanPhamTheoThuongHieuLoadMore(masp, tongitem);
+            sanPhamList1.addAll(sanPhamsLoadMore);
+        }else if(checkAdapter.equals("topsku")) {
+            List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayDanhSachSanPhamBanChayTrongThangLoadMore(tongitem);
+            sanPhamList1.addAll(sanPhamsLoadMore);
+        }else if(checkAdapter.equals("topsmartphone")) {
+            List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayDanhSachSmartPhoneGiaReLoadMore(maloaisp, tongitem);
+            sanPhamList1.addAll(sanPhamsLoadMore);
+        }else if(checkAdapter.equals("topluutru")) {
+            List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayTopDanhSachThietBiLuuTruLoadMore(maloaisp, tongitem);
+            sanPhamList1.addAll(sanPhamsLoadMore);
+        }else if(checkAdapter.equals("toptivi")) {
+            List<SanPham> sanPhamsLoadMore = sanPhamTheoDanhMuc.LayTopDanhSachTiViManHinhLonLoadMore(maloaisp, tongitem);
+            sanPhamList1.addAll(sanPhamsLoadMore);
+        }
 
         recyclerView.post(new Runnable() {
             @Override

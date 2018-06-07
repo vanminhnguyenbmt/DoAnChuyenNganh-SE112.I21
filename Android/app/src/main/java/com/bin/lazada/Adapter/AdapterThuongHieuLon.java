@@ -88,6 +88,7 @@ public class AdapterThuongHieuLon extends RecyclerView.Adapter<AdapterThuongHieu
                 bundle.putInt("MALOAISP", thuongHieu.getChiTietThuongHieu().getMALOAISP());
                 bundle.putBoolean("KIEMTRA", kiemtra);
                 bundle.putString("TENLOAI", thuongHieu.getTENTHUONGHIEU());
+                bundle.putString("CHECKADAPTER", "thuonghieulon");
                 hienThiSanPhamTheoDanhMucActivity.setArguments(bundle);
 
                 fragmentTransaction.addToBackStack("TrangChuActivity");
@@ -99,7 +100,7 @@ public class AdapterThuongHieuLon extends RecyclerView.Adapter<AdapterThuongHieu
 
 
 
-        Picasso.get().load(thuongHieu.getHINHTHUONGHIEU()).resize(120, 120).centerInside().into(holder.imgHinhThuongHieu, new Callback() {
+        Picasso.get().load(thuongHieu.getHINHTHUONGHIEU()).resize(120, 120).centerCrop().into(holder.imgHinhThuongHieu, new Callback() {
             @Override
             public void onSuccess() {
                 holder.progressBar.setVisibility(View.GONE);

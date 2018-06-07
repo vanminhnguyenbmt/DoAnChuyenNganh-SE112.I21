@@ -142,6 +142,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
                 bundle.putInt("MALOAI", loaiSanPhams.get(groupPosition).getMALOAISP());
                 bundle.putBoolean("KIEMTRA", false);
                 bundle.putString("TENLOAI", loaiSanPhams.get(groupPosition).getTENLOAISP());
+                bundle.putString("CHECKADAPTER", "thuonghieulon");
 
                 hienThiSanPhamTheoDanhMucActivity.setArguments(bundle);
 

@@ -87,8 +87,6 @@ public class ModelGioHang {
             cursor.moveToNext();
         }
 
-        database.close();
-
         return sanPhamList;
     }
 

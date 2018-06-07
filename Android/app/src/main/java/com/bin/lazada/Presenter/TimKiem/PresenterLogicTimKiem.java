@@ -4,6 +4,7 @@ import com.bin.lazada.Model.TimKiem.ModelTimKiem;
 import com.bin.lazada.ObjectClass.SanPham;
 import com.bin.lazada.View.TimKiem.ViewTimKiem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PresenterLogicTimKiem implements IPresenterTimKiem {
@@ -25,5 +26,12 @@ public class PresenterLogicTimKiem implements IPresenterTimKiem {
         }else {
             viewTimKiem.TimKiemThatBai();
         }
+    }
+
+    public List<SanPham> TimKiemSanPhamTheoTenSPLoadMore(String tensp, int limit) {
+        List<SanPham> sanPhamList = new ArrayList<>();
+        sanPhamList = modelTimKiem.LayDanhSachSanPhamTheoTenSP(tensp, "TimKiemSanPhamTheoTenSP", "DANHSACHSANPHAM", limit);
+
+        return  sanPhamList;
     }
 }

@@ -11,7 +11,7 @@
     <color name="colorGoogle">#da4835</color>
     <color name="colorBlack">#000</color>
     <color name="colorRed">#FFF62226</color>
-    <color name="transparentBlack">#B2000000</color>
+    <color name="transparentBlack">#8C000000</color>
     <color name="colorGreen">#2fbf2c</color>
     <color name="colorSLiderInActive">#8095a1</color>
 </resources>

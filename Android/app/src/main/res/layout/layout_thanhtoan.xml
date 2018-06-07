@@ -147,9 +147,11 @@
         
         <CheckBox
             android:id="@+id/cbThoaThuan"
+            android:theme="@style/checkBoxStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tôi cam kết các thông tin trên là hoàn toàn chính xác"
+            android:textColor="@color/colorBlack"
             android:layout_marginTop="10dp"
             />
 

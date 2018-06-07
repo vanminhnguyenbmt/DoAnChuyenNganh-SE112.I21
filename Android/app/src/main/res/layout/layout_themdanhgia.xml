@@ -21,6 +21,7 @@
         android:transformPivotX="0dp"
         android:transformPivotY="0dp"
         android:theme="@style/DoiMauNgoiSaoRatingBar"
+        android:stepSize="1"
         />
 
     <android.support.design.widget.TextInputLayout

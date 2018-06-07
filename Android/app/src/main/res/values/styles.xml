@@ -34,4 +34,9 @@
     <style name="DoiMauNgoiSaoRatingBar" parent="AppTheme">
         <item name="android:colorControlNormal">@color/bgLogo</item>
     </style>
+
+    <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/bgLogo</item>
+        <item name="android:textColorSecondary">@color/colorGray</item>
+    </style>
 </resources>

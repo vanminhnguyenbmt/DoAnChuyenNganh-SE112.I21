@@ -10,28 +10,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bin.lazada.ObjectClass.DienTu;
+import com.bin.lazada.ObjectClass.KhuyenMai;
+import com.bin.lazada.Presenter.KhuyenMai.PresenterLogicKhuyenMai;
 import com.bin.lazada.R;
+import com.bin.lazada.View.TrangChu.ViewKhuyenMai;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class AdapterDienTu extends RecyclerView.Adapter<AdapterDienTu.ViewHolderDienTu> {
+public class AdapterDienTu extends RecyclerView.Adapter<AdapterDienTu.ViewHolderDienTu> implements ViewKhuyenMai{
 
     Context context;
     List<DienTu> dienTuList;
+    List<KhuyenMai> khuyenMaiList;
 
     public AdapterDienTu(Context context, List<DienTu> dienTuList) {
         this.context = context;
         this.dienTuList = dienTuList;
     }
 
+    @Override
+    public void HienThiDanhSachKhuyenMai(List<KhuyenMai> khuyenMaiList) {
+        this.khuyenMaiList = khuyenMaiList;
+    }
+
     public class ViewHolderDienTu extends RecyclerView.ViewHolder {
-        ImageView imgHinhKhuyenMaiDienTu;
+
         RecyclerView recyclerViewThuongHieuLon, recyclerViewTopSanPham;
         TextView txtTieuDeSanPhamNoiBat, txtTopSanPhamNoiBat;
+        ImageView imgHinhKhuyenMaiDienTu;
 
         public ViewHolderDienTu(View itemView) {
             super(itemView);
@@ -51,6 +62,8 @@ public class AdapterDienTu extends RecyclerView.Adapter<AdapterDienTu.ViewHolder
         View view = layoutInflater.inflate(R.layout.custom_layout_recyclerview_dientu, parent, false);
 
         ViewHolderDienTu viewHolderDienTu = new ViewHolderDienTu(view);
+        PresenterLogicKhuyenMai presenterLogicKhuyenMai = new PresenterLogicKhuyenMai(this);
+        presenterLogicKhuyenMai.LayDanhSachKhuyenMai();
 
         return viewHolderDienTu;
     }
@@ -60,6 +73,7 @@ public class AdapterDienTu extends RecyclerView.Adapter<AdapterDienTu.ViewHolder
         DienTu dienTu = dienTuList.get(position);
         holder.txtTieuDeSanPhamNoiBat.setText(dienTu.getTenNoiBat().toString());
         holder.txtTopSanPhamNoiBat.setText(dienTu.getTenTopNoiBat().toString());
+        Picasso.get().load(khuyenMaiList.get(position).getHINHKHUYENMAI()).resize(700, 200).into(holder.imgHinhKhuyenMaiDienTu);
 
         //hiển thị danh sách thương hiệu lớn (RecyclerView thương hiệu lớn)
         AdapterThuongHieuLon adapterThuongHieuLon = new AdapterThuongHieuLon(context, dienTu.getThuongHieus(), dienTu.getThuonghieu());
