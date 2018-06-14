@@ -73,6 +73,7 @@ public class AdapterDienTu extends RecyclerView.Adapter<AdapterDienTu.ViewHolder
         DienTu dienTu = dienTuList.get(position);
         holder.txtTieuDeSanPhamNoiBat.setText(dienTu.getTenNoiBat().toString());
         holder.txtTopSanPhamNoiBat.setText(dienTu.getTenTopNoiBat().toString());
+
         Picasso.get().load(khuyenMaiList.get(position).getHINHKHUYENMAI()).resize(700, 200).into(holder.imgHinhKhuyenMaiDienTu);
 
         //hiển thị danh sách thương hiệu lớn (RecyclerView thương hiệu lớn)

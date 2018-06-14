@@ -962,10 +962,10 @@ INSERT INTO `danhgia` (`MADG`, `MASP`, `TENTHIETBI`, `TIEUDE`, `NOIDUNG`, `SOSAO
 
 
 INSERT INTO `khuyenmai` (`MAKM`, `MALOAISP`, `TENKM`, `NGAYBATDAU`, `NGAYKETTHUC`, `HINHKHUYENMAI`) VALUES
-(1, 2, 'Xã hàng hot đến 49%', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/con loc giam gia mua he.png'),
-(2, 2, 'Giải nhiệt mùa hè giảm ngay 50%', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/khuyen mai ta quan ta dan.jpg'),
-(3, 2, 'Hè này mua gì ?', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/du lich.jpg'),
-(4, 3, 'Festival salve !', '2018/05/10', '2018/06/10', '/hinhkhuyenmai/festival sale 90.jpg');
+(1, 2, 'Xã hàng hot đến 49%', '2018/05/10', '2018/07/07', '/hinhkhuyenmai/con loc giam gia mua he.png'),
+(2, 2, 'Giải nhiệt mùa hè giảm ngay 50%', '2018/07/07', '2018/06/10', '/hinhkhuyenmai/khuyen mai ta quan ta dan.jpg'),
+(3, 2, 'Hè này mua gì ?', '2018/05/10', '2018/07/07', '/hinhkhuyenmai/du lich.jpg'),
+(4, 3, 'Festival salve !', '2018/05/10', '2018/07/07', '/hinhkhuyenmai/festival sale 90.jpg');
 
 
 

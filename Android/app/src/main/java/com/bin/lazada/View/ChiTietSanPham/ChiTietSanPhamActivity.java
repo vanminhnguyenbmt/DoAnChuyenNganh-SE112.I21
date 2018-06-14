@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -141,6 +142,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
                 giatien = giatien - giatien * phantramkm/100;
             }
         }
+        sanPhamGioHang.setGIA(giatien);
 
         NumberFormat numberFormat = new DecimalFormat("###,###");
         String gia = numberFormat.format(giatien).toString();
@@ -252,26 +254,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
         viewPager.addOnPageChangeListener(this);
     }
 
-    @Override
-    public void HienThiDanhGia(List<DanhGia> danhGiaList) {
-        AdapterDanhGia adapterDanhGia = new AdapterDanhGia(this, danhGiaList, 2);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerDanhGiaChiTiet.setLayoutManager(layoutManager);
-        recyclerDanhGiaChiTiet.setAdapter(adapterDanhGia);
-        adapterDanhGia.notifyDataSetChanged();
-    }
-
-    @Override
-    public void ThemGioHangThanhCong() {
-        Toast.makeText(this, "Sản phẩm đã được thêm vào giỏ hàng !", Toast.LENGTH_SHORT).show();
-        txtGioHang.setText(String.valueOf(presenterLogicChiTietSanPham.DemSanPhamCoTrongGioHang(this)));
-    }
-
-    @Override
-    public void ThemGioHangThatBai() {
-        Toast.makeText(this, "Sản phẩm đã có trong giỏ hàng !", Toast.LENGTH_SHORT).show();
-    }
-
     private void ThemDotSlider(int vitrihientai) {
         txtDots = new TextView[fragmentList.size()];
 
@@ -339,7 +321,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
                 startActivity(iDanhSachDanhGia);
                 break;
             case R.id.imgThemGioHang:
-                Fragment fragment = fragmentList.get(viewPager.getCurrentItem());
+                Fragment fragment = fragmentList.get(0);
                 View view = fragment.getView();
                 ImageView imageView = (ImageView) view.findViewById(R.id.imgHinhSlider);
                 Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
@@ -350,12 +332,18 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
                 sanPhamGioHang.setHinhgiohang(hinhsanphamgiohang);
                 sanPhamGioHang.setSOLUONG(1);
 
-                presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang, this);
+                try {
+                    presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang, this);
+                }catch (Exception e)
+                {
+                    Log.d("eCart", e.toString());
+                    System.out.println(e);
+                }
                 break;
 
             case R.id.btnMuaNgay:
                 //thêm sản phẩm vào giỏ hàng
-                Fragment fragment1 = fragmentList.get(viewPager.getCurrentItem());
+                Fragment fragment1 = fragmentList.get(0);
                 View view1 = fragment1.getView();
                 ImageView imageView1 = (ImageView) view1.findViewById(R.id.imgHinhSlider);
                 Bitmap bitmap1 = ((BitmapDrawable)imageView1.getDrawable()).getBitmap();
@@ -363,16 +351,43 @@ public class ChiTietSanPhamActivity extends AppCompatActivity implements ViewChi
                 ByteArrayOutputStream byteArrayOutputStream1 = new ByteArrayOutputStream();
                 bitmap1.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream1);
                 byte[] hinhsanphamgiohang1 = byteArrayOutputStream1.toByteArray();
+
                 sanPhamGioHang.setHinhgiohang(hinhsanphamgiohang1);
                 sanPhamGioHang.setSOLUONG(1);
 
-                presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang, this);
+                try {
+                    presenterLogicChiTietSanPham.ThemGioHang(sanPhamGioHang, this);
+                }catch (Exception e)
+                {
+                    Log.d("eCart", e.toString());
+                    System.out.println(e);
+                }
 
                 //chuyển sang trang thanh toán
                 Intent iThanhToan = new Intent(ChiTietSanPhamActivity.this, ThanhToanActivity.class);
                 startActivity(iThanhToan);
                 break;
         }
+    }
+
+    @Override
+    public void HienThiDanhGia(List<DanhGia> danhGiaList) {
+        AdapterDanhGia adapterDanhGia = new AdapterDanhGia(this, danhGiaList, 2);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerDanhGiaChiTiet.setLayoutManager(layoutManager);
+        recyclerDanhGiaChiTiet.setAdapter(adapterDanhGia);
+        adapterDanhGia.notifyDataSetChanged();
+    }
+
+    @Override
+    public void ThemGioHangThanhCong() {
+        Toast.makeText(this, "Sản phẩm đã được thêm vào giỏ hàng !", Toast.LENGTH_SHORT).show();
+        txtGioHang.setText(String.valueOf(presenterLogicChiTietSanPham.DemSanPhamCoTrongGioHang(this)));
+    }
+
+    @Override
+    public void ThemGioHangThatBai() {
+        Toast.makeText(this, "Sản phẩm đã có trong giỏ hàng !", Toast.LENGTH_SHORT).show();
     }
 
     @Override

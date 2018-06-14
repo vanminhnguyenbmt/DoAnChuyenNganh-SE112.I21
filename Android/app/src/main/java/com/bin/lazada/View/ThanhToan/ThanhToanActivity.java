@@ -35,6 +35,7 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
     CheckBox cbThoaThuan;
     PresenterLogicThanhToan presenterLogicThanhToan;
     List<ChiTietHoaDon> chiTietHoaDons = new ArrayList<>();
+    List<SanPham> sanphamGioHang = new ArrayList<>();
     int chonHinhThuc = 0;
 
     @Override
@@ -99,6 +100,13 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
                         hoaDon.setCHUYENKHOAN(chonHinhThuc);
                         hoaDon.setChiTietHoaDonList(chiTietHoaDons);
 
+                        float tongtien = 0;
+                        for (int i = 0; i < sanphamGioHang.size(); i++) {
+                            tongtien += sanphamGioHang.get(i).getSOLUONG() * sanphamGioHang.get(i).getGIA();
+                        }
+
+                        hoaDon.setTONGTIEN(tongtien);
+
                         presenterLogicThanhToan.ThemHoaDon(hoaDon);
                     }else {
                         Toast.makeText(this, "Bạn chưa nhấn chọn vào ô thỏa thuận !", Toast.LENGTH_SHORT).show();
@@ -140,7 +148,7 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void LayDanhSachSanPhamTrongGioHang(List<SanPham> sanPhamList) {
-
+        sanphamGioHang = sanPhamList;
         for(int i = 0; i < sanPhamList.size(); i++) {
             ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
             chiTietHoaDon.setMASP(sanPhamList.get(i).getMASP());

@@ -4,9 +4,19 @@ import java.util.List;
 
 public class HoaDon {
 
-    int MAHD, CHUYENKHOAN;
+    int MAHD;
+    int CHUYENKHOAN;
+    float TONGTIEN;
     String NGAYMUA, NGAYGIAO, TRANGTHAI, TENNGUOINHAN, SODT, DIACHI, MACHUYENKHOAN;
     List<ChiTietHoaDon> chiTietHoaDonList;
+
+    public float getTONGTIEN() {
+        return TONGTIEN;
+    }
+
+    public void setTONGTIEN(float TONGTIEN) {
+        this.TONGTIEN = TONGTIEN;
+    }
 
     public List<ChiTietHoaDon> getChiTietHoaDonList() {
         return chiTietHoaDonList;
