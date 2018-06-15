@@ -7,8 +7,16 @@ public class HoaDon {
     int MAHD;
     int CHUYENKHOAN;
     float TONGTIEN;
-    String NGAYMUA, NGAYGIAO, TRANGTHAI, TENNGUOINHAN, SODT, DIACHI, MACHUYENKHOAN;
+    String NGAYMUA, NGAYGIAO, TRANGTHAI, TENNGUOINHAN, SODT, DIACHI, MACHUYENKHOAN, MADOITAC;
     List<ChiTietHoaDon> chiTietHoaDonList;
+
+    public String getMADOITAC() {
+        return MADOITAC;
+    }
+
+    public void setMADOITAC(String MADOITAC) {
+        this.MADOITAC = MADOITAC;
+    }
 
     public float getTONGTIEN() {
         return TONGTIEN;

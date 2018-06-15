@@ -1011,15 +1011,18 @@ INSERT INTO `chitietkhuyenmai` (`MASP`, `MAKM`, `PHANTRAMKM`) VALUES
 
 
 INSERT INTO `hoadon` (`MAHD`, `NGAYMUA`, `NGAYGIAO`, `TRANGTHAI`, `TENNGUOINHAN`, `SODT`, `DIACHI`, `CHUYENKHOAN`, `MACHUYENKHOAN`) VALUES
-(7, '2016/02/05', '2016/02/08', 'chờ kiểm duyệt', 'Nguyễn Văn A', '09048349834', '54 Tran Hung Dao Phuong Cau Kho Quan 1', NULL, NULL),
-(8, '2017/01/07', '2017/01/10', 'đang giao hàng', 'Trần Văn B', '0907488433', '56 Tran Hung Dao Quan 1', 0, 'không có'),
-(9, '2017/12/07', '2017/12/10', 'chờ kiểm duyệt', 'Bành Văng C', '0903838938', '32 Tran Hung dao', 0, NULL),
-(10, '2018/01/02', '2018/01/05', 'chờ kiểm duyệt', 'fdaasd', '01234567789', 'dfadsf', 0, NULL),
-(11, '2018/01/10', '2018/01/13', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, NULL),
-(12, '2018/05/04', '2018/05/07', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, NULL),
-(13, '2018/06/04', '2018/06/07', 'chờ kiểm duyệt', 'test', '123', 'ok', 0, NULL),
-(14, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu b', 0, NULL),
-(15, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu B', 0, NULL);
+(7, '2016/02/05', '2016/02/08', 'chờ kiểm duyệt', 'Nguyễn Văn A', '09048349834', '54 Tran Hung Dao Phuong Cau Kho Quan 1', 0, 'không có', 0),
+(8, '2017/01/07', '2017/01/10', 'đang giao hàng', 'Trần Văn B', '0907488433', '56 Tran Hung Dao Quan 1', 0, 'không có', 63840000),
+(9, '2017/12/07', '2017/12/10', 'chờ kiểm duyệt', 'Bành Văng C', '0903838938', '32 Tran Hung dao', 0, 'không có', 339000),
+(10, '2018/01/02', '2018/01/05', 'chờ kiểm duyệt', 'fdaasd', '01234567789', 'dfadsf', 0, 'không có', 14980000),
+(11, '2018/01/10', '2018/01/13', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 39950000),
+(12, '2018/05/04', '2018/05/07', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 29990000),
+(13, '2018/06/04', '2018/06/07', 'chờ kiểm duyệt', 'test', '123', 'ok', 0, 'không có', 28428600),
+(14, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu b', 0, 'không có', 46980000),
+(15, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 46980000),
+(16, '13/06/2018', '16/06/2018', 'chờ kiểm duyệt', 'Bin', '0123456789', 'ktx', 0, 'không có', 2490000),
+(17, '14/06/2018', '17/06/2018', 'chờ kiểm duyệt', 'Test', '01672983683', 'Test', 0, NULL, 5121900),
+(18, '14/06/2018', '17/06/2018', 'chờ kiểm duyệt', 'Testttttt', '01234567899', 'TEsttt', 0, NULL, 36076600);
 
 INSERT INTO `chitiethoadon` (`MAHD`, `MASP`, `SOLUONG`) VALUES
 (8, 86, 4),
@@ -1032,4 +1035,8 @@ INSERT INTO `chitiethoadon` (`MAHD`, `MASP`, `SOLUONG`) VALUES
 (13, 14, 2),
 (13, 98, 3),
 (14, 93, 2),
-(15, 93, 2);
+(15, 93, 2),
+(16, 99, 1),
+(17, 22, 3),
+(18, 24, 3),
+(18, 25, 2);

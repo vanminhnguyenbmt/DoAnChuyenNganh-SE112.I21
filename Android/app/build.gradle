@@ -30,4 +30,11 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:4.32.0'
     implementation 'com.google.android.gms:play-services-auth:11.8.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation(name: 'libvtcpay2.0', ext: 'aar')
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
 }

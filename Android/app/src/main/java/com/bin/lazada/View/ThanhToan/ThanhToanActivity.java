@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,8 +23,12 @@ import com.bin.lazada.ObjectClass.SanPham;
 import com.bin.lazada.Presenter.ThanhToan.PresenterLogicThanhToan;
 import com.bin.lazada.R;
 import com.bin.lazada.View.TrangChu.TrangChuActivity;
+import com.bin.lazada.View.VTCPay.VTCPayActivity;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ThanhToanActivity extends AppCompatActivity implements View.OnClickListener, ViewThanhToan{
@@ -37,6 +43,10 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
     List<ChiTietHoaDon> chiTietHoaDons = new ArrayList<>();
     List<SanPham> sanphamGioHang = new ArrayList<>();
     int chonHinhThuc = 0;
+    float tongtien;
+    String madoitac, machuyenkhoan, tennguoinhan, diachi, sodt;
+    Boolean checkpayment = false;
+    Boolean paymentSuccess = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +74,26 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
         btnThanhToan.setOnClickListener(this);
         imgNhanTienKhiGiaoHang.setOnClickListener(this);
         imgChuyenKhoan.setOnClickListener(this);
+
+        if(getIntent().hasExtra("machuyenkhoan") && getIntent().hasExtra("chonhinhthuc")
+                && getIntent().hasExtra("madoitac") && getIntent().hasExtra("checkpayment")
+                && getIntent().hasExtra("tennguoinhan") && getIntent().hasExtra("diachi")
+                && getIntent().hasExtra("sodt"))
+        {
+            machuyenkhoan = String.valueOf(getIntent().getLongExtra("machuyenkhoan", 0));
+            chonHinhThuc = getIntent().getIntExtra("chonhinhthuc", 1);
+            madoitac = getIntent().getStringExtra("madoitac");
+            checkpayment = getIntent().getBooleanExtra("checkpayment", true);
+            paymentSuccess = getIntent().getBooleanExtra("checkpayment", true);
+            tennguoinhan = getIntent().getStringExtra("tennguoinhan");
+            diachi = getIntent().getStringExtra("diachi");
+            sodt = getIntent().getStringExtra("sodt");
+            ChonHinhThucGiaoHang(txtChuyenKhoan, txtNhanTienKhiGiaoHang);
+        }
+
+        edTenNguoiNhan.setText(tennguoinhan);
+        edDiaChi.setText(diachi);
+        edSoDT.setText(sodt);
     }
 
     @Override
@@ -98,9 +128,15 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
                         hoaDon.setSODT(sodt);
                         hoaDon.setDIACHI(diachi);
                         hoaDon.setCHUYENKHOAN(chonHinhThuc);
+                        if(chonHinhThuc == 1) {
+                            hoaDon.setMACHUYENKHOAN(machuyenkhoan);
+                            hoaDon.setMADOITAC(madoitac);
+                        }else {
+                            hoaDon.setMACHUYENKHOAN("không có");
+                            hoaDon.setMADOITAC("không có");
+                        }
                         hoaDon.setChiTietHoaDonList(chiTietHoaDons);
 
-                        float tongtien = 0;
                         for (int i = 0; i < sanphamGioHang.size(); i++) {
                             tongtien += sanphamGioHang.get(i).getSOLUONG() * sanphamGioHang.get(i).getGIA();
                         }
@@ -125,6 +161,39 @@ public class ThanhToanActivity extends AppCompatActivity implements View.OnClick
             case R.id.imgChuyenKhoan:
                 ChonHinhThucGiaoHang(txtChuyenKhoan, txtNhanTienKhiGiaoHang);
                 chonHinhThuc = 1;
+
+                if(TextUtils.isEmpty(edTenNguoiNhan.getText().toString().trim()) || TextUtils.isEmpty(edDiaChi.getText().toString().trim()) || TextUtils.isEmpty(edSoDT.getText().toString().trim())) {
+                    Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin trước khi thanh toán!", Toast.LENGTH_SHORT).show();
+                    checkpayment = true;
+                }else {
+                    checkpayment = false;
+                }
+
+                if(!checkpayment) {
+                    if(!paymentSuccess) {
+                        tongtien = 0;
+                        for (int i = 0; i < sanphamGioHang.size(); i++) {
+                            tongtien += sanphamGioHang.get(i).getSOLUONG() * sanphamGioHang.get(i).getGIA();
+                        }
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+                        Date date = new Date();
+                        madoitac = dateFormat.format(date);
+                        Intent iVTCPay = new Intent(ThanhToanActivity.this, VTCPayActivity.class);
+                        iVTCPay.putExtra("tongtien", tongtien);
+                        iVTCPay.putExtra("madoitac", madoitac);
+                        iVTCPay.putExtra("tennguoinhan", edTenNguoiNhan.getText().toString());
+                        iVTCPay.putExtra("diachi", edDiaChi.getText().toString());
+                        iVTCPay.putExtra("sodt", edSoDT.getText().toString());
+                        startActivity(iVTCPay);
+                    }else {
+                        Toast.makeText(this, "Bạn đã thanh toán rồi!", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    if(paymentSuccess) {
+                        Toast.makeText(this, "Bạn đã thanh toán rồi!", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
         }
     }

@@ -58,6 +58,12 @@ public class ModelThanhToan {
         HashMap<String, String> hsChuyenKhoan = new HashMap<>();
         hsChuyenKhoan.put("chuyenkhoan", String.valueOf(hoaDon.getCHUYENKHOAN()));
 
+        HashMap<String, String> hsMaChuyenKhoan = new HashMap<>();
+        hsMaChuyenKhoan.put("machuyenkhoan", hoaDon.getMACHUYENKHOAN());
+
+        HashMap<String, String> hsMaDoiTac = new HashMap<>();
+        hsMaDoiTac.put("madoitac", hoaDon.getMADOITAC());
+
         HashMap<String, String> hsTongTien = new HashMap<>();
         hsTongTien.put("tongtien", String.valueOf(hoaDon.getTONGTIEN()));
 
@@ -67,6 +73,8 @@ public class ModelThanhToan {
         attrs.add(hsSoDT);
         attrs.add(hsDiaChi);
         attrs.add(hsChuyenKhoan);
+        attrs.add(hsMaChuyenKhoan);
+        attrs.add(hsMaDoiTac);
         attrs.add(hsTongTien);
 
         DownloadJSON downloadJSON = new DownloadJSON(duongdan, attrs);
