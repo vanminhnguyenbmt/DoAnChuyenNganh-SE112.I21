@@ -30,10 +30,22 @@
 	width: 50%;
 }
 
+.hienthisanpham {
+	margin-bottom: 25px;
+}
+
+.themsanpham {
+	margin-bottom: 25px;
+}
+
 .anbutton{
 	display: none;
 }
 
 .anchitietsanpham{
 	display: none;
+}
+
+.table tbody tr th{
+	vertical-align: middle;
 }

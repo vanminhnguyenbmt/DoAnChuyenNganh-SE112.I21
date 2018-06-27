@@ -1010,19 +1010,29 @@ INSERT INTO `chitietkhuyenmai` (`MASP`, `MAKM`, `PHANTRAMKM`) VALUES
 (30, 4, 30);
 
 
-INSERT INTO `hoadon` (`MAHD`, `NGAYMUA`, `NGAYGIAO`, `TRANGTHAI`, `TENNGUOINHAN`, `SODT`, `DIACHI`, `CHUYENKHOAN`, `MACHUYENKHOAN`) VALUES
-(7, '2016/02/05', '2016/02/08', 'chờ kiểm duyệt', 'Nguyễn Văn A', '09048349834', '54 Tran Hung Dao Phuong Cau Kho Quan 1', 0, 'không có', 0),
-(8, '2017/01/07', '2017/01/10', 'đang giao hàng', 'Trần Văn B', '0907488433', '56 Tran Hung Dao Quan 1', 0, 'không có', 63840000),
-(9, '2017/12/07', '2017/12/10', 'chờ kiểm duyệt', 'Bành Văng C', '0903838938', '32 Tran Hung dao', 0, 'không có', 339000),
-(10, '2018/01/02', '2018/01/05', 'chờ kiểm duyệt', 'fdaasd', '01234567789', 'dfadsf', 0, 'không có', 14980000),
-(11, '2018/01/10', '2018/01/13', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 39950000),
-(12, '2018/05/04', '2018/05/07', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 29990000),
-(13, '2018/06/04', '2018/06/07', 'chờ kiểm duyệt', 'test', '123', 'ok', 0, 'không có', 28428600),
-(14, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu b', 0, 'không có', 46980000),
-(15, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 46980000),
-(16, '13/06/2018', '16/06/2018', 'chờ kiểm duyệt', 'Bin', '0123456789', 'ktx', 0, 'không có', 2490000),
-(17, '14/06/2018', '17/06/2018', 'chờ kiểm duyệt', 'Test', '01672983683', 'Test', 0, NULL, 5121900),
-(18, '14/06/2018', '17/06/2018', 'chờ kiểm duyệt', 'Testttttt', '01234567899', 'TEsttt', 0, NULL, 36076600);
+INSERT INTO `hoadon` (`MAHD`, `NGAYMUA`, `NGAYGIAO`, `TRANGTHAI`, `TENNGUOINHAN`, `SODT`, `DIACHI`, `CHUYENKHOAN`, `MACHUYENKHOAN`, `TONGTIEN`, `MADOITAC`) VALUES
+(7, '2016/02/05', '2016/02/08', 'chờ kiểm duyệt', 'Nguyễn Văn A', '09048349834', '54 Tran Hung Dao Phuong Cau Kho Quan 1', 0, 'không có', 0, NULL),
+(8, '2017/01/07', '2017/01/10', 'đang giao hàng', 'Trần Văn B', '0907488433', '56 Tran Hung Dao Quan 1', 0, 'không có', 63840000, NULL),
+(9, '2017/12/07', '2017/12/10', 'chờ kiểm duyệt', 'Bành Văng C', '0903838938', '32 Tran Hung dao', 0, 'không có', 339000, NULL),
+(10, '2018/01/02', '2018/01/05', 'chờ kiểm duyệt', 'fdaasd', '01234567789', 'dfadsf', 0, 'không có', 14980000, NULL),
+(11, '2018/01/10', '2018/01/13', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 39950000, NULL),
+(12, '2018/05/04', '2018/05/07', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 29990000, NULL),
+(13, '2018/06/04', '2018/06/07', 'chờ kiểm duyệt', 'test', '123', 'ok', 0, 'không có', 28428600, NULL),
+(14, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu b', 0, 'không có', 46980000, NULL),
+(15, '2018/06/05', '2018/06/08', 'chờ kiểm duyệt', 'Bin', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 46980000, NULL),
+(16, '2018/06/13', '2018/06/16', 'chờ kiểm duyệt', 'Bin', '0123456789', 'ktx', 0, 'không có', 2490000, NULL),
+(17, '2018/06/14', '2018/06/17', 'chờ kiểm duyệt', 'Test', '01672983683', 'Test', 0, 'không có', 5121900, NULL),
+(18, '2018/06/14', '2018/06/17', 'chờ kiểm duyệt', 'Testttttt', '01234567899', 'TEsttt', 0, 'không có', 36076600, NULL),
+(19, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 26980000, NULL),
+(20, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 1, 'không có', 47980000, NULL),
+(21, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 1, '822094', 3750000, '20180615022522'),
+(22, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 1, '822095', 13980000, '20180615023321'),
+(23, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 1, '822156', 3414600, '20180615130425'),
+(24, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 1, '822189', 169500, '20180615150811'),
+(25, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 1, '822190', 22100000, '20180615151204'),
+(26, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 0, 'không có', 17790000, 'không có'),
+(27, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Van Minh Nguyen', '01672983683', 'Ky tuc xa khu B', 1, '822253', 13490000, '20180615190746'),
+(28, '2018/06/15', '2018/06/18', 'chờ kiểm duyệt', 'Văn Minh Nguyên', '01672983683', 'Ký túc xá khu b', 1, '822259', 7119600, '20180615223053');
 
 INSERT INTO `chitiethoadon` (`MAHD`, `MASP`, `SOLUONG`) VALUES
 (8, 86, 4),
@@ -1039,4 +1049,15 @@ INSERT INTO `chitiethoadon` (`MAHD`, `MASP`, `SOLUONG`) VALUES
 (16, 99, 1),
 (17, 22, 3),
 (18, 24, 3),
-(18, 25, 2);
+(18, 25, 2),
+(19, 95, 2),
+(20, 90, 2),
+(21, 104, 1),
+(22, 98, 1),
+(23, 22, 2),
+(24, 14, 1),
+(25, 100, 2),
+(25, 109, 1),
+(26, 102, 1),
+(27, 95, 1),
+(28, 3, 1);

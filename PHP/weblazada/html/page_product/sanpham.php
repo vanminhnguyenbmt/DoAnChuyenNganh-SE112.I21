@@ -181,6 +181,10 @@
 		<div id="phantrangsanpham" data-tongsotrang=<?php LayTongSoTrang() ?>>
 
 		</div>
+
+		<div id="phantrangsanphamtimkiem">
+
+		</div>
 	</div>
 </div>
 
@@ -188,7 +192,10 @@
 
 	function LayDanhSachLoaiSanPhamLimit($limit){
 		global $conn;
-		$truyvan = "SELECT * FROM sanpham sp, loaisanpham lsp, thuonghieu th WHERE sp.MALOAISP = lsp.MALOAISP AND sp.MATHUONGHIEU = th.MATHUONGHIEU LIMIT ".$limit.",10";
+		$truyvan = "SELECT * FROM sanpham sp, loaisanpham lsp, thuonghieu th
+					WHERE sp.MALOAISP = lsp.MALOAISP AND sp.MATHUONGHIEU = th.MATHUONGHIEU
+					ORDER BY sp.MASP DESC
+					LIMIT ".$limit.",10";
 		$ketqua = mysqli_query($conn,$truyvan);
 		if($ketqua){
 			while ($dong = mysqli_fetch_array($ketqua)) {

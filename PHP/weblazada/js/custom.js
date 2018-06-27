@@ -1,5 +1,346 @@
 $(document).ready(function() {
 
+	//đồng ý cập nhập khuyến mãi
+	$("#btn-dongycapnhatkhuyenmai").click(function(){
+		makm = $(this).attr('data-id');
+		tenkhuyenmai = $("#ip_tenkhuyenmai").val();
+		maloaisp = $("#sl_loaisanpham").val();
+		ngaybatdau = $("#ip_ngaybatdau").val();
+		ngayketthuc = $("#ip_ngayketthuc").val();
+		hinhkhuyenmai = "/hinhkhuyenmai/" + $("#khunganhkhuyenmai").find(".file-footer-caption").attr("title");
+		for(i = 0; i < 10; i++) {
+			ngaybatdau = ngaybatdau.replace("-", "/");
+			ngayketthuc = ngayketthuc.replace("-", "/");
+		}
+
+		mangmasp = [];
+		$("input[name='mangsanpham[]']").each(function(){
+			var value = $.trim($(this).attr("data-masp"));
+			if(value.length > 0){
+				mangmasp.push(value);
+			}
+		});
+
+		mangphantramkm = [];
+		$("input[name='mangphantramkm[]']").each(function(){
+			var value = $.trim($(this).val());
+			if(value.length > 0){
+				mangphantramkm.push(value);
+			}
+		});
+
+		kiemtra = false;
+		if(mangmasp.length == "" && mangphantramkm.length == "")
+		{
+			kiemtra = false;
+			alert('Vui lòng chọn sản phẩm và thêm chi tiết khuyến mãi');
+		}else {
+			kiemtra = true;
+		}
+
+		if(kiemtra) {
+			$.ajax({
+				url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+				type : "POST",
+				// datatype: ""
+				data : {
+					action : "CapNhapKhuyenMaiVaChiTietKhuyenMai_Ajax",
+					tenkhuyenmai : tenkhuyenmai,
+					maloaisp: maloaisp,
+					ngaybatdau: ngaybatdau,
+					ngayketthuc: ngayketthuc,
+					hinhkhuyenmai: hinhkhuyenmai,
+					mangmasp: mangmasp,
+					mangphantramkm: mangphantramkm,
+					makm: makm
+				},
+				success:function(data){
+					alert(data);
+				}
+			});
+		}
+	});
+
+	//xử lý nút cập nhập khuyến mãi
+	$("body").delegate(".btn-suakhuyenmai","click",function(){
+		HienThiThemKhuyenMai();
+		$("#btn-dongycapnhatkhuyenmai").removeClass("anbutton");
+		$("#btn-themkhuyenmai").addClass("anbutton");
+
+		makm = $(this).parent().attr('data-id');
+		$("#btn-dongycapnhatkhuyenmai").attr("data-id", makm);
+
+		$(this).closest('tr').find('th').each(function(){
+			if($(this).attr("data-hinhkm")){
+				hinhkm = $(this).attr("data-hinhkm");
+			}else if($(this).attr("data-tenkm")){
+				tenkm = $(this).attr("data-tenkm");
+			}else if($(this).attr("data-maloaisp")){
+				maloaisp = $(this).attr("data-maloaisp");
+			}else if($(this).attr("data-tenloaisp")){
+				tenloaisp = $(this).attr("data-tenloaisp");
+			}else if($(this).attr("data-ngaybatdau")){
+				ngaybatdau = $(this).attr("data-ngaybatdau");
+			}else if($(this).attr("data-ngayketthuc")){
+				ngayketthuc = $(this).attr("data-ngayketthuc");
+			}
+		});
+
+		$("#sl_loaisanpham").val(maloaisp).change();
+
+		//xử lý load ngày bắt đầu và kết thúc
+		for(i = 0; i < 10; i++) {
+			ngaybatdau = ngaybatdau.replace("/", "-");
+			ngayketthuc = ngayketthuc.replace("/", "-");
+		}
+
+		$('#ip_tenkhuyenmai').val(tenkm);
+		$('#ip_ngaybatdau').val(ngaybatdau);
+		$('#ip_ngayketthuc').val(ngayketthuc);
+
+		//xử lý hiển thị hình ra krajee
+		htmlAnhKM = '<label for="ip_anhkhuyenmai">Hình khuyến mãi</label> <div class="form-group"><input id="ip_anhkhuyenmai" name="ip_anhkhuyenmai" class="file-loading" type="file" data-preview-file-type="any" data-upload-url="page_product/uploadhinhkhuyenmai.php"></div>';
+		$("#khunganhkhuyenmai").empty();
+		$("#khunganhkhuyenmai").append(htmlAnhKM);
+
+		//xử lý load hình đã có vào ảnh lớn
+		vitricat = hinhkm.lastIndexOf("/");
+		tenanhkm = hinhkm.substring(vitricat+1);
+
+		$("#ip_anhkhuyenmai").fileinput({
+		    overwriteInitial: true,
+		    initialPreview: [
+		        ".."+hinhkm
+		    ],
+		    initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
+		    initialPreviewFileType: 'image', // image is the default and can be overridden in config below
+		    initialPreviewConfig: [
+		        {caption: tenanhkm },
+		    ],
+		});
+
+		$.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "LayChiTietKhuyenMai_Ajax",
+				makm : makm,
+			},
+			success:function(data){
+				$("#khungchitietkm").find("tbody").empty();
+				$("#khungchitietkm").find("tbody").prepend(data);
+			}
+		});
+	});
+
+	$(".btn-hienthithemkhuyenmai").click(function(){
+		$("#btn-dongycapnhatkhuyenmai").addClass("anbutton");
+		$("#btn-themkhuyenmai").removeClass("anbutton");
+		HienThiThemKhuyenMai();
+	});
+
+	$(".btn-hienthidanhsachkhuyenmai").click(function(){
+		HienThiDanhSachKhuyenMai();
+	});
+
+	function HienThiThemKhuyenMai(){
+		$(".hienthisanpham").removeClass("anbutton");
+		$(".hienthisanpham").fadeOut();
+		$(".themsanpham").fadeIn();
+	}
+
+	function HienThiDanhSachKhuyenMai(){
+		$(".hienthisanpham").fadeIn();
+		$(".themsanpham").fadeOut();
+	}
+
+	//Xử lý sự kiện click button thêm khuyến mãi
+	$("#btn-themkhuyenmai").click(function(){
+		tenkhuyenmai = $("#ip_tenkhuyenmai").val();
+		maloaisp = $("#sl_loaisanpham").val();
+		ngaybatdau = $("#ip_ngaybatdau").val();
+		ngayketthuc = $("#ip_ngayketthuc").val();
+		hinhkhuyenmai = "/hinhkhuyenmai/" + $("#khunganhkhuyenmai").find(".file-footer-caption").attr("title");
+		for(i = 0; i < 10; i++) {
+			ngaybatdau = ngaybatdau.replace("-", "/");
+			ngayketthuc = ngayketthuc.replace("-", "/");
+		}
+
+		mangmasp = [];
+		$("input[name='mangsanpham[]']").each(function(){
+			var value = $.trim($(this).attr("data-masp"));
+			if(value.length > 0){
+				mangmasp.push(value);
+			}
+		});
+
+		mangphantramkm = [];
+		$("input[name='mangphantramkm[]']").each(function(){
+			var value = $.trim($(this).val());
+			if(value.length > 0){
+				mangphantramkm.push(value);
+			}
+		});
+
+		kiemtra = false;
+		if(mangmasp.length == "" && mangphantramkm.length == "")
+		{
+			kiemtra = false;
+			alert('Vui lòng chọn sản phẩm và thêm chi tiết khuyến mãi');
+		}else {
+			kiemtra = true;
+		}
+
+		if(kiemtra) {
+			$.ajax({
+				url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+				type : "POST",
+				// datatype: ""
+				data : {
+					action : "ThemKhuyenMaiVaChiTietKhuyenMai_Ajax",
+					tenkhuyenmai : tenkhuyenmai,
+					maloaisp: maloaisp,
+					ngaybatdau: ngaybatdau,
+					ngayketthuc: ngayketthuc,
+					hinhkhuyenmai: hinhkhuyenmai,
+					mangmasp: mangmasp,
+					mangphantramkm: mangphantramkm
+				},
+				success:function(data){
+					alert(data);
+				}
+			});
+		}
+	});
+	//chọn loại sản phẩm ở trang khuyến mãi sẽ load lên sản phẩm của loại đó
+	$("#sl_loaisanpham").change(function(){
+		maloaisp = $("#sl_loaisanpham :selected").val();
+		$.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "LayDanhSachSanPhamTheoMaLoaiSP_Ajax",
+				maloaisp: maloaisp
+			},
+			success:function(data){
+				$("#sl_tenspchitietkm").empty();
+				$("#sl_tenspchitietkm").append(data);
+				$("#sl_tenspchitietkm").val($("#sl_tenspchitietkm").find('option').first().val()).change();
+			}
+		});
+	});
+
+	//Xử lý nút thêm chi tiết khuyến mãi
+	$(".btn-themchitietkm").click(function(){
+		tensp = $("#sl_tenspchitietkm :selected").text();
+		masp = $("#sl_tenspchitietkm").val();
+		phantramkm = $("#ip_phantramkm").val();
+		kiemtra= false;
+
+		if($(this).parent().find("#ip_phantramkm").val() == "" || $("#ip_ngaybatdau").val() == ""
+		|| $("#ip_ngayketthuc").val() == "" || $("#ip_tenkhuyenmai").val() == "")
+		{
+			alert('Vui lòng nhập đủ thông tin');
+			kiemtra = true;
+		}
+
+		$("input[name='mangphantramkm[]']").each(function(){
+			if($(this).attr("data-masp")==masp){
+				phantramkm = parseInt(phantramkm);
+				$(this).val(phantramkm);
+				kiemtra = true;
+			}
+		});
+
+		var content = '<tr><th>Tên sản phẩm : <input name="mangsanpham[]" data-masp="'+masp+'" value="'+tensp+'" style="margin:5px; padding:5px; width:60%"  disabled type="text"  /></th><th>Phần trăm khuyến mãi: <input data-masp="'+masp+'" disabled value="'+phantramkm+'" style="margin:5px; padding:5px; width:60%" name="mangphantramkm[]" type="text"  /><a class="btn btn-danger btnxoachitiethoadon">Xóa</a></th></tr>';
+
+		if(!kiemtra){
+			$("#khungchitietkm").find("tbody").append(content);
+		}
+	});
+
+	//thực hiện chức năng tìm kiếm sản phẩm
+	$("#btn-timkiemsanpham").click(function(){
+		var noidungtimkiem = $("#txt-timkiemsanpham").val();
+		$.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "TimKiemSanPham_Ajax",
+				noidungtimkiem : noidungtimkiem,
+				sotrang: 1
+			},
+			success:function(data){
+				$("table.table").find("tbody").empty();
+				$("table.table").find("tbody").append(data);
+				$("#phantrangsanpham").addClass('anbutton');
+				$('#phantrangsanphamtimkiem').bootpag({
+				    total: $("table.table").find("tbody").find("tr").attr("data-tongsotrang"),
+				    maxVisible: 10,
+				    page: 1
+				}).on("page", function(event, trang){
+				    $.ajax({
+						url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+						type : "POST",
+						// datatype: ""
+						data : {
+							action : "TimKiemSanPham_Ajax",
+							noidungtimkiem: noidungtimkiem,
+							sotrang : trang
+						},
+						success:function(data){
+							$("table.table").find("tbody").empty();
+							$("table.table").find("tbody").append(data);
+						}
+					});
+				});
+			}
+		});
+	});
+
+	//thực hiện chức năng tìm kiếm hóa đơn
+	$("#btn-timkiemhoadon").click(function(){
+		var noidungtimkiem = $("#txt-timkiemhoadon").val();
+		$.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "TimKiemHoaDon_Ajax",
+				noidungtimkiem : noidungtimkiem,
+				sotrang: 1
+			},
+			success:function(data){
+				$("table.table").find("tbody").empty();
+				$("table.table").find("tbody").append(data);
+				$("#phantranghoadon").addClass('anbutton');
+				$('#phantranghoadontimkiem').bootpag({
+				    total: $("table.table").find("tbody").find("tr").attr("data-tongsotrang"),
+				    maxVisible: 10,
+				    page: 1
+				}).on("page", function(event, trang){
+				    $.ajax({
+						url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+						type : "POST",
+						// datatype: ""
+						data : {
+							action : "TimKiemHoaDon_Ajax",
+							noidungtimkiem: noidungtimkiem,
+							sotrang : trang
+						},
+						success:function(data){
+							$("table.table").find("tbody").empty();
+							$("table.table").find("tbody").append(data);
+						}
+					});
+				});
+			}
+		});
+	});
+
 	//Xử lý khi đồng ý cập nhập hóa đơn
 	$("#btn-dongycapnhathoadon").click(function(){
 		mahd = $(this).attr("data-id");
@@ -169,6 +510,27 @@ $(document).ready(function() {
 		$(".hienthisanpham").fadeIn();
 		$(".themsanpham").fadeOut();
 	}
+
+	//Phân trang cho hóa đơn
+	$('#phantranghoadon').bootpag({
+	    total: $("#phantranghoadon").attr("data-tongsotrang"),
+	    maxVisible: 10,
+	    page: 1
+	}).on("page", function(event, trang){
+	    $.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "LayDanhSachHoaDonLimit_Ajax",
+				sotrang : trang
+			},
+			success:function(data){
+				$("table.table").find("tbody").empty();
+				$("table.table").find("tbody").append(data);
+			}
+		});
+	});
 
 	//Phân trang cho sản phẩm
 	$('#phantrangsanpham').bootpag({
@@ -536,7 +898,6 @@ $(document).ready(function() {
 			data : {
 				action : "TimKiemLoaiSanPhamTheoTen_Ajax",
 				noidungtimkiem : noidungtimkiem,
-
 			},
 			success:function(data){
 				$("table.table").find("tbody").empty();

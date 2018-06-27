@@ -432,24 +432,31 @@
     function ThemHoaDon() {
         global $conn;
 
-        if(isset($_POST["danhsachsanpham"]) || isset($_POST["tennguoinhan"]) || isset($_POST["sodt"]) || isset($_POST["diachi"]) || isset($_POST["chuyenkhoan"])) {
+        if(isset($_POST["danhsachsanpham"]) || isset($_POST["tennguoinhan"])
+            || isset($_POST["sodt"]) || isset($_POST["diachi"])
+            || isset($_POST["chuyenkhoan"]) || isset($_POST["tongtien"])
+            || isset($_POST["machuyenkhoan"]) || isset($_POST["madoitac"]))
+        {
             $danhsachsanpham = $_POST["danhsachsanpham"];
             $tennguoinhan = $_POST["tennguoinhan"];
             $sodt = $_POST["sodt"];
             $diachi = $_POST["diachi"];
             $chuyenkhoan = $_POST["chuyenkhoan"];
+            $tongtien = $_POST["tongtien"];
+            $machuyenkhoan = $_POST["machuyenkhoan"];
+            $madoitac = $_POST["madoitac"];
         }
 
-        $ngaymua = date("d/m/Y");
+        $ngaymua = date("Y/m/d");
         $ngayhientai = date("Y/m/d");
         $ngaygiao = date_create($ngayhientai);
         $ngaygiao = date_modify($ngaygiao, "+3 days");
-        $ngaygiao = date_format($ngaygiao, "d/m/Y");
+        $ngaygiao = date_format($ngaygiao, "Y/m/d");
 
         $trangthai = "chờ kiểm duyệt";
 
-        $truyvan = "INSERT INTO hoadon (NGAYMUA, NGAYGIAO, TRANGTHAI, TENNGUOINHAN, SODT, DIACHI, CHUYENKHOAN)
-                    VALUES ('".$ngaymua."', '".$ngaygiao."', '".$trangthai."', '".$tennguoinhan."', '".$sodt."', '".$diachi."', '".$chuyenkhoan."')";
+        $truyvan = "INSERT INTO hoadon (NGAYMUA, NGAYGIAO, TRANGTHAI, TENNGUOINHAN, SODT, DIACHI, CHUYENKHOAN, MACHUYENKHOAN, MADOITAC, TONGTIEN)
+                    VALUES ('".$ngaymua."', '".$ngaygiao."', '".$trangthai."', '".$tennguoinhan."', '".$sodt."', '".$diachi."', '".$chuyenkhoan."', '".$machuyenkhoan."', '".$madoitac."', '".$tongtien."')";
         $ketqua = mysqli_query($conn, $truyvan);
 
         if ($ketqua) {

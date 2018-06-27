@@ -112,6 +112,10 @@
                                 include 'page_product/hoadon.php';
                                 break;
 
+                            case 'khuyenmai':
+                                include 'page_product/khuyenmai.php';
+                                break;
+
                             default:
                                 // code...
                                 break;

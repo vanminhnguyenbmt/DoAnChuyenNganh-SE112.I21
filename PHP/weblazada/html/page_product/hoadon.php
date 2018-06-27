@@ -33,7 +33,7 @@
 	   			</th>
 	   		</tr>
 
-	   			<tr>
+   			<tr>
 	   			<th>
 	   				<label for="ip_ngaymua">Ngày mua</label>
     				<input type="text" class="form-control" id="ip_ngaymua" placeholder="Nhập ngày mua" />
@@ -61,8 +61,8 @@
 	   			<th>
 	   				<label for="sl_chuyenkhoan">Chuyển khoản</label>
 	   				<select id="sl_chuyenkhoan">
-	   					<option value="1">đã thanh toán</option>
-	   					<option value="0">chưa thanh toán</option>
+	   					<option value="1">có</option>
+	   					<option value="0">không</option>
 	   				</select>
 	   			</th>
 	   		</tr>
@@ -106,8 +106,8 @@
 		<div class="col-right">
 			<table class="timkiem">
 				<tr>
-					<td><input type="text" class="form-control" id="txt-timkiemsanpham" placeholder="Nhập tên sản phẩm cần tìm"/></td>
-					<td><button id="btn-timkiemsanpham" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></td>
+					<td><input type="text" class="form-control" id="txt-timkiemhoadon" placeholder="Nhập tên hóa đơn cần tìm"/></td>
+					<td><button id="btn-timkiemhoadon" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></td>
 				</tr>
 			</table>
 
@@ -147,9 +147,16 @@
 					</th>
 
 					<th>
-						#
+						Mã chuyển khoản
 					</th>
 
+					<th>
+						Mã đối tác
+					</th>
+
+					<th>
+						Tổng tiền
+					</th>
 				</tr>
 			</thead>
 
@@ -158,13 +165,26 @@
 			</tbody>
 		</table>
 
-		<div id="phantrangsanpham" data-tongsotrang="">
+		<div id="phantranghoadon" data-tongsotrang=<?php LayTongSoTrang() ?>>
+
+		</div>
+
+		<div id="phantranghoadontimkiem">
 
 		</div>
 	</div>
 </div>
 
 <?php
+
+	function LayTongSoTrang(){
+		global $conn;
+		$truyvan = "SELECT * FROM hoadon";
+		$ketqua = mysqli_query($conn,$truyvan);
+		$tongsotrang = ceil(mysqli_num_rows($ketqua)/10);
+		echo $tongsotrang;
+	}
+
 	function LayDanhSachSanPham(){
 		global $conn;
 		$truyvan = "SELECT * FROM sanpham";
@@ -178,11 +198,12 @@
 
 	function LayDanhSachHoaDon(){
 		global $conn;
-		$truyvan = "SELECT * FROM hoadon LIMIT 0,10";
+		$truyvan = "SELECT * FROM hoadon ORDER BY MAHD DESC LIMIT 0,10";
 		$ketqua = mysqli_query($conn,$truyvan);
 		if($ketqua){
 			while ($dong = mysqli_fetch_array($ketqua)) {
-				$chuyenkhoan = $dong["CHUYENKHOAN"] !=null && $dong["CHUYENKHOAN"] != '0' ? 'đã thanh toán' : 'chưa thanh toán';
+				$chuyenkhoan = $dong["CHUYENKHOAN"] !=null && $dong["CHUYENKHOAN"] != '0' ? 'có' : 'không';
+				$madoitac = $dong["MADOITAC"] !=null && $dong["MADOITAC"] != '0' ? $dong["MADOITAC"] : 'không có';
 				echo '<tr>';
 				echo '<th data-tennguoinhan="'.$dong['TENNGUOINHAN'].'">'.$dong['TENNGUOINHAN'].'</th>';
 				echo '<th data-sodt="'.$dong['SODT'].'">'.$dong['SODT'].'</th>';
@@ -192,6 +213,8 @@
 				echo '<th data-ngaygiao="'.$dong['NGAYGIAO'].'">'.$dong['NGAYGIAO'].'</th>';
 				echo '<th data-chuyenkhoan="'.$dong['CHUYENKHOAN'].'">'.$chuyenkhoan.'</th>';
 				echo '<th class="" data-machuyenkhoan="'.$dong['MACHUYENKHOAN'].'">'.$dong['MACHUYENKHOAN'].'</th>';
+				echo '<th class="" data-madoitac="'.$dong['MADOITAC'].'">'.$madoitac.'</th>';
+				echo '<th class="" data-tongtien="'.$dong['TONGTIEN'].'">'.$dong['TONGTIEN'].'</th>';
 				echo '<th data-id="'.$dong['MAHD'].'"><a class="btn btn-success btn-capnhathoadon">Cập nhật</a></th>';
 				echo '</tr>';
 			}

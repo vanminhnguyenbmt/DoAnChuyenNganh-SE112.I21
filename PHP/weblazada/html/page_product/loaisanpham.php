@@ -31,7 +31,7 @@
 			<div class="col-right">
 				<table class="timkiem">
 					<tr>
-						<td><input type="text" class="form-control" id="txt-timtenloaisp" placeholder="Nhập tên sản phẩm cần tìm"/></td>
+						<td><input type="text" class="form-control" id="txt-timtenloaisp" placeholder="Nhập tên loại sản phẩm cần tìm"/></td>
 						<td><button id="btn-timkiemloaisp" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button></td>
 					</tr>
 				</table>

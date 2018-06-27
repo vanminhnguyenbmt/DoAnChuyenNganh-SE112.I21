@@ -44,6 +44,10 @@
             $ham();
             break;
 
+        case 'LayDanhSachHoaDonLimit_Ajax':
+            $ham();
+            break;
+
         case 'KiemTraDangNhap_Ajax':
             $ham();
             break;
@@ -56,9 +60,221 @@
             $ham();
             break;
 
+        case 'TimKiemHoaDon_Ajax':
+            $ham();
+            break;
+
+        case 'TimKiemSanPham_Ajax':
+            $ham();
+            break;
+
+        case 'LayDanhSachSanPhamTheoMaLoaiSP_Ajax':
+            $ham();
+            break;
+
+        case 'ThemKhuyenMaiVaChiTietKhuyenMai_Ajax':
+            $ham();
+            break;
+
+        case 'LayChiTietKhuyenMai_Ajax':
+            $ham();
+            break;
+
+        case 'CapNhapKhuyenMaiVaChiTietKhuyenMai_Ajax':
+            $ham();
+            break;
+
         default:
             // code...
             break;
+    }
+
+    function CapNhapKhuyenMaiVaChiTietKhuyenMai_Ajax()
+    {
+        global $conn;
+
+        $tenkhuyenmai = $_POST["tenkhuyenmai"];
+		$maloaisp = $_POST["maloaisp"];
+		$ngaybatdau = $_POST["ngaybatdau"];
+		$ngayketthuc = $_POST["ngayketthuc"];
+		$hinhkhuyenmai = $_POST["hinhkhuyenmai"];
+		$mangmasp = $_POST["mangmasp"];
+		$mangphantramkm = $_POST["mangphantramkm"];
+        $makm = $_POST["makm"];
+
+        $truyvan = "UPDATE khuyenmai
+                    SET MALOAISP = '".$maloaisp."', TENKM = '".$tenkhuyenmai."',
+                    NGAYBATDAU = '".$ngaybatdau."', NGAYKETTHUC = '".$ngayketthuc."',
+                    HINHKHUYENMAI = '".$hinhkhuyenmai."'
+                    WHERE MAKM='".$makm."'";
+		$ketqua = mysqli_query($conn, $truyvan);
+
+        if ($ketqua) {
+            $truyvanxoachitietkm = "DELETE FROM chitietkhuyenmai WHERE MAKM='".$makm."'";
+    		mysqli_query($conn,$truyvanxoachitietkm);
+
+            $dem = count($mangmasp);
+            for ($i=0; $i < $dem; $i++) {
+                $masp = $mangmasp[$i];
+                $phantramkm = $mangphantramkm[$i];
+
+                $truyvanchitiet = "INSERT INTO chitietkhuyenmai(MASP, MAKM, PHANTRAMKM)
+                                    VALUES('".$masp."','".$makm."','".$phantramkm."')";
+    			mysqli_query($conn, $truyvanchitiet);
+            }
+            echo "Cập nhập thành công";
+        }
+    }
+
+    function LayChiTietKhuyenMai_Ajax()
+    {
+        global $conn;
+        $makm = $_POST["makm"];
+
+        $truyvan = "SELECT * FROM chitietkhuyenmai ctkm, sanpham sp
+                    WHERE ctkm.MASP = sp.MASP AND MAKM='".$makm."'";
+        $ketqua = mysqli_query($conn, $truyvan);
+
+        if($ketqua){
+            while ($dong = mysqli_fetch_array($ketqua)) {
+                echo '<tr>';
+                echo '<th>Tên sản phẩm : <input name="mangsanpham[]" data-masp="'.$dong["MASP"].'" value="'.$dong["TENSP"].'" style="margin:5px; padding:5px; width:60%"  disabled type="text"  />';
+                echo '</th>';
+                echo '<th>Phần trăm khuyến mãi: <input data-masp="'.$dong["MASP"].'" disabled value="'.$dong["PHANTRAMKM"].'" style="margin:5px; padding:5px; width:60%" name="mangphantramkm[]" type="text"  /><a class="btn btn-danger btnxoachitiethoadon">Xóa</a>';
+                echo '</th>';
+                echo '</tr>';
+            }
+        }
+    }
+
+    function ThemKhuyenMaiVaChiTietKhuyenMai_Ajax()
+    {
+        global $conn;
+
+        $tenkhuyenmai = $_POST["tenkhuyenmai"];
+		$maloaisp = $_POST["maloaisp"];
+		$ngaybatdau = $_POST["ngaybatdau"];
+		$ngayketthuc = $_POST["ngayketthuc"];
+		$hinhkhuyenmai = $_POST["hinhkhuyenmai"];
+		$mangmasp = $_POST["mangmasp"];
+		$mangphantramkm = $_POST["mangphantramkm"];
+
+        $truyvan = "INSERT INTO khuyenmai(MALOAISP, TENKM, NGAYBATDAU, NGAYKETTHUC, HINHKHUYENMAI)
+                    VALUES('".$maloaisp."','".$tenkhuyenmai."','".$ngaybatdau."','".$ngayketthuc."','".$hinhkhuyenmai."')";
+		$ketqua = mysqli_query($conn, $truyvan);
+
+        $makm = mysqli_insert_id($conn);
+        $dem = count($mangmasp);
+
+        for($i=0; $i < $dem; $i++){
+			$masp = $mangmasp[$i];
+            $phantramkm = $mangphantramkm[$i];
+
+			$truyvanchitiet = "INSERT INTO chitietkhuyenmai(MASP, MAKM, PHANTRAMKM)
+                                VALUES('".$masp."','".$makm."','".$phantramkm."')";
+			mysqli_query($conn, $truyvanchitiet);
+		}
+
+        if($ketqua){
+			echo "Thêm thành công !";
+		}else{
+			echo "Thêm thất bại !";
+		}
+    }
+    function LayDanhSachSanPhamTheoMaLoaiSP_Ajax()
+    {
+        global $conn;
+        $maloaisp = $_POST["maloaisp"];
+
+        $truyvan = "SELECT * FROM sanpham
+					WHERE MALOAISP = $maloaisp
+					ORDER BY MASP DESC";
+		$ketqua = mysqli_query($conn,$truyvan);
+
+        if($ketqua){
+			while ($dong = mysqli_fetch_array($ketqua)) {
+                echo "<option value='".$dong["MASP"]."'>".$dong["TENSP"]."</option>";
+            }
+        }
+    }
+
+    function TimKiemSanPham_Ajax(){
+		global $conn;
+        $limit = ($_POST["sotrang"]-1)*10;
+		$noidungtimkiem = $_POST["noidungtimkiem"];
+
+		$truyvan = "SELECT * FROM sanpham sp, loaisanpham lsp, thuonghieu th
+					WHERE sp.MALOAISP = lsp.MALOAISP AND sp.MATHUONGHIEU = th.MATHUONGHIEU
+                    AND sp.TENSP LIKE '%".$noidungtimkiem."%'
+					ORDER BY sp.MASP DESC
+					LIMIT ".$limit.",10";
+		$ketqua = mysqli_query($conn,$truyvan);
+
+        //Tính tổng số trang
+        $truyvantrang = "SELECT * FROM sanpham sp, loaisanpham lsp, thuonghieu th
+    					WHERE sp.MALOAISP = lsp.MALOAISP AND sp.MATHUONGHIEU = th.MATHUONGHIEU
+                        AND sp.TENSP LIKE '%".$noidungtimkiem."%'";
+        $ketquatrang = mysqli_query($conn,$truyvantrang);
+        $tongsotrang = ceil(mysqli_num_rows($ketquatrang)/10);
+
+		if($ketqua){
+			while ($dong = mysqli_fetch_array($ketqua)) {
+				echo '<tr data-tongsotrang="'.$tongsotrang.'">';
+				echo '<th class="anbutton" data-anhnho="'.$dong["ANHNHO"].'"</th>';
+				echo '<th class="anbutton" data-mota="'.$dong["THONGTIN"].'"></th>';
+				echo '<th data-anhlon="'.$dong["ANHLON"].'"><img style="width:50px; height:50px" src="..'.$dong["ANHLON"].'" /> </th>';
+				echo '<th data-tensp="'.$dong["TENSP"].'">'.$dong["TENSP"].'</th>';
+				echo '<th data-maloaisp="'.$dong["MALOAISP"].'">'.$dong["TENLOAISP"].'</th>';
+				echo '<th data-math="'.$dong["MATHUONGHIEU"].'">'.$dong["TENTHUONGHIEU"].'</th>';
+				echo '<th data-gia="'.$dong["GIA"].'">'.$dong["GIA"].'</th>';
+				echo '<th data-soluong="'.$dong["SOLUONG"].'">'.$dong["SOLUONG"].'</th>';
+				echo '<th data-id="'.$dong["MASP"].'"><a class="btn btn-success btn-suasanpham">Sửa</a> <a class="btn btn-danger btn-xoasanpham">Xóa</a></th>';
+				echo "</tr>";
+
+			}
+		}
+	}
+
+    function TimKiemHoaDon_Ajax(){
+		global $conn;
+        $limit = ($_POST["sotrang"]-1)*10;
+		$noidungtimkiem = $_POST["noidungtimkiem"];
+		$truyvan = "SELECT * FROM hoadon WHERE TENNGUOINHAN LIKE '%".$noidungtimkiem."%'
+                    OR SODT LIKE '%".$noidungtimkiem."%'
+                    OR NGAYMUA LIKE '%".$noidungtimkiem."%'
+                    OR MACHUYENKHOAN LIKE '%".$noidungtimkiem."%'
+                    OR MADOITAC LIKE '%".$noidungtimkiem."%'
+                    ORDER BY MAHD DESC
+                    LIMIT ".$limit.", 10";
+		$ketqua = mysqli_query($conn,$truyvan);
+
+        //Tính tổng số trang
+        $truyvantrang = "SELECT * FROM hoadon WHERE TENNGUOINHAN LIKE '%".$noidungtimkiem."%'
+                        OR SODT LIKE '%".$noidungtimkiem."%'
+                        OR NGAYMUA LIKE '%".$noidungtimkiem."%'
+                        OR MACHUYENKHOAN LIKE '%".$noidungtimkiem."%'
+                        OR MADOITAC LIKE '%".$noidungtimkiem."%'";
+        $ketquatrang = mysqli_query($conn,$truyvantrang);
+        $tongsotrang = ceil(mysqli_num_rows($ketquatrang)/10);
+		if($ketqua){
+			while ($dong = mysqli_fetch_array($ketqua)) {
+                $chuyenkhoan = $dong["CHUYENKHOAN"] !=null && $dong["CHUYENKHOAN"] != '0' ? 'có' : 'không';
+                $madoitac = $dong["MADOITAC"] !=null && $dong["MADOITAC"] != '0' ? $dong["MADOITAC"] : 'không có';
+                echo '<tr data-tongsotrang="'.$tongsotrang.'">';
+                echo '<th data-tennguoinhan="'.$dong['TENNGUOINHAN'].'">'.$dong['TENNGUOINHAN'].'</th>';
+                echo '<th data-sodt="'.$dong['SODT'].'">'.$dong['SODT'].'</th>';
+                echo '<th data-diachi="'.$dong['DIACHI'].'">'.$dong['DIACHI'].'</th>';
+                echo '<th data-tinhtrang="'.$dong['TRANGTHAI'].'">'.$dong['TRANGTHAI'].'</th>';
+                echo '<th data-ngaymua="'.$dong['NGAYMUA'].'">'.$dong['NGAYMUA'].'</th>';
+                echo '<th data-ngaygiao="'.$dong['NGAYGIAO'].'">'.$dong['NGAYGIAO'].'</th>';
+                echo '<th data-chuyenkhoan="'.$dong['CHUYENKHOAN'].'">'.$chuyenkhoan.'</th>';
+                echo '<th class="" data-machuyenkhoan="'.$dong['MACHUYENKHOAN'].'">'.$dong['MACHUYENKHOAN'].'</th>';
+                echo '<th class="" data-madoitac="'.$dong['MADOITAC'].'">'.$madoitac.'</th>';
+                echo '<th class="" data-tongtien="'.$dong['TONGTIEN'].'">'.$dong['TONGTIEN'].'</th>';
+                echo '<th data-id="'.$dong['MAHD'].'"><a class="btn btn-success btn-capnhathoadon">Cập nhật</a></th>';
+                echo '</tr>';
+			}
+		}
     }
 
     function CapNhatHoaDonVsChiTietHoaDon_Ajax(){
@@ -81,6 +297,8 @@
 		$kiemtra = false;
 		$chuoithongbao = "Các sản phẩm sau không đáp ứng được đơn hàng : ";
 
+        $ngayhientai = date("Y/m/d");
+        $tongtien = 0;
 		for ($i=0; $i < $dem; $i++) {
 			$masp = $mangmasp[$i];
 			$soluong = $mangsoluong[$i];
@@ -91,11 +309,29 @@
 				$chuoithongbao .= "Tên sản phẩm : ".$tensp." - Số lượng : ".($soluongtonkho - $soluong);
 				$kiemtra = true;
 			}
+
+            $truyvankhuyenmai = "SELECT *, DATEDIFF(km.NGAYKETTHUC,'".$ngayhientai."') as THOIGIANKM
+                        FROM khuyenmai km, chitietkhuyenmai ctkm
+                        WHERE km.MAKM = ctkm.MAKM AND ctkm.MASP='".$masp."'";
+            $ketquakhuyenmai = mysqli_query($conn,$truyvankhuyenmai);
+
+            $phantramkm = 0;
+            if($ketquakhuyenmai){
+                while ($dongkhuyenmai = mysqli_fetch_array($ketquakhuyenmai)) {
+                    $thoigiankm = $dongkhuyenmai["THOIGIANKM"];
+
+                    if($thoigiankm > 0){
+                        $phantramkm = $dongkhuyenmai["PHANTRAMKM"];
+                    }
+                }
+            }
+
+            $tongtien += $soluong * LayGiaTienSanPham($masp) * ((100 - $phantramkm) / 100);
 		}
 
 		if(!$kiemtra){
 			if($tinhtrang=="chờ kiểm duyệt" || $tinhtrang=="hoàn thành"){
-			CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd);
+			CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd, $tongtien);
 			XoaChiTietHoaDon($mahd);
 
 			for ($i=0; $i < $dem; $i++) {
@@ -110,7 +346,7 @@
 					$masp = $mangmasp[$i];
 					$soluong = $mangsoluong[$i];
 
-					CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd);
+					CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd, $tongtien);
 					CapNhatSoLuongSanPham($masp,$soluong,true);
 				}
                 echo "Cập nhập thành công";
@@ -120,10 +356,10 @@
 					$masp = $mangmasp[$i];
 					$soluong = $mangsoluong[$i];
 
-					CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd);
+					CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd, $tongtien);
 					CapNhatSoLuongSanPham($masp,$soluong,false);
                     TangLuotMuaSanPham($masp);
-				}            
+				}
                 echo "Cập nhập thành công";
 			}
 		}else{
@@ -177,9 +413,28 @@
         return $soluongtonkho;
     }
 
-    function CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd){
+    function LayGiaTienSanPham($masp){
         global $conn;
-        $truyvanhoadon = "UPDATE hoadon SET NGAYMUA='".$ngaymua."', NGAYGIAO='".$ngaygiao."', TRANGTHAI='".$tinhtrang."', TENNGUOINHAN='".$tennguoinhan."', SODT='".$sodt."', DIACHI='".$diachi."', CHUYENKHOAN='".$chuyenkhoan."', MACHUYENKHOAN='".$machuyenkhoan."' WHERE MAHD='".$mahd."'";
+        $truyvan = "SELECT * FROM sanpham WHERE MASP='".$masp."'";
+        $ketqua = mysqli_query($conn,$truyvan);
+        $giatien = 0;
+        if($ketqua){
+            while ($dong = mysqli_fetch_array($ketqua)) {
+                $giatien = $dong["GIA"];
+            }
+        }
+
+        return $giatien;
+    }
+
+    function CapNhatHoaDon($ngaymua,$ngaygiao,$tinhtrang,$tennguoinhan,$sodt,$diachi,$chuyenkhoan,$machuyenkhoan,$mahd, $tongtien){
+        global $conn;
+        $truyvanhoadon = "UPDATE hoadon
+                        SET NGAYMUA='".$ngaymua."', NGAYGIAO='".$ngaygiao."',
+                            TRANGTHAI='".$tinhtrang."', TENNGUOINHAN='".$tennguoinhan."',
+                            SODT='".$sodt."', DIACHI='".$diachi."', CHUYENKHOAN='".$chuyenkhoan."',
+                            MACHUYENKHOAN='".$machuyenkhoan."', TONGTIEN='".$tongtien."'
+                        WHERE MAHD='".$mahd."'";
         $ketqua = mysqli_query($conn,$truyvanhoadon);
     }
 
@@ -251,10 +506,39 @@
 
     };
 
+    function LayDanhSachHoaDonLimit_Ajax(){
+		global $conn;
+        $limit = ($_POST["sotrang"]-1)*10;
+		$truyvan = "SELECT * FROM hoadon ORDER BY MAHD DESC LIMIT ".$limit.",10";
+		$ketqua = mysqli_query($conn,$truyvan);
+		if($ketqua){
+			while ($dong = mysqli_fetch_array($ketqua)) {
+				$chuyenkhoan = $dong["CHUYENKHOAN"] !=null && $dong["CHUYENKHOAN"] != '0' ? 'có' : 'không';
+                $madoitac = $dong["MADOITAC"] !=null && $dong["MADOITAC"] != '0' ? $dong["MADOITAC"] : 'không có';
+				echo '<tr>';
+				echo '<th data-tennguoinhan="'.$dong['TENNGUOINHAN'].'">'.$dong['TENNGUOINHAN'].'</th>';
+				echo '<th data-sodt="'.$dong['SODT'].'">'.$dong['SODT'].'</th>';
+				echo '<th data-diachi="'.$dong['DIACHI'].'">'.$dong['DIACHI'].'</th>';
+				echo '<th data-tinhtrang="'.$dong['TRANGTHAI'].'">'.$dong['TRANGTHAI'].'</th>';
+				echo '<th data-ngaymua="'.$dong['NGAYMUA'].'">'.$dong['NGAYMUA'].'</th>';
+				echo '<th data-ngaygiao="'.$dong['NGAYGIAO'].'">'.$dong['NGAYGIAO'].'</th>';
+				echo '<th data-chuyenkhoan="'.$dong['CHUYENKHOAN'].'">'.$chuyenkhoan.'</th>';
+				echo '<th class="" data-machuyenkhoan="'.$dong['MACHUYENKHOAN'].'">'.$dong['MACHUYENKHOAN'].'</th>';
+                echo '<th class="" data-madoitac="'.$dong['MADOITAC'].'">'.$madoitac.'</th>';
+                echo '<th class="" data-tongtien="'.$dong['TONGTIEN'].'">'.$dong['TONGTIEN'].'</th>';
+				echo '<th data-id="'.$dong['MAHD'].'"><a class="btn btn-success btn-capnhathoadon">Cập nhật</a></th>';
+				echo '</tr>';
+			}
+		}
+	}
+
     function LayDanhSachSanPhamLimit_Ajax(){
         global $conn;
         $limit = ($_POST["sotrang"]-1)*10;
-        $truyvan = "SELECT * FROM sanpham sp, loaisanpham lsp, thuonghieu th WHERE sp.MALOAISP = lsp.MALOAISP AND sp.MATHUONGHIEU = th.MATHUONGHIEU LIMIT ".$limit.",10";
+        $truyvan = "SELECT * FROM sanpham sp, loaisanpham lsp, thuonghieu th
+                    WHERE sp.MALOAISP = lsp.MALOAISP AND sp.MATHUONGHIEU = th.MATHUONGHIEU
+                    ORDER BY sp.MASP DESC
+                    LIMIT ".$limit.",10";
         $ketqua = mysqli_query($conn,$truyvan);
         if($ketqua){
             while ($dong = mysqli_fetch_array($ketqua)) {
