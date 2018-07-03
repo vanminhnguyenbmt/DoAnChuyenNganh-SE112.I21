@@ -7,7 +7,6 @@
 	<div class="page-title form-style">
 	    <span class="title">Hóa đơn</span>
 	    <div class="description">Quản lý nội dung liên tới hóa đơn</div>
-
 	   	<table cellspacing="10" cellpadding="10">
 	   		<tr>
 	   			<th>

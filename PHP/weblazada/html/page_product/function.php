@@ -84,9 +84,47 @@
             $ham();
             break;
 
+        case 'TimKiemKhuyenMai_Ajax':
+            $ham();
+            break;
+
         default:
             // code...
             break;
+    }
+
+    function TimKiemKhuyenMai_Ajax(){
+		global $conn;
+        $limit = ($_POST["sotrang"]-1)*10;
+		$noidungtimkiem = $_POST["noidungtimkiem"];
+		$truyvan = "SELECT * FROM khuyenmai km, loaisanpham lsp
+                     WHERE km.MALOAISP = lsp.MALOAISP AND km.TENKM LIKE '%".$noidungtimkiem."%'
+                    OR km.MALOAISP = lsp.MALOAISP AND km.NGAYBATDAU LIKE '%".$noidungtimkiem."%'
+                    OR km.MALOAISP = lsp.MALOAISP AND km.NGAYKETTHUC LIKE '%".$noidungtimkiem."%'
+                    ORDER BY km.MAKM DESC
+                    LIMIT ".$limit.", 10";
+		$ketqua = mysqli_query($conn,$truyvan);
+
+        //Tính tổng số trang
+        $truyvantrang = "SELECT * FROM khuyenmai km, loaisanpham lsp
+                        WHERE km.MALOAISP = lsp.MALOAISP AND km.TENKM LIKE '%".$noidungtimkiem."%'
+                        OR km.MALOAISP = lsp.MALOAISP AND km.NGAYBATDAU LIKE '%".$noidungtimkiem."%'
+                        OR km.MALOAISP = lsp.MALOAISP AND km.NGAYKETTHUC LIKE '%".$noidungtimkiem."%'";
+        $ketquatrang = mysqli_query($conn,$truyvantrang);
+        $tongsotrang = ceil(mysqli_num_rows($ketquatrang)/10);
+		if($ketqua){
+			while ($dong = mysqli_fetch_array($ketqua)) {
+                echo '<tr data-tongsotrang="'.$tongsotrang.'">';
+				echo '<th data-hinhkm="'.$dong["HINHKHUYENMAI"].'"><img style="width:133px; height:50px" src="..'.$dong["HINHKHUYENMAI"].'" /> </th>';
+				echo '<th data-tenkm="'.$dong["TENKM"].'">'.$dong["TENKM"].'</th>';
+				echo '<th data-maloaisp="'.$dong["MALOAISP"].'">'.$dong["TENLOAISP"].'</th>';
+				echo '<th class="anbutton" data-tenloaisp="'.$dong["TENLOAISP"].'"></th>';
+				echo '<th data-ngaybatdau="'.$dong["NGAYBATDAU"].'">'.$dong["NGAYBATDAU"].'</th>';
+				echo '<th data-ngayketthuc="'.$dong["NGAYKETTHUC"].'">'.$dong["NGAYKETTHUC"].'</th>';
+				echo '<th data-id="'.$dong["MAKM"].'"><a class="btn btn-success btn-suakhuyenmai">Sửa</a></th>';
+				echo '</tr>';
+			}
+		}
     }
 
     function CapNhapKhuyenMaiVaChiTietKhuyenMai_Ajax()

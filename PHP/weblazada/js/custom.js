@@ -1,5 +1,45 @@
 $(document).ready(function() {
 
+	//thực hiện chức năng tìm kiếm khuyến mãi
+	$("#btn-timkiemkhuyenmai").click(function(){
+		var noidungtimkiem = $("#txt-timkiemkhuyenmai").val();
+		$.ajax({
+			url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+			type : "POST",
+			// datatype: ""
+			data : {
+				action : "TimKiemKhuyenMai_Ajax",
+				noidungtimkiem : noidungtimkiem,
+				sotrang: 1
+			},
+			success:function(data){
+				$("table.table").find("tbody").empty();
+				$("table.table").find("tbody").append(data);
+				$("#phantrangkhuyenmai").addClass('anbutton');
+				$('#phantrangkhuyenmaitimkiem').bootpag({
+				    total: $("table.table").find("tbody").find("tr").attr("data-tongsotrang"),
+				    maxVisible: 10,
+				    page: 1
+				}).on("page", function(event, trang){
+				    $.ajax({
+						url : "../html/page_product/function.php", //đường dẫn của trang xử lý code gữi qua
+						type : "POST",
+						// datatype: ""
+						data : {
+							action : "TimKiemKhuyenMai_Ajax",
+							noidungtimkiem: noidungtimkiem,
+							sotrang : trang
+						},
+						success:function(data){
+							$("table.table").find("tbody").empty();
+							$("table.table").find("tbody").append(data);
+						}
+					});
+				});
+			}
+		});
+	});
+
 	//đồng ý cập nhập khuyến mãi
 	$("#btn-dongycapnhatkhuyenmai").click(function(){
 		makm = $(this).attr('data-id');

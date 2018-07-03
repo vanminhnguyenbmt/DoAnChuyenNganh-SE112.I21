@@ -49,3 +49,7 @@
 .table tbody tr th{
 	vertical-align: middle;
 }
+
+.select2-container {
+	width: 55%!important;
+}
